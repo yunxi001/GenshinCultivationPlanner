@@ -12,6 +12,7 @@ import { buildTrackedInventoryGains } from '../core/execution-progress.js';
 import { appendRunHistory, buildRunRecord } from '../core/history.js';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
 import { parseTargetText } from '../core/target-input.js';
+import { resolvePlanningWeekday } from '../core/server-weekday.js';
 
 const materials = {
   talentBook: {
@@ -155,6 +156,18 @@ test('设置页目标文本会拒绝未知名称、重复项、倒退等级和�
   assert.throws(() => parseTargetText('测试角色:80>70', rulebook), /不能倒退/);
   assert.throws(() => parseTargetText('测试角色:70>90;测试角色:70>90', rulebook), /重复/);
   assert.throws(() => parseTargetText('测试武器:70>90,1/1/1>2/2/2', rulebook), /不能填写天赋/);
+});
+
+test('计划星期按服务器时间并以凌晨四点作为刷新边界', () => {
+  const offset = 8 * 60 * 60 * 1000;
+  assert.equal(resolvePlanningWeekday({
+    nowMs: Date.UTC(2026, 6, 19, 19, 59), serverOffsetMs: offset,
+  }), 0);
+  assert.equal(resolvePlanningWeekday({
+    nowMs: Date.UTC(2026, 6, 19, 20, 0), serverOffsetMs: offset,
+  }), 1);
+  assert.equal(resolvePlanningWeekday({ automatic: false, manualWeekday: '6' }), 6);
+  assert.throws(() => resolvePlanningWeekday({ automatic: false, manualWeekday: '9' }), /0 到 6/);
 });
 
 test('会先使用低阶库存合成，再只计算真正需要刷取的材料', () => {

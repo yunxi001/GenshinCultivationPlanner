@@ -18,9 +18,15 @@
     "default": "data/demo-targets.json"
   },
   {
+    "name": "useServerWeekday",
+    "type": "checkbox",
+    "label": "按游戏服务器时间自动判断开放日（默认开启）：按服务器每日 04:00 刷新；正式使用请保持开启。",
+    "default": true
+  },
+  {
     "name": "weekday",
     "type": "select",
-    "label": "【高级】计划星期：0=周日、1=周一……6=周六；应与实际游戏服务器日期一致，周日会自动选择对应奖励组。",
+    "label": "【高级兜底】手动计划星期：仅在关闭“按服务器时间”后生效；0=周日、1=周一……6=周六。",
     "options": ["0", "1", "2", "3", "4", "5", "6"],
     "default": "0"
   },

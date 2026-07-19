@@ -9,6 +9,7 @@ import { buildTrackedInventoryGains } from './core/execution-progress.js';
 import { hasPendingOriginalResinTask } from './core/scheduler.js';
 import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
+import { resolvePlanningWeekday } from './core/server-weekday.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -20,8 +21,14 @@ async function main() {
   const targetData = loadTargets(settings, rulebook);
   const sourceCandidates = JSON.parse(file.readTextSync('data/source-candidates.json'));
   const routeOverrides = JSON.parse(file.readTextSync('data/route-overrides.json'));
-  const today = Number.parseInt(settings.weekday, 10);
-  log.info('[初始化] 目标数量：{count}；计划日：{day}', (targetData.targets ?? []).length, today);
+  const today = resolvePlanningWeekday({
+    automatic: settings.useServerWeekday !== false,
+    manualWeekday: settings.weekday,
+    nowMs: Date.now(),
+    serverOffsetMs: ServerTime.GetServerTimeZoneOffset(),
+  });
+  log.info('[初始化] 目标数量：{count}；计划日：{day}（{source}）', (targetData.targets ?? []).length, today,
+    settings.useServerWeekday !== false ? '服务器时间 04:00 刷新规则' : '手动指定');
   for (const target of targetData.targets ?? []) {
     log.info('[目标] {kind}：{name}', target.kind, target.name);
   }
