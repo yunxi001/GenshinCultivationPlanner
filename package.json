@@ -1,0 +1,11 @@
+{
+  "name": "genshin-cultivation-planner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "genshin-db": "^5.2.12"
+  }
+}

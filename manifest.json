@@ -1,0 +1,12 @@
+{
+  "manifest_version": 1,
+  "name": "养成材料调度器（开发版）",
+  "version": "0.1.0",
+  "description": "读取本次目标涉及的背包材料，计算角色与武器培养缺口，并生成每周刷取计划。当前版本不执行培养或刷取。",
+  "settings_ui": "settings.json",
+  "main": "main.js",
+  "saved_files": [
+    "record/",
+    "data/user-targets.json"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "targets": [
+    {
+      "kind": "character",
+      "name": "申鹤",
+      "level": { "current": 70, "target": 90 },
+      "talents": {
+        "normal": { "current": 6, "target": 9 },
+        "skill": { "current": 8, "target": 9 },
+        "burst": { "current": 8, "target": 9 }
+      }
+    },
+    {
+      "kind": "weapon",
+      "name": "和璞鸢",
+      "level": { "current": 70, "target": 90 }
+    }
+  ],
+  "inventory": {}
+}

@@ -1,0 +1,35 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      genshin-db:
+        specifier: ^5.2.12
+        version: 5.2.12
+
+packages:
+
+  fuzzysort@1.9.0:
+    resolution: {integrity: sha512-MOxCT0qLTwLqmEwc7UtU045RKef7mc8Qz8eR4r2bLNEq9dy/c3ZKMEFp6IEst69otkQdFZ4FfgH2dmZD+ddX1g==}
+
+  genshin-db@5.2.12:
+    resolution: {integrity: sha512-h0yY0bFJxADa85aa7JVj1KggqwRkgBjhoEvISSyC7u9GpVjilWSwnZw2s5Z+5+2GfEE9KV+7oSpwQfO+IzllZg==}
+
+  pako@2.2.0:
+    resolution: {integrity: sha512-zJq6RP/5q+TO2OpFV3FHzlPnFjmkb7Nc99a5SNjJE+uu/PkpChs+NIZSSzbBoD+6kjiISXjfYdwj1ZRQ81dz/w==}
+
+snapshots:
+
+  fuzzysort@1.9.0: {}
+
+  genshin-db@5.2.12:
+    dependencies:
+      fuzzysort: 1.9.0
+      pako: 2.2.0
+
+  pako@2.2.0: {}

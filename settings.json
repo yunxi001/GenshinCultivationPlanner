@@ -1,0 +1,111 @@
+[
+  {
+    "name": "usageGuide",
+    "type": "input-text",
+    "label": "【使用说明，无需填写】1. 在下一项填写目标；2. 首次请保持“仅生成计划”开启并核对结果；3. 确认后取消勾选才会自动刷已验证秘境。当前可自动刷太山府「繁荣」和震雷连山密宫「孤云」；Boss、周本和路线仅会提示，不会执行。",
+    "default": "示例：申鹤:70>90,6/8/8>9/9/9；和璞鸢:70>90（本项内容会被脚本忽略）"
+  },
+  {
+    "name": "targetsText",
+    "type": "input-text",
+    "label": "【必填】培养目标：角色为“名称:当前等级>目标等级,普攻/战技/爆发当前>目标”；武器为“名称:当前等级>目标”。多项以分号或换行分隔，支持中英文标点。",
+    "default": ""
+  },
+  {
+    "name": "targetFile",
+    "type": "input-text",
+    "label": "【高级，通常留空】目标 JSON 文件路径：仅在“培养目标”为空时读取；不需要编辑 JSON 的用户无需修改。",
+    "default": "data/demo-targets.json"
+  },
+  {
+    "name": "weekday",
+    "type": "select",
+    "label": "【高级】计划星期：0=周日、1=周一……6=周六；应与实际游戏服务器日期一致，周日会自动选择对应奖励组。",
+    "options": ["0", "1", "2", "3", "4", "5", "6"],
+    "default": "0"
+  },
+  {
+    "name": "planOnly",
+    "type": "checkbox",
+    "label": "【安全开关，首次建议开启】仅生成计划：开启时只读取背包、计算材料和发送摘要，绝不进入秘境或消耗树脂；取消勾选才允许执行。",
+    "default": true
+  },
+  {
+    "name": "scanInventory",
+    "type": "checkbox",
+    "label": "自动读取背包：扫描本次目标及合成链涉及的材料数量；不会消耗材料。建议保持开启。",
+    "default": true
+  },
+  {
+    "name": "discoverRoutes",
+    "type": "checkbox",
+    "label": "检查已订阅路线：只查找地方特产、怪物材料路线并在计划中提示；当前不会执行路线。",
+    "default": true
+  },
+  {
+    "name": "sendRunSummary",
+    "type": "checkbox",
+    "label": "发送运行摘要：通过 BetterGI 已配置的 JS 通知渠道（可含邮件）发送本次候选、收益和缺口。",
+    "default": false
+  },
+  {
+    "name": "domainTeamName",
+    "type": "input-text",
+    "label": "【执行秘境必填】秘境队伍名称：必须与游戏队伍名称完全一致；脚本会先切换此队伍并传送神像恢复。",
+    "default": ""
+  },
+  {
+    "name": "gatheringTeamName",
+    "type": "input-text",
+    "label": "【暂未执行】采集队伍名称：为后续地方特产路线预留，当前无需填写。",
+    "default": ""
+  },
+  {
+    "name": "monsterTeamName",
+    "type": "input-text",
+    "label": "【暂未执行】怪物材料队伍名称：为后续怪物路线预留，当前无需填写。",
+    "default": ""
+  },
+  {
+    "name": "bossTeamName",
+    "type": "input-text",
+    "label": "【暂未执行】世界 Boss 队伍名称：为后续 Boss 执行预留，当前无需填写。",
+    "default": ""
+  },
+  {
+    "name": "domainCombatStrategyName",
+    "type": "input-text",
+    "label": "秘境战斗策略名称（可留空）：填写 BetterGI 战斗策略名称；留空则使用 BetterGI 默认/队伍策略。",
+    "default": ""
+  },
+  {
+    "name": "bossCombatStrategyName",
+    "type": "input-text",
+    "label": "【暂未执行】Boss 战斗策略名称：为后续 Boss 执行预留，当前无需填写。",
+    "default": ""
+  },
+  {
+    "name": "domainUseOriginalResin",
+    "type": "checkbox",
+    "label": "允许使用原粹树脂：浓缩树脂不足后才使用；开启后会持续刷到原粹树脂不足。默认开启。",
+    "default": true
+  },
+  {
+    "name": "domainUseCondensedResin",
+    "type": "checkbox",
+    "label": "允许使用浓缩树脂：优先消耗已有浓缩树脂；脚本不会合成浓缩树脂。默认开启。",
+    "default": true
+  },
+  {
+    "name": "domainUseTransientResin",
+    "type": "checkbox",
+    "label": "允许使用须臾树脂（默认关闭）：仅在你明确愿意消耗时开启。",
+    "default": false
+  },
+  {
+    "name": "domainUseFragileResin",
+    "type": "checkbox",
+    "label": "允许使用脆弱树脂（默认关闭）：仅在你明确愿意消耗时开启。",
+    "default": false
+  }
+]
