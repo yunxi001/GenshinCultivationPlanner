@@ -14,6 +14,7 @@ import { inferSundaySelectedValue } from '../core/sunday-selection.js';
 import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
+import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 
 const materials = {
   talentBook: {
@@ -420,6 +421,17 @@ test('周日秘境奖励序号按材料开放日自动推导', () => {
   assert.equal(inferSundaySelectedValue([2, 5, 0]), '2');
   assert.equal(inferSundaySelectedValue([3, 6, 0]), '3');
   assert.equal(inferSundaySelectedValue([0]), '');
+});
+
+test('来源映射只能使用 BetterGI 培养材料秘境目录中的名称', () => {
+  assert.doesNotThrow(() => validateDomainExecutionMap(
+    { domains: { '精通秘境：测试': { domainName: '太山府' } } },
+    { materialDomains: ['太山府'] },
+  ));
+  assert.throws(() => validateDomainExecutionMap(
+    { domains: { '精通秘境：测试': { domainName: '不存在的秘境' } } },
+    { materialDomains: ['太山府'] },
+  ), /未知秘境/);
 });
 
 test('秘境执行配置必须具备队伍、映射任务和允许树脂', () => {

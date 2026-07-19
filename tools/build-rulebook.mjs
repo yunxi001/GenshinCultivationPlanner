@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import genshinDbModule from 'genshin-db';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
+import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 
 const db = genshinDbModule.default ?? genshinDbModule;
 db.setOptions({
@@ -16,6 +17,7 @@ const recipesPath = path.join(root, 'data', 'crafting-recipes.json');
 const executionMapPath = path.join(root, 'data', 'execution-map.json');
 const sourceCandidatesPath = path.join(root, 'data', 'source-candidates.json');
 const sourceExecutionMapPath = path.join(root, 'data', 'source-execution-map.json');
+const domainCatalogPath = path.join(root, 'data', 'bettergi-domain-catalog.json');
 
 const characters = buildCharacters();
 const weapons = buildWeapons();
@@ -31,6 +33,8 @@ const rulebook = {
 await fs.writeFile(outputPath, `${JSON.stringify(rulebook, null, 2)}\n`, 'utf8');
 const executionMap = JSON.parse(await fs.readFile(executionMapPath, 'utf8'));
 const sourceExecutionMap = JSON.parse(await fs.readFile(sourceExecutionMapPath, 'utf8'));
+const domainCatalog = JSON.parse(await fs.readFile(domainCatalogPath, 'utf8'));
+validateDomainExecutionMap(sourceExecutionMap, domainCatalog);
 const materials = buildMaterials(rulebook, executionMap, sourceExecutionMap, recipes);
 const sourceCandidates = buildSourceCandidates(materials);
 await fs.writeFile(materialsPath, `${JSON.stringify(materials, null, 2)}\n`, 'utf8');
