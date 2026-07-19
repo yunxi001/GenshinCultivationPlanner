@@ -1,7 +1,7 @@
 /**
  * 生成 BetterGI 通知摘要。通知接口限制为 500 字符，详细数据仍写入 latest-plan.json。
  */
-export function buildRunSummary(plan, materials, { executionEnabled = false, estimateDays = null, execution = null } = {}) {
+export function buildRunSummary(plan, materials, { executionEnabled = false, estimateDays = null, estimateReason = '', execution = null } = {}) {
   const planned = plan.todayQueue
     .map((task) => task.materials
       ? `${task.domainName}：${task.materials.map((item) => `${item.materialName}×${item.shortage}`).join('/')}`
@@ -11,7 +11,9 @@ export function buildRunSummary(plan, materials, { executionEnabled = false, est
     .filter((item) => item.shortage > 0)
     .map((item) => `${materials[item.materialId]?.name ?? item.materialId}×${item.shortage}`)
     || [];
-  const estimate = Number.isFinite(estimateDays) ? `预计完成：约${estimateDays}天` : '预计完成：等待累计实际掉落数据';
+  const estimate = Number.isFinite(estimateDays)
+    ? `预计完成：约${estimateDays}天（${estimateReason || '按历史均值估算'}）`
+    : `预计完成：${estimateReason || '等待累计实际掉落数据'}`;
   const gains = execution?.trackedRewards && Object.keys(execution.trackedRewards).length > 0
     ? Object.entries(execution.trackedRewards).map(([name, count]) => `${name}×${count}`)
     : [];

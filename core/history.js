@@ -21,6 +21,7 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
         materials: execution.task.materials ?? [],
       } : null,
       trackedRewards: execution.trackedRewards ?? {},
+      appliedGains: execution.appliedGains === true,
       rewardRecognitionFailed: execution.rewardRecognitionFailed === true,
     } : null,
     domainResinPolicy,

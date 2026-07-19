@@ -10,6 +10,7 @@ import { buildWeeklyStrategy, hasPendingOriginalResinTask } from './core/schedul
 import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
+import { buildCompletionEstimate } from './core/estimate.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -169,6 +170,17 @@ async function main() {
     log.info('[周循环] {day}：{tasks}', day.label, day.tasks.map((task) => task.domainName ?? task.materialName).join('、'));
   }
   log.info('[调度] 人工待办：{manual}', JSON.stringify(plan.manualItems));
+  let history = [];
+  try {
+    history = JSON.parse(file.readTextSync('record/history.json'));
+  } catch {
+    // 首次运行没有历史文件属于正常情况。
+  }
+  const estimate = buildCompletionEstimate({ plan, history, materials, today });
+  plan.estimate = estimate;
+  log.info('[预估] {message}', Number.isFinite(estimate.days)
+    ? `约 ${estimate.days} 天；${estimate.reason}`
+    : `暂无法估算；${estimate.reason}`);
   await file.writeText('record/latest-plan.json', JSON.stringify(plan, null, 2), false);
   const runRecord = buildRunRecord({
     executionEnabled,
@@ -178,17 +190,16 @@ async function main() {
     execution: plan.execution,
     domainResinPolicy,
   });
-  let history = [];
-  try {
-    history = JSON.parse(file.readTextSync('record/history.json'));
-  } catch {
-    // 首次运行没有历史文件属于正常情况。
-  }
   const updatedHistory = appendRunHistory(history, runRecord);
   await file.writeText('record/history.json', JSON.stringify(updatedHistory, null, 2), false);
   log.info('[记录] 已保存本次运行记录；历史保留 {count} 条', updatedHistory.length);
   if (settings.sendRunSummary === true) {
-    const summary = buildRunSummary(plan, materials, { executionEnabled, execution: plan.execution });
+    const summary = buildRunSummary(plan, materials, {
+      executionEnabled,
+      execution: plan.execution,
+      estimateDays: estimate.days,
+      estimateReason: estimate.reason,
+    });
     notification.Send(summary);
     log.info('[通知] 已请求 BetterGI 发送运行摘要；请在 BetterGI 通知设置中启用 JS 通知与邮件通知');
   }

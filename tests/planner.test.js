@@ -13,6 +13,7 @@ import { appendRunHistory, buildRunRecord } from '../core/history.js';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
 import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
+import { buildCompletionEstimate } from '../core/estimate.js';
 
 const materials = {
   talentBook: {
@@ -300,6 +301,25 @@ test('运行摘要明确计划模式、候选任务和无历史数据时的预�
   assert.match(summary, /测试天赋书\(12\)/);
   assert.match(summary, /等待累计实际掉落数据/);
   assert.match(summary, /<br><b>仍缺材料<\/b>/);
+});
+
+test('完成预估只使用已确认背包差值，并按开放日推算所需天数', () => {
+  const estimateMaterials = {
+    book: { name: '测试书', status: 'supported', executionType: 'domain', domainName: '测试秘境', openDays: [1, 4, 0] },
+  };
+  const estimate = buildCompletionEstimate({
+    plan: { displayShortages: [{ materialId: 'book', shortage: 5 }] },
+    materials: estimateMaterials,
+    today: 1,
+    history: [
+      { execution: { status: 'completed', appliedGains: true, task: { domainName: '测试秘境' }, trackedRewards: { 测试书: 2 } } },
+      { execution: { status: 'completed', appliedGains: true, task: { domainName: '测试秘境' }, trackedRewards: { 测试书: 3 } } },
+      { execution: { status: 'completed', appliedGains: false, task: { domainName: '测试秘境' }, trackedRewards: {} } },
+    ],
+  });
+  assert.equal(estimate.days, 3);
+  assert.equal(estimate.details[0].estimatedRuns, 2);
+  assert.match(estimate.reason, /历史均值/);
 });
 
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
