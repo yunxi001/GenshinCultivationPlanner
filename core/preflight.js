@@ -19,6 +19,9 @@ export function collectExecutionWarnings(plan, settings) {
   if (types.has('weeklyBoss') && !(settings.weeklyBossTeamName?.trim() || settings.bossTeamName?.trim())) {
     warnings.push('今日有周本候选任务，但尚未配置周本队伍或 Boss 队伍名称');
   }
+  if (types.has('artifactDomain') && !settings.artifactTeamName?.trim()) {
+    warnings.push('已启用圣遗物秘境填充，但尚未配置圣遗物秘境队伍名称');
+  }
   if (plan.routes?.matched?.some((item) => item.type === 'localSpecialty') && !settings.gatheringTeamName?.trim()) {
     warnings.push('已匹配地方特产路线，但尚未配置采集队伍名称');
   }

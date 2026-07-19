@@ -3,9 +3,11 @@
  */
 export function buildRunSummary(plan, materials, { executionEnabled = false, estimateDays = null, estimateReason = '', execution = null } = {}) {
   const planned = plan.todayQueue
-    .map((task) => task.materials
+    .map((task) => task.materials?.length
       ? `${task.domainName}：${task.materials.map((item) => `${item.materialName}×${item.shortage}`).join('/')}`
-      : `${materials[task.materialId]?.name ?? task.materialId}(${task.shortage})`)
+      : task.executionType === 'artifactDomain'
+        ? `${task.domainName}（圣遗物填充）`
+        : `${materials[task.materialId]?.name ?? task.materialName ?? task.materialId}(${task.shortage})`)
     || [];
   const missing = (plan.displayShortages ?? plan.shortages)
     .filter((item) => item.shortage > 0)

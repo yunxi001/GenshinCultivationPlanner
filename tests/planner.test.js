@@ -18,6 +18,7 @@ import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 import { buildRouteExecutionPlan } from '../core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
 import { buildBossExecutionConfig } from '../core/boss-executor.js';
+import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 
 const materials = {
   talentBook: {
@@ -492,6 +493,18 @@ test('同一世界 Boss 的多个材料合并为一次首领任务', () => {
   assert.equal(plan.todayQueue.length, 1);
   assert.equal(plan.todayQueue[0].bossName, '急冻树');
   assert.equal(plan.todayQueue[0].materials.length, 2);
+});
+
+test('圣遗物秘境仅在当天没有培养树脂任务时作为可选填充', () => {
+  const plan = { todayQueue: [] };
+  appendArtifactFallbackTask(plan, { artifactDomainEnabled: true, artifactDomainName: '芬德尼尔之顶' });
+  assert.equal(plan.todayQueue[0].executionType, 'artifactDomain');
+  const withMaterial = { todayQueue: [{ executionType: 'domain', status: 'supported' }] };
+  appendArtifactFallbackTask(withMaterial, { artifactDomainEnabled: true, artifactDomainName: '芬德尼尔之顶' });
+  assert.equal(withMaterial.todayQueue.length, 1);
+  const config = buildArtifactDomainExecutionConfig(plan.todayQueue[0], { artifactDomainEnabled: true, artifactTeamName: '圣遗物队伍' }, buildDomainResinPolicy({}));
+  assert.equal(config.domainName, '芬德尼尔之顶');
+  assert.equal(config.autoArtifactSalvage, false);
 });
 
 test('秘境执行配置必须具备队伍、映射任务和允许树脂', () => {

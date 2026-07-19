@@ -67,6 +67,31 @@
     "default": ""
   },
   {
+    "name": "artifactDomainEnabled",
+    "type": "checkbox",
+    "label": "圣遗物秘境填充（默认关闭）：仅在当天没有周本、Boss 或培养材料秘境可刷时，才会刷下面选择的圣遗物秘境。",
+    "default": false
+  },
+  {
+    "name": "artifactDomainName",
+    "type": "select",
+    "label": "圣遗物秘境：仅在启用“圣遗物秘境填充”后生效；只能选择 BetterGI 已内置传送点。",
+    "options": ["", "铭记之谷", "仲夏庭园", "无妄引咎密宫", "孤云凌霄之处", "华池岩岫", "芬德尼尔之顶", "山脊守望", "椛染之庭", "沉眠之庭", "缘觉塔", "岩中幽谷", "赤金的城墟", "熔铁的孤塞", "罪祸的终末", "临瀑之城", "褪色的剧场", "虹灵的净土", "荒废砌造坞", "霜凝的机枢", "月童的库藏", "山风的荆冕"],
+    "default": ""
+  },
+  {
+    "name": "artifactTeamName",
+    "type": "input-text",
+    "label": "圣遗物秘境队伍名称：启用圣遗物秘境填充时必填，需与游戏队伍名称完全一致。",
+    "default": ""
+  },
+  {
+    "name": "artifactCombatStrategyName",
+    "type": "input-text",
+    "label": "圣遗物秘境战斗策略名称（可留空）：填写 BetterGI 战斗策略名称；留空时使用默认/队伍策略。",
+    "default": ""
+  },
+  {
     "name": "gatheringTeamName",
     "type": "input-text",
     "label": "【暂未执行】采集队伍名称：为后续地方特产路线预留，当前无需填写。",

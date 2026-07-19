@@ -14,6 +14,7 @@ import { buildCompletionEstimate } from './core/estimate.js';
 import { buildRouteExecutionPlan } from './core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
 import { buildBossExecutionConfig } from './core/boss-executor.js';
+import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -89,6 +90,8 @@ async function main() {
     log.info('[路线] 已关闭已订阅路线检查');
   }
 
+  appendArtifactFallbackTask(plan, settings);
+
   const executionWarnings = collectExecutionWarnings(plan, settings);
   for (const warning of executionWarnings) {
     log.warn('[执行前检查] {warning}', warning);
@@ -120,12 +123,13 @@ async function main() {
       log.error('[执行] 未开始或未完成秘境刷取：{error}', execution.reason);
     }
     plan.execution = execution;
-    if (execution.status === 'completed' && settings.scanInventory !== false) {
+    const trackedMaterialIds = getTrackedMaterialIds(execution.task);
+    if (execution.status === 'completed' && settings.scanInventory !== false && trackedMaterialIds.length > 0) {
       inventory = await scanInventoryMaterials(plan, inventory, materials, '执行后');
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
         inventory,
-        getTrackedMaterialIds(execution.task),
+        trackedMaterialIds,
         materials,
       );
       execution.appliedGains = Object.keys(execution.trackedRewards).length > 0;
@@ -251,6 +255,7 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
   }
   if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory);
   if (task.executionType === 'boss') return executeBossTask(task, settings, inventory);
+  if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory);
   if (task.executionType !== 'domain') {
     return { status: 'skipped', reason: `暂不支持执行任务类型：${task.executionType}`, rewards: {}, appliedGains: false };
   }
@@ -294,6 +299,34 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
     trackedRewards,
     rewardRecognitionFailed: Object.keys(rewards).length === 0,
     appliedGains: Object.keys(rewards).length > 0,
+    inventoryBefore: inventory,
+  };
+}
+
+async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inventory) {
+  const config = buildArtifactDomainExecutionConfig(task, scriptSettings, resinPolicy);
+  log.info('[圣遗物] 准备刷取“{domain}”，仅作为当天无培养树脂任务时的填充', config.domainName);
+  const switched = await genshin.SwitchParty(config.partyName);
+  if (!switched) throw new Error(`切换圣遗物秘境队伍失败：${config.partyName}`);
+  await genshin.TpToStatueOfTheSeven();
+  const param = new AutoDomainParam(0);
+  param.DomainName = config.domainName;
+  param.PartyName = config.partyName;
+  if (config.strategyName) param.CombatStrategyPath = param.SetCombatStrategyPath(config.strategyName);
+  param.SpecifyResinUse = config.resinPolicy.specifyResinUse;
+  param.OriginalResinUseCount = config.resinPolicy.originalResinUseCount;
+  param.CondensedResinUseCount = config.resinPolicy.condensedResinUseCount;
+  param.TransientResinUseCount = config.resinPolicy.transientResinUseCount;
+  param.FragileResinUseCount = config.resinPolicy.fragileResinUseCount;
+  param.AutoArtifactSalvage = config.autoArtifactSalvage;
+  param.MaxArtifactStar = config.maxArtifactStar;
+  param.RewardRecognitionEnabled = true;
+  const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
+  if (Object.keys(rewards).length === 0) log.warn('[圣遗物] BetterGI 未识别到奖励名称；本次不按背包材料差值计数');
+  return {
+    status: 'completed', task, rewards, trackedRewards: {},
+    rewardRecognitionFailed: Object.keys(rewards).length === 0,
+    appliedGains: false,
     inventoryBefore: inventory,
   };
 }
@@ -360,6 +393,7 @@ async function executeBossTask(task, scriptSettings, inventory) {
 }
 
 function getTrackedMaterialIds(task) {
+  if (!task) return [];
   return task.materials?.map((item) => item.materialId) ?? [task.materialId];
 }
 
