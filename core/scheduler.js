@@ -95,11 +95,11 @@ function toTask(item) {
 function mergeDomainTasks(tasks) {
   const grouped = new Map();
   for (const task of tasks) {
-    if (task.executionType !== 'domain' || !task.domainName) {
+    if (!['domain', 'weeklyBoss'].includes(task.executionType) || !task.domainName) {
       grouped.set(`single:${task.materialId}`, task);
       continue;
     }
-    const key = `domain:${task.domainName}`;
+    const key = `${task.executionType}:${task.domainName}`;
     const existing = grouped.get(key);
     const material = { materialId: task.materialId, materialName: task.materialName, shortage: task.shortage };
     if (existing) {

@@ -85,6 +85,12 @@
     "default": ""
   },
   {
+    "name": "weeklyBossTeamName",
+    "type": "input-text",
+    "label": "周本队伍名称（可留空）：留空时复用 Boss 队伍；需与游戏队伍名称完全一致。",
+    "default": ""
+  },
+  {
     "name": "domainCombatStrategyName",
     "type": "input-text",
     "label": "秘境战斗策略名称（可留空）：填写 BetterGI 战斗策略名称；留空则使用 BetterGI 默认/队伍策略。",
@@ -94,6 +100,12 @@
     "name": "bossCombatStrategyName",
     "type": "input-text",
     "label": "【暂未执行】Boss 战斗策略名称：为后续 Boss 执行预留，当前无需填写。",
+    "default": ""
+  },
+  {
+    "name": "weeklyBossCombatStrategyName",
+    "type": "input-text",
+    "label": "周本战斗策略名称（可留空）：留空时复用 Boss 战斗策略或 BetterGI 默认策略。",
     "default": ""
   },
   {

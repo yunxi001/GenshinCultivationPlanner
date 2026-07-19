@@ -7,7 +7,7 @@ import { buildRunSummary } from '../core/report.js';
 import { collectExecutionWarnings } from '../core/preflight.js';
 import { buildDomainResinPolicy } from '../core/resin.js';
 import { buildDomainExecutionConfig } from '../core/domain-executor.js';
-import { buildWeeklyStrategy, hasPendingOriginalResinTask } from '../core/scheduler.js';
+import { buildPlan, buildWeeklyStrategy, hasPendingOriginalResinTask } from '../core/scheduler.js';
 import { buildTrackedInventoryGains } from '../core/execution-progress.js';
 import { appendRunHistory, buildRunRecord } from '../core/history.js';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
@@ -16,6 +16,7 @@ import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 import { buildRouteExecutionPlan } from '../core/route-executor.js';
+import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
 
 const materials = {
   talentBook: {
@@ -441,6 +442,35 @@ test('路线执行默认关闭，开启后要求对应队伍与有效路径', ()
   assert.throws(() => buildRouteExecutionPlan(routes, { routeExecutionEnabled: true }), /采集队伍/);
   const plan = buildRouteExecutionPlan(routes, { routeExecutionEnabled: true, gatheringTeamName: '采集队' });
   assert.equal(plan[0].partyName, '采集队');
+});
+
+test('周本执行只使用原粹树脂并支持复用 Boss 队伍', () => {
+  const config = buildWeeklyBossExecutionConfig(
+    { executionType: 'weeklyBoss', domainName: '深入风龙废墟', materialId: '113005', materialName: '东风的吐息', shortage: 2 },
+    { bossTeamName: '周本队' },
+  );
+  assert.equal(config.partyName, '周本队');
+  assert.equal(config.originalResinUseCount, 9999);
+  assert.throws(() => buildWeeklyBossExecutionConfig(
+    { executionType: 'weeklyBoss', domainName: '深入风龙废墟' }, {},
+  ), /未配置周本队伍/);
+});
+
+test('同一周本的多个掉落材料合并为一次征讨领域任务', () => {
+  const shortages = [
+    {
+      materialId: 'weekly-1', shortage: 3,
+      material: { name: '东风的吐息', executionType: 'weeklyBoss', domainName: '深入风龙废墟', openDays: [0], status: 'supported', priority: 200 },
+    },
+    {
+      materialId: 'weekly-2', shortage: 2,
+      material: { name: '东风之爪', executionType: 'weeklyBoss', domainName: '深入风龙废墟', openDays: [0], status: 'supported', priority: 200 },
+    },
+  ];
+  const plan = buildPlan(shortages, 0);
+  assert.equal(plan.todayQueue.length, 1);
+  assert.equal(plan.todayQueue[0].executionType, 'weeklyBoss');
+  assert.equal(plan.todayQueue[0].materials.length, 2);
 });
 
 test('秘境执行配置必须具备队伍、映射任务和允许树脂', () => {

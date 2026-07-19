@@ -1,0 +1,18 @@
+{
+  "source": "BetterGI 内置 AutoTrackPath/Assets/tp.json 的 TrounceDomain 条目",
+  "domains": [
+    { "domainName": "深入风龙废墟", "rewards": ["东风之爪", "东风之翎", "东风的吐息"] },
+    { "domainName": "进入「黄金屋」", "rewards": ["吞天之鲸·只角", "武炼之魂·孤影", "魔王之刃·残片"] },
+    { "domainName": "「伏龙树」之底", "rewards": ["血玉之枝", "鎏金之鳞", "龙王之冕"] },
+    { "domainName": "鸣神岛·天守", "rewards": ["灰烬之心", "熔毁之刻", "狱火之蝶"] },
+    { "domainName": "梦想乐土之殁", "rewards": ["万劫之真意", "凶将之手眼", "祸神之禊泪"] },
+    { "domainName": "净琉璃工坊", "rewards": ["傀儡的悬丝", "无心的渊镜", "空行的虚铃"] },
+    { "domainName": "肇始之乡", "rewards": ["亘古树海之一瞬", "原初绿洲之初绽", "生长天地之蕨草"] },
+    { "domainName": "异界余影", "rewards": ["无光丝线", "无光涡眼", "无光质块"] },
+    { "domainName": "零落丘墟", "rewards": ["丝织之羽", "否定裁断", "残火灯烛"] },
+    { "domainName": "碑碣的记录", "rewards": ["蚀灭的灵犀", "蚀灭的阳焰", "蚀灭的鳞羽"] },
+    { "domainName": "待解「弈局」", "rewards": ["升扬样本·战车", "升扬样本·王族", "升扬样本·骑士"] },
+    { "domainName": "赝月的研究所", "rewards": ["异端的瓶剂", "狂人的约束", "贤医的假面"] },
+    { "domainName": "万有涅槃缚境", "rewards": ["亵渎的新芽", "扭曲的枯枝", "赝作的树脂"] }
+  ]
+}

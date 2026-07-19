@@ -2344,21 +2344,57 @@
   },
   "113003": {
     "name": "东风之翎",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "深入风龙废墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113004": {
     "name": "东风之爪",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "深入风龙废墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113005": {
     "name": "东风的吐息",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "深入风龙废墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113006": {
     "name": "北风之尾",
@@ -2404,21 +2440,57 @@
   },
   "113013": {
     "name": "吞天之鲸·只角",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "进入「黄金屋」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113014": {
     "name": "魔王之刃·残片",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "进入「黄金屋」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113015": {
     "name": "武炼之魂·孤影",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "进入「黄金屋」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113016": {
     "name": "未熟之玉",
@@ -2428,21 +2500,57 @@
   },
   "113017": {
     "name": "龙王之冕",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "「伏龙树」之底",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113018": {
     "name": "血玉之枝",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "「伏龙树」之底",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113019": {
     "name": "鎏金之鳞",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "「伏龙树」之底",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113020": {
     "name": "晶凝之华",
@@ -2470,21 +2578,57 @@
   },
   "113025": {
     "name": "熔毁之刻",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "鸣神岛·天守",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113026": {
     "name": "狱火之蝶",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "鸣神岛·天守",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113027": {
     "name": "灰烬之心",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "鸣神岛·天守",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113028": {
     "name": "排异之露",
@@ -2512,21 +2656,57 @@
   },
   "113032": {
     "name": "凶将之手眼",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "梦想乐土之殁",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113033": {
     "name": "祸神之禊泪",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "梦想乐土之殁",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113034": {
     "name": "万劫之真意",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "梦想乐土之殁",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113035": {
     "name": "符纹之齿",
@@ -2566,21 +2746,57 @@
   },
   "113041": {
     "name": "傀儡的悬丝",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "净琉璃工坊",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113042": {
     "name": "无心的渊镜",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "净琉璃工坊",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113043": {
     "name": "空行的虚铃",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "净琉璃工坊",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113044": {
     "name": "苍砾蕊羽",
@@ -2596,21 +2812,57 @@
   },
   "113046": {
     "name": "生长天地之蕨草",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "肇始之乡",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113047": {
     "name": "原初绿洲之初绽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "肇始之乡",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113048": {
     "name": "亘古树海之一瞬",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "肇始之乡",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113049": {
     "name": "奇械发条备件·歌裴莉娅",
@@ -2644,21 +2896,57 @@
   },
   "113054": {
     "name": "无光丝线",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "异界余影",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113055": {
     "name": "无光涡眼",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "异界余影",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113056": {
     "name": "无光质块",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "异界余影",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113057": {
     "name": "未能达成超越之水",
@@ -2680,21 +2968,57 @@
   },
   "113060": {
     "name": "残火灯烛",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "零落丘墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113061": {
     "name": "丝织之羽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "零落丘墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113062": {
     "name": "否定裁断",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "零落丘墟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113064": {
     "name": "受祝所缚之印",
@@ -2722,21 +3046,57 @@
   },
   "113068": {
     "name": "蚀灭的灵犀",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "碑碣的记录",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113069": {
     "name": "蚀灭的阳焰",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "碑碣的记录",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113070": {
     "name": "蚀灭的鳞羽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "碑碣的记录",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113071": {
     "name": "谜土的护符",
@@ -2752,21 +3112,57 @@
   },
   "113073": {
     "name": "升扬样本·骑士",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "待解「弈局」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113074": {
     "name": "升扬样本·战车",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "待解「弈局」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113075": {
     "name": "升扬样本·王族",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "待解「弈局」",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113076": {
     "name": "秘源积气喉",
@@ -2800,21 +3196,57 @@
   },
   "113081": {
     "name": "贤医的假面",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "赝月的研究所",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113082": {
     "name": "狂人的约束",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "赝月的研究所",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113083": {
     "name": "异端的瓶剂",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "赝月的研究所",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "113084": {
     "name": "魇翼枯骸",
@@ -2836,9 +3268,21 @@
   },
   "113087": {
     "name": "赝作的树脂",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "weeklyBoss",
+    "domainName": "万有涅槃缚境",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 200,
+    "reason": "BetterGI 内置征讨领域奖励表对照；待实机回归"
   },
   "114001": {
     "name": "高塔孤王的破瓦",

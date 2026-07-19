@@ -6,12 +6,13 @@ import { collectExecutionWarnings } from './core/preflight.js';
 import { buildDomainResinPolicy } from './core/resin.js';
 import { buildDomainExecutionConfig } from './core/domain-executor.js';
 import { buildTrackedInventoryGains } from './core/execution-progress.js';
-import { buildWeeklyStrategy, hasPendingOriginalResinTask } from './core/scheduler.js';
+import { buildWeeklyStrategy } from './core/scheduler.js';
 import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
 import { buildRouteExecutionPlan } from './core/route-executor.js';
+import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -107,7 +108,7 @@ async function main() {
   if (executionEnabled) {
     let execution;
     try {
-      execution = await executeFirstDomainTask(plan, settings, domainResinPolicy, materials, inventory);
+      execution = await executeFirstResinTask(plan, settings, domainResinPolicy, materials, inventory);
     } catch (error) {
       execution = {
         status: 'failed',
@@ -123,7 +124,7 @@ async function main() {
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
         inventory,
-        execution.task.materials.map((item) => item.materialId),
+        getTrackedMaterialIds(execution.task),
         materials,
       );
       execution.appliedGains = Object.keys(execution.trackedRewards).length > 0;
@@ -241,23 +242,18 @@ function loadTargets(scriptSettings, rulebook) {
   return JSON.parse(file.readTextSync(targetFile));
 }
 
-async function executeFirstDomainTask(plan, settings, resinPolicy, materials, inventory) {
-  if (hasPendingOriginalResinTask(plan.todayQueue)) {
-    const pendingTask = plan.todayQueue.find((item) => item.status === 'supported'
-      && (item.executionType === 'weeklyBoss' || item.executionType === 'boss'));
-    log.info('[执行] 仍有优先的{type}任务“{name}”待执行，暂不进入秘境',
-      pendingTask.executionType === 'weeklyBoss' ? '周本' : '世界 Boss', pendingTask.materialName);
-    return {
-      status: 'skipped',
-      reason: '仍有优先的周本或世界 Boss 任务待执行，暂不进入秘境',
-      rewards: {},
-      appliedGains: false,
-    };
-  }
-  const task = plan.todayQueue.find((item) => item.executionType === 'domain' && item.status === 'supported');
+async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory) {
+  const task = plan.todayQueue.find((item) => item.status === 'supported');
   if (!task) {
-    log.info('[执行] 今日没有已验证的秘境任务，本次不执行');
-    return { status: 'skipped', reason: '今日没有已验证的秘境任务', rewards: {}, appliedGains: false };
+    log.info('[执行] 今日没有已验证的树脂任务，本次不执行');
+    return { status: 'skipped', reason: '今日没有已验证的树脂任务', rewards: {}, appliedGains: false };
+  }
+  if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory);
+  if (task.executionType === 'boss') {
+    return { status: 'skipped', reason: '世界 Boss 执行器尚未接入', rewards: {}, appliedGains: false };
+  }
+  if (task.executionType !== 'domain') {
+    return { status: 'skipped', reason: `暂不支持执行任务类型：${task.executionType}`, rewards: {}, appliedGains: false };
   }
 
   const config = buildDomainExecutionConfig(task, settings, resinPolicy);
@@ -301,6 +297,39 @@ async function executeFirstDomainTask(plan, settings, resinPolicy, materials, in
     appliedGains: Object.keys(rewards).length > 0,
     inventoryBefore: inventory,
   };
+}
+
+async function executeWeeklyBossTask(task, scriptSettings, materials, inventory) {
+  const config = buildWeeklyBossExecutionConfig(task, scriptSettings);
+  log.info('[周本] 准备刷取“{domain}”，材料目标：{materials}', config.domainName,
+    config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
+  const switched = await genshin.SwitchParty(config.partyName);
+  if (!switched) throw new Error(`切换周本队伍失败：${config.partyName}`);
+  await genshin.TpToStatueOfTheSeven();
+  const param = new AutoDomainParam(0);
+  param.DomainName = config.domainName;
+  param.PartyName = config.partyName;
+  if (config.strategyName) param.CombatStrategyPath = param.SetCombatStrategyPath(config.strategyName);
+  param.SpecifyResinUse = true;
+  param.SetResinPriorityList('原粹树脂');
+  param.OriginalResinUseCount = config.originalResinUseCount;
+  param.CondensedResinUseCount = 0;
+  param.TransientResinUseCount = 0;
+  param.FragileResinUseCount = 0;
+  param.RewardRecognitionEnabled = true;
+  const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
+  const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
+  const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
+  return {
+    status: 'completed', task, rewards, trackedRewards,
+    rewardRecognitionFailed: Object.keys(rewards).length === 0,
+    appliedGains: Object.keys(trackedRewards).length > 0,
+    inventoryBefore: inventory,
+  };
+}
+
+function getTrackedMaterialIds(task) {
+  return task.materials?.map((item) => item.materialId) ?? [task.materialId];
 }
 
 async function executeMatchedRoutes(routes, scriptSettings, inventory, materials) {
