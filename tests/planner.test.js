@@ -7,7 +7,7 @@ import { buildRunSummary } from '../core/report.js';
 import { collectExecutionWarnings } from '../core/preflight.js';
 import { buildDomainResinPolicy } from '../core/resin.js';
 import { buildDomainExecutionConfig } from '../core/domain-executor.js';
-import { hasPendingOriginalResinTask } from '../core/scheduler.js';
+import { buildWeeklyStrategy, hasPendingOriginalResinTask } from '../core/scheduler.js';
 import { buildTrackedInventoryGains } from '../core/execution-progress.js';
 import { appendRunHistory, buildRunRecord } from '../core/history.js';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
@@ -96,6 +96,16 @@ test('当天未开放的限时材料不会进入当天队列，但会出现在�
 
   assert.equal(plan.todayQueue.length, 0);
   assert.equal(plan.weeklyPlan[4][0].materialId, 'talentBook');
+});
+
+test('周循环策略从今天起按七天顺序展示已安排秘境', () => {
+  const plan = createPlan({
+    targets: [{ id: 'test', requirements: [{ materialId: 'talentBook', count: 2 }] }],
+    inventory: { talentBook: 0 }, materials, rulebook, today: 1,
+  });
+  const strategy = buildWeeklyStrategy(plan.weeklyPlan, 1);
+  assert.deepEqual(strategy.map((item) => item.label), ['今天（周一）', '周四', '周日']);
+  assert.equal(strategy[0].tasks[0].materialId, 'talentBook');
 });
 
 test('未确认库存不会被误判为零库存或可执行任务', () => {

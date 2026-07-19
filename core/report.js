@@ -15,6 +15,8 @@ export function buildRunSummary(plan, materials, { executionEnabled = false, est
   const gains = execution?.trackedRewards && Object.keys(execution.trackedRewards).length > 0
     ? Object.entries(execution.trackedRewards).map(([name, count]) => `${name}×${count}`)
     : [];
+  const weekly = (plan.weeklyStrategy ?? []).map((item) => `${item.label}：${item.tasks
+    .map((task) => task.domainName ?? task.materialName ?? task.materialId).join('、')}`);
   const action = executionEnabled
     ? execution?.rewardRecognitionFailed
       ? '已执行；奖励/背包复核未确认'
@@ -26,6 +28,7 @@ export function buildRunSummary(plan, materials, { executionEnabled = false, est
     `<br><br><b>本次刷取</b>${formatItems(gains, '本次无已确认收益')}`,
     `<br><br><b>仍缺材料</b>${formatItems(missing, '无')}`,
     `<br><br><b>下一步候选</b>${formatItems(planned, '无')}`,
+    `<br><br><b>本周循环策略</b>${formatItems(weekly, '本周无可执行树脂任务')}`,
     `<br><br><b>${estimate}</b>`,
   ];
   let summary = '';

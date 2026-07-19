@@ -19,6 +19,7 @@ export function createPlan({ targets, inventory, materials, recipes = {}, rulebo
   const shortages = calculateShortages(farmRequirements, normalizedInventory, materials);
   const displayShortages = buildDisplayShortages(requirements, normalizedInventory, recipes, materials);
   return {
+    today,
     requirements: Object.fromEntries(requirements),
     farmRequirements: Object.fromEntries(farmRequirements),
     crafting,

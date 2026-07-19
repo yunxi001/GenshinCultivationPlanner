@@ -47,6 +47,22 @@ export function buildPlan(shortages, today) {
 }
 
 /**
+ * 从今天开始按自然周顺序展示可刷取策略。仅输出已进入周计划的树脂任务，
+ * 让用户能看到“今天做什么、下次开放日做什么”。
+ */
+export function buildWeeklyStrategy(weeklyPlan, today) {
+  if (!Array.isArray(weeklyPlan) || weeklyPlan.length !== 7) return [];
+  const weekdayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  return Array.from({ length: 7 }, (_, offset) => (today + offset) % 7)
+    .map((day) => ({
+      day,
+      label: offsetLabel(day, weekdayNames[day], today),
+      tasks: weeklyPlan[day] ?? [],
+    }))
+    .filter((item) => item.tasks.length > 0);
+}
+
+/**
  * 周本与世界 Boss 只能消耗原粹树脂。只要当天仍有可执行任务，秘境不得先合成浓缩树脂。
  */
 export function hasPendingOriginalResinTask(tasks) {
@@ -121,4 +137,9 @@ function compareTasks(left, right) {
     return right.priority - left.priority;
   }
   return left.materialId.localeCompare(right.materialId, 'zh-Hans-CN');
+}
+
+function offsetLabel(day, weekdayName, today) {
+  if (day === today) return `今天（${weekdayName}）`;
+  return weekdayName;
 }

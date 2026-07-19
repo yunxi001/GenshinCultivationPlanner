@@ -6,7 +6,7 @@ import { collectExecutionWarnings } from './core/preflight.js';
 import { buildDomainResinPolicy } from './core/resin.js';
 import { buildDomainExecutionConfig } from './core/domain-executor.js';
 import { buildTrackedInventoryGains } from './core/execution-progress.js';
-import { hasPendingOriginalResinTask } from './core/scheduler.js';
+import { buildWeeklyStrategy, hasPendingOriginalResinTask } from './core/scheduler.js';
 import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
@@ -90,6 +90,7 @@ async function main() {
     log.warn('[执行前检查] {warning}', warning);
   }
   const domainResinPolicy = buildDomainResinPolicy(settings);
+  plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
   log.info('[树脂] 秘境策略：指定使用={specified}；BetterGI 实际顺序={priority}；原粹/浓缩/须臾/脆弱上限={original}/{condensed}/{transient}/{fragile}',
     domainResinPolicy.specifyResinUse,
     domainResinPolicy.priority.join('、') || '无',
@@ -137,6 +138,7 @@ async function main() {
         today,
       });
       plan.domainResinPolicy = domainResinPolicy;
+      plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
       plan.execution = execution;
     }
   }
@@ -163,6 +165,9 @@ async function main() {
       name, task.executionType, domainName ?? '未配置', task.shortage, task.status);
   }
   log.info('[调度] 今日可执行队列：{queue}', JSON.stringify(plan.todayQueue));
+  for (const day of plan.weeklyStrategy) {
+    log.info('[周循环] {day}：{tasks}', day.label, day.tasks.map((task) => task.domainName ?? task.materialName).join('、'));
+  }
   log.info('[调度] 人工待办：{manual}', JSON.stringify(plan.manualItems));
   await file.writeText('record/latest-plan.json', JSON.stringify(plan, null, 2), false);
   const runRecord = buildRunRecord({
