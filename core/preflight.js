@@ -22,5 +22,8 @@ export function collectExecutionWarnings(plan, settings) {
   if (plan.routes?.matched?.some((item) => item.type === 'monster') && !settings.monsterTeamName?.trim()) {
     warnings.push('已匹配怪物材料路线，但尚未配置怪物材料队伍名称');
   }
+  if (settings.routeExecutionEnabled === true && !(plan.routes?.matched?.length > 0)) {
+    warnings.push('已开启路线执行，但本次没有匹配到可执行路线');
+  }
   return warnings;
 }

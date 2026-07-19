@@ -49,6 +49,12 @@
     "default": true
   },
   {
+    "name": "routeExecutionEnabled",
+    "type": "checkbox",
+    "label": "执行已匹配路线（默认关闭）：开启后会在当天秘境完成后执行地方特产/怪物材料路线，并按背包差值计数；首次请先用计划模式核对路线。",
+    "default": false
+  },
+  {
     "name": "sendRunSummary",
     "type": "checkbox",
     "label": "发送运行摘要：通过 BetterGI 已配置的 JS 通知渠道（可含邮件）发送本次候选、收益和缺口。",

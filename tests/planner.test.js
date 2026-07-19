@@ -15,6 +15,7 @@ import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
+import { buildRouteExecutionPlan } from '../core/route-executor.js';
 
 const materials = {
   talentBook: {
@@ -432,6 +433,14 @@ test('来源映射只能使用 BetterGI 培养材料秘境目录中的名称', (
     { domains: { '精通秘境：测试': { domainName: '不存在的秘境' } } },
     { materialDomains: ['太山府'] },
   ), /未知秘境/);
+});
+
+test('路线执行默认关闭，开启后要求对应队伍与有效路径', () => {
+  const routes = { matched: [{ materialId: 'localSpecialty', name: '测试特产', type: 'localSpecialty', paths: ['地方特产/测试/测试特产/a.json'] }] };
+  assert.deepEqual(buildRouteExecutionPlan(routes, {}), []);
+  assert.throws(() => buildRouteExecutionPlan(routes, { routeExecutionEnabled: true }), /采集队伍/);
+  const plan = buildRouteExecutionPlan(routes, { routeExecutionEnabled: true, gatheringTeamName: '采集队' });
+  assert.equal(plan[0].partyName, '采集队');
 });
 
 test('秘境执行配置必须具备队伍、映射任务和允许树脂', () => {

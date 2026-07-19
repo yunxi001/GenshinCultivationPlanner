@@ -11,6 +11,7 @@ import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
+import { buildRouteExecutionPlan } from './core/route-executor.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -92,6 +93,7 @@ async function main() {
   }
   const domainResinPolicy = buildDomainResinPolicy(settings);
   plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
+  const discoveredRoutes = plan.routes;
   log.info('[树脂] 秘境策略：指定使用={specified}；BetterGI 实际顺序={priority}；原粹/浓缩/须臾/脆弱上限={original}/{condensed}/{transient}/{fragile}',
     domainResinPolicy.specifyResinUse,
     domainResinPolicy.priority.join('、') || '无',
@@ -140,6 +142,28 @@ async function main() {
       });
       plan.domainResinPolicy = domainResinPolicy;
       plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
+      plan.routes = discoveredRoutes;
+      plan.execution = execution;
+    }
+    if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
+      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials);
+      execution.routes = routeExecution.records;
+      if (Object.keys(routeExecution.gains).length > 0) {
+        execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
+        execution.appliedGains = true;
+      }
+      inventory = routeExecution.inventory;
+      plan = createPlan({
+        targets: targetData.targets ?? [],
+        inventory,
+        materials,
+        recipes,
+        rulebook,
+        today,
+      });
+      plan.routes = discoveredRoutes;
+      plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
+      plan.domainResinPolicy = domainResinPolicy;
       plan.execution = execution;
     }
   }
@@ -279,6 +303,40 @@ async function executeFirstDomainTask(plan, settings, resinPolicy, materials, in
   };
 }
 
+async function executeMatchedRoutes(routes, scriptSettings, inventory, materials) {
+  const routePlan = buildRouteExecutionPlan(routes, scriptSettings);
+  let currentInventory = inventory;
+  let currentParty = '';
+  const gains = {};
+  const records = [];
+  for (const route of routePlan) {
+    if (currentParty !== route.partyName) {
+      const switched = await genshin.SwitchParty(route.partyName);
+      if (!switched) throw new Error(`切换路线队伍失败：${route.partyName}`);
+      currentParty = route.partyName;
+      log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
+    }
+    let gained = 0;
+    const routeRecord = { materialId: route.materialId, name: route.name, type: route.type, paths: [], gained: 0 };
+    for (const routePath of route.paths) {
+      const before = currentInventory[route.materialId];
+      log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
+      await pathingScript.runFile(routePath);
+      currentInventory = await scanInventoryItemIds([route.materialId], currentInventory, materials, `路线“${route.name}”后`);
+      const after = currentInventory[route.materialId];
+      const delta = Number.isInteger(before) && Number.isInteger(after) ? Math.max(0, after - before) : 0;
+      gained += delta;
+      routeRecord.paths.push({ path: routePath, gain: delta });
+      log.info('[路线执行] “{name}”路线完成，确认收益：{gain}；累计：{total}/{shortage}', route.name, delta, gained, route.shortage);
+      if (gained >= route.shortage) break;
+    }
+    routeRecord.gained = gained;
+    records.push(routeRecord);
+    if (gained > 0) gains[route.name] = (gains[route.name] ?? 0) + gained;
+  }
+  return { inventory: currentInventory, gains, records };
+}
+
 function normalizeRewardMap(rawRewards) {
   if (!rawRewards) return {};
   const entries = Object.entries(rawRewards);
@@ -293,7 +351,11 @@ function normalizeRewardMap(rawRewards) {
 }
 
 async function scanInventoryMaterials(plan, inventory, materials, phase) {
-  const scanGroups = buildInventoryScanGroups(plan.crafting.scanMaterialIds, materials);
+  return scanInventoryItemIds(plan.crafting.scanMaterialIds, inventory, materials, phase);
+}
+
+async function scanInventoryItemIds(materialIds, inventory, materials, phase) {
+  const scanGroups = buildInventoryScanGroups(materialIds, materials);
   const scanCount = Object.values(scanGroups).reduce((total, items) => total + items.length, 0);
   let updatedInventory = inventory;
   log.info('[背包] {phase}读取 {count} 个本次目标材料及可合成低阶材料', phase, scanCount);
