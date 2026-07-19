@@ -13,6 +13,7 @@ import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
 import { buildRouteExecutionPlan } from './core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
+import { buildBossExecutionConfig } from './core/boss-executor.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -249,9 +250,7 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
     return { status: 'skipped', reason: '今日没有已验证的树脂任务', rewards: {}, appliedGains: false };
   }
   if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory);
-  if (task.executionType === 'boss') {
-    return { status: 'skipped', reason: '世界 Boss 执行器尚未接入', rewards: {}, appliedGains: false };
-  }
+  if (task.executionType === 'boss') return executeBossTask(task, settings, inventory);
   if (task.executionType !== 'domain') {
     return { status: 'skipped', reason: `暂不支持执行任务类型：${task.executionType}`, rewards: {}, appliedGains: false };
   }
@@ -320,6 +319,38 @@ async function executeWeeklyBossTask(task, scriptSettings, materials, inventory)
   const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
   const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
   const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
+  return {
+    status: 'completed', task, rewards, trackedRewards,
+    rewardRecognitionFailed: Object.keys(rewards).length === 0,
+    appliedGains: Object.keys(trackedRewards).length > 0,
+    inventoryBefore: inventory,
+  };
+}
+
+async function executeBossTask(task, scriptSettings, inventory) {
+  const config = buildBossExecutionConfig(task, scriptSettings);
+  log.info('[Boss] 准备刷取“{boss}”，材料目标：{materials}', config.bossName,
+    config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
+  const switched = await genshin.SwitchParty(config.partyName);
+  if (!switched) throw new Error(`切换 Boss 队伍失败：${config.partyName}`);
+  await genshin.TpToStatueOfTheSeven();
+  const param = new AutoBossParam();
+  param.BossName = config.bossName;
+  param.TeamName = config.partyName;
+  if (config.strategyName) param.StrategyName = config.strategyName;
+  param.SpecifyRunCount = false;
+  param.RunCount = config.runCount;
+  param.UseTransientResin = false;
+  param.UseFragileResin = false;
+  param.ReviveRetryCount = config.reviveRetryCount;
+  param.ReturnToStatueAfterEachRound = false;
+  param.RewardRecognitionEnabled = true;
+  const rewards = normalizeRewardMap(await dispatcher.RunAutoBossTask(param));
+  const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
+  const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
+  if (Object.keys(rewards).length === 0) {
+    log.warn('[Boss] BetterGI 未识别到奖励；将以执行后背包差值作为最终统计依据');
+  }
   return {
     status: 'completed', task, rewards, trackedRewards,
     rewardRecognitionFailed: Object.keys(rewards).length === 0,

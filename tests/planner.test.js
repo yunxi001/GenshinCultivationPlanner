@@ -17,6 +17,7 @@ import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 import { buildRouteExecutionPlan } from '../core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
+import { buildBossExecutionConfig } from '../core/boss-executor.js';
 
 const materials = {
   talentBook: {
@@ -470,6 +471,26 @@ test('同一周本的多个掉落材料合并为一次征讨领域任务', () =>
   const plan = buildPlan(shortages, 0);
   assert.equal(plan.todayQueue.length, 1);
   assert.equal(plan.todayQueue[0].executionType, 'weeklyBoss');
+  assert.equal(plan.todayQueue[0].materials.length, 2);
+});
+
+test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
+  const config = buildBossExecutionConfig({
+    executionType: 'boss', bossName: '急冻树', materialId: '113010', materialName: '极寒之核', shortage: 4,
+  }, { bossTeamName: 'Boss 队伍', bossCombatStrategyName: '急冻树策略' });
+  assert.equal(config.bossName, '急冻树');
+  assert.equal(config.partyName, 'Boss 队伍');
+  assert.equal(config.runCount, 9999);
+  assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
+});
+
+test('同一世界 Boss 的多个材料合并为一次首领任务', () => {
+  const plan = buildPlan([
+    { materialId: 'boss-1', shortage: 3, material: { name: '材料甲', executionType: 'boss', bossName: '急冻树', openDays: [0], status: 'supported' } },
+    { materialId: 'boss-2', shortage: 2, material: { name: '材料乙', executionType: 'boss', bossName: '急冻树', openDays: [0], status: 'supported' } },
+  ], 0);
+  assert.equal(plan.todayQueue.length, 1);
+  assert.equal(plan.todayQueue[0].bossName, '急冻树');
   assert.equal(plan.todayQueue[0].materials.length, 2);
 });
 

@@ -19,6 +19,7 @@ const sourceCandidatesPath = path.join(root, 'data', 'source-candidates.json');
 const sourceExecutionMapPath = path.join(root, 'data', 'source-execution-map.json');
 const domainCatalogPath = path.join(root, 'data', 'bettergi-domain-catalog.json');
 const weeklyDomainCatalogPath = path.join(root, 'data', 'bettergi-weekly-domain-catalog.json');
+const bossCatalogPath = path.join(root, 'data', 'bettergi-boss-catalog.json');
 
 const characters = buildCharacters();
 const weapons = buildWeapons();
@@ -36,8 +37,9 @@ const executionMap = JSON.parse(await fs.readFile(executionMapPath, 'utf8'));
 const sourceExecutionMap = JSON.parse(await fs.readFile(sourceExecutionMapPath, 'utf8'));
 const domainCatalog = JSON.parse(await fs.readFile(domainCatalogPath, 'utf8'));
 const weeklyDomainCatalog = JSON.parse(await fs.readFile(weeklyDomainCatalogPath, 'utf8'));
+const bossCatalog = JSON.parse(await fs.readFile(bossCatalogPath, 'utf8'));
 validateDomainExecutionMap(sourceExecutionMap, domainCatalog);
-const materials = buildMaterials(rulebook, executionMap, sourceExecutionMap, weeklyDomainCatalog, recipes);
+const materials = buildMaterials(rulebook, executionMap, sourceExecutionMap, weeklyDomainCatalog, bossCatalog, recipes);
 const sourceCandidates = buildSourceCandidates(materials);
 await fs.writeFile(materialsPath, `${JSON.stringify(materials, null, 2)}\n`, 'utf8');
 await fs.writeFile(recipesPath, `${JSON.stringify(recipes, null, 2)}\n`, 'utf8');
@@ -74,21 +76,21 @@ function buildWeapons() {
   return result;
 }
 
-function buildMaterials(rulebook, executionMap, sourceExecutionMap, weeklyDomainCatalog, recipes) {
+function buildMaterials(rulebook, executionMap, sourceExecutionMap, weeklyDomainCatalog, bossCatalog, recipes) {
   const materials = {};
   const items = new Map(collectCostItems(rulebook).map((item) => [item.id, item]));
   collectRecipeInputs(items, recipes);
   for (const item of items.values()) {
     const defaultDefinition = isExcluded(item)
       ? { name: item.name, status: 'excluded', executionType: 'none', reason: '不在自动刷取范围内' }
-      : buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog, recipes);
+      : buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog, bossCatalog, recipes);
     // 单材料显式配置优先级最高，可用于后续修正或用户覆盖。
     materials[item.id] = { ...defaultDefinition, ...(executionMap[item.id] ?? {}) };
   }
   return materials;
 }
 
-function buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog, recipes) {
+function buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog, bossCatalog, recipes) {
   const weeklyDomain = (weeklyDomainCatalog.domains ?? []).find((domain) => domain.rewards?.includes(item.name));
   if (weeklyDomain) {
     return {
@@ -100,6 +102,19 @@ function buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog,
       limited: false,
       priority: 200,
       reason: 'BetterGI 内置征讨领域奖励表对照；待实机回归',
+    };
+  }
+  const bossName = findSupportedBossName(item, bossCatalog);
+  if (bossName) {
+    return {
+      name: item.name,
+      status: 'supported',
+      executionType: 'boss',
+      bossName,
+      openDays: [0, 1, 2, 3, 4, 5, 6],
+      limited: false,
+      priority: 150,
+      reason: '游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归',
     };
   }
   const material = findDomainMaterial(item.name, recipes);
@@ -121,6 +136,13 @@ function buildExecutionDefinition(item, sourceExecutionMap, weeklyDomainCatalog,
     };
   }
   return { name: item.name, status: 'manual', executionType: 'none', reason: '尚未配置已验证的执行适配' };
+}
+
+function findSupportedBossName(item, bossCatalog) {
+  if (!String(item.id).startsWith('113')) return '';
+  const sources = db.materials(item.name)?.sources ?? [];
+  const candidates = sources.filter((source) => source.includes('掉落')).flatMap(toRouteNames);
+  return (bossCatalog.bosses ?? []).find((bossName) => candidates.includes(bossName)) ?? '';
 }
 
 /**

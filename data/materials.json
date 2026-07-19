@@ -2338,9 +2338,21 @@
   },
   "113002": {
     "name": "雷光棱镜",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "无相之雷",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113003": {
     "name": "东风之翎",
@@ -2416,27 +2428,75 @@
   },
   "113009": {
     "name": "玄岩之塔",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "无相之岩",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113010": {
     "name": "极寒之核",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "急冻树",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113011": {
     "name": "常燃火种",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "爆炎树",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113012": {
     "name": "净水之心",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "纯水精灵",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113013": {
     "name": "吞天之鲸·只角",
@@ -2494,9 +2554,21 @@
   },
   "113016": {
     "name": "未熟之玉",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "古岩龙蜥",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113017": {
     "name": "龙王之冕",
@@ -2560,21 +2632,57 @@
   },
   "113022": {
     "name": "魔偶机心",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "魔偶剑鬼",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113023": {
     "name": "恒常机关之心",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "恒常机关阵列",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113024": {
     "name": "阴燃之珠",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "无相之火",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113025": {
     "name": "熔毁之刻",
@@ -2632,15 +2740,39 @@
   },
   "113028": {
     "name": "排异之露",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "无相之水",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113029": {
     "name": "雷霆数珠",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "雷音权现",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113030": {
     "name": "兽境王器",
@@ -2710,39 +2842,111 @@
   },
   "113035": {
     "name": "符纹之齿",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "遗迹巨蛇",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113036": {
     "name": "蕈王钩喙",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "翠翎恐蕈",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113037": {
     "name": "藏雷野实",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "掣电树",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113038": {
     "name": "永续机芯",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "兆载永劫龙兽",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113039": {
     "name": "导光四面体",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "半永恒统辖矩阵",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113040": {
     "name": "灭诤草蔓",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "无相之草",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113041": {
     "name": "傀儡的悬丝",
@@ -2800,15 +3004,39 @@
   },
   "113044": {
     "name": "苍砾蕊羽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "风蚀沙虫",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113045": {
     "name": "常暗圆环",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "深罪浸礼者",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113046": {
     "name": "生长天地之蕨草",
@@ -2878,21 +3106,57 @@
   },
   "113051": {
     "name": "帝皇的决断",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "铁甲熔火帝皇",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113052": {
     "name": "「图比昂装置」",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "实验性场力发生装置",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113053": {
     "name": "原海麟角",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "千年珍珠骏麟",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113054": {
     "name": "无光丝线",
@@ -2950,21 +3214,57 @@
   },
   "113057": {
     "name": "未能达成超越之水",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "水形幻人",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113058": {
     "name": "凝云鳞甲",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "隐山猊兽",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113059": {
     "name": "金色旋律的断章",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "魔像督军",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113060": {
     "name": "残火灯烛",
@@ -3022,27 +3322,75 @@
   },
   "113064": {
     "name": "受祝所缚之印",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "金焰绒翼龙暴君",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113065": {
     "name": "过熟的火榴果",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "贪食匿叶龙山王",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113066": {
     "name": "秘刻金纹的源核",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "秘源机兵·构型械",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113067": {
     "name": "深邃纠缠的凝视",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "深邃摹结株",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113068": {
     "name": "蚀灭的灵犀",
@@ -3100,15 +3448,39 @@
   },
   "113071": {
     "name": "谜土的护符",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "灵觉隐修的迷者",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113072": {
     "name": "龙像的无智核",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "熔岩辉龙像",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113073": {
     "name": "升扬样本·骑士",
@@ -3166,33 +3538,93 @@
   },
   "113076": {
     "name": "秘源积气喉",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "秘源机兵·统御械",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113077": {
     "name": "精密型月矩力冲鸭模具",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "重拳出击鸭",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113078": {
     "name": "承光的鳞羽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "蕴光月幻蝶",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113079": {
     "name": "漫光的辉角",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "霜夜巡天灵主",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113080": {
     "name": "循环式军用月矩核心",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "超重型陆巡舰·机动战垒",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113081": {
     "name": "贤医的假面",
@@ -3250,21 +3682,57 @@
   },
   "113084": {
     "name": "魇翼枯骸",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "深黯魇语之主",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113085": {
     "name": "棱光的断尾",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "蕴光月守宫",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113086": {
     "name": "堕天的落羽",
-    "status": "manual",
-    "executionType": "none",
-    "reason": "尚未配置已验证的执行适配"
+    "status": "supported",
+    "executionType": "boss",
+    "bossName": "守望者·堕天",
+    "openDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "limited": false,
+    "priority": 150,
+    "reason": "游戏内掉落来源与 BetterGI 内置自动首领名称精确对照；待实机回归"
   },
   "113087": {
     "name": "赝作的树脂",

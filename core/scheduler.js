@@ -79,6 +79,7 @@ function toTask(item) {
     shortage: item.shortage,
     executionType: material.executionType,
     domainName: material.domainName,
+    bossName: material.bossName,
     sundaySelectedValue: material.sundaySelectedValue,
     materialName: material.name,
     priority: material.priority ?? 0,
@@ -95,11 +96,12 @@ function toTask(item) {
 function mergeDomainTasks(tasks) {
   const grouped = new Map();
   for (const task of tasks) {
-    if (!['domain', 'weeklyBoss'].includes(task.executionType) || !task.domainName) {
+    const targetName = task.executionType === 'boss' ? task.bossName : task.domainName;
+    if (!['domain', 'weeklyBoss', 'boss'].includes(task.executionType) || !targetName) {
       grouped.set(`single:${task.materialId}`, task);
       continue;
     }
-    const key = `${task.executionType}:${task.domainName}`;
+    const key = `${task.executionType}:${targetName}`;
     const existing = grouped.get(key);
     const material = { materialId: task.materialId, materialName: task.materialName, shortage: task.shortage };
     if (existing) {
@@ -111,7 +113,7 @@ function mergeDomainTasks(tasks) {
     grouped.set(key, {
       ...task,
       materialId: key,
-      materialName: task.domainName,
+      materialName: targetName,
       materials: [material],
     });
   }
