@@ -248,10 +248,12 @@ function loadTargets(scriptSettings, rulebook) {
 }
 
 async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory) {
-  const task = plan.todayQueue.find((item) => item.status === 'supported');
+  const task = plan.todayQueue.find((item) => (
+    item.status === 'supported' && isTaskExecutionEnabled(item, settings)
+  ));
   if (!task) {
-    log.info('[执行] 今日没有已验证的树脂任务，本次不执行');
-    return { status: 'skipped', reason: '今日没有已验证的树脂任务', rewards: {}, appliedGains: false };
+    log.info('[执行] 今日没有已启用的树脂任务，本次不执行');
+    return { status: 'skipped', reason: '今日没有已启用的树脂任务', rewards: {}, appliedGains: false };
   }
   if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory);
   if (task.executionType === 'boss') return executeBossTask(task, settings, inventory);
@@ -301,6 +303,13 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
     appliedGains: Object.keys(rewards).length > 0,
     inventoryBefore: inventory,
   };
+}
+
+/** 周本和 Boss 机制、队伍需求差异大，必须由用户显式开启后才允许自动执行。 */
+function isTaskExecutionEnabled(task, scriptSettings) {
+  if (task.executionType === 'weeklyBoss') return scriptSettings.weeklyBossExecutionEnabled === true;
+  if (task.executionType === 'boss') return scriptSettings.bossExecutionEnabled === true;
+  return true;
 }
 
 async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inventory) {

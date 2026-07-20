@@ -110,10 +110,22 @@
     "default": ""
   },
   {
+    "name": "bossExecutionEnabled",
+    "type": "checkbox",
+    "label": "允许自动执行世界 Boss（默认关闭）：确认当前首领机制、Boss 队伍和策略能稳定通关后才开启。",
+    "default": false
+  },
+  {
     "name": "weeklyBossTeamName",
     "type": "input-text",
     "label": "周本队伍名称（可留空）：留空时复用 Boss 队伍；需与游戏队伍名称完全一致。",
     "default": ""
+  },
+  {
+    "name": "weeklyBossExecutionEnabled",
+    "type": "checkbox",
+    "label": "允许自动执行周本（默认关闭）：周本机制和队伍要求差异大，必须确认能稳定通关后才开启。",
+    "default": false
   },
   {
     "name": "domainCombatStrategyName",

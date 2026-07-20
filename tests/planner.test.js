@@ -485,6 +485,18 @@ test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
   assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
 });
 
+test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {
+  const warnings = collectExecutionWarnings({
+    todayQueue: [
+      { executionType: 'weeklyBoss', status: 'supported' },
+      { executionType: 'boss', status: 'supported' },
+    ],
+  }, {});
+  assert.equal(warnings.length, 2);
+  assert.match(warnings[0], /周本自动执行默认关闭/);
+  assert.match(warnings[1], /Boss 自动执行默认关闭/);
+});
+
 test('同一世界 Boss 的多个材料合并为一次首领任务', () => {
   const plan = buildPlan([
     { materialId: 'boss-1', shortage: 3, material: { name: '材料甲', executionType: 'boss', bossName: '急冻树', openDays: [0], status: 'supported' } },
