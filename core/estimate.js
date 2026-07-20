@@ -1,59 +1,109 @@
+const DAILY_RESIN_BUDGET = 180;
+
+// 最高难度培养秘境的社区统计均值，统一折算为最低阶材料等价值。
+const DOMAIN_EXPECTED_BASE_YIELD = {
+  talentBook: 2.2 + 1.98 * 3 + 0.22 * 9,
+  weaponMaterial: 2.2 + 2.418 * 3 + 0.62 * 9 + 0.062 * 27,
+};
+
 /**
- * 只使用执行后背包差值已确认的历史记录估算自动材料完成时间。
- * 一次运行被视作来源在一个开放日内的一批刷取；没有可靠样本绝不输出虚假的天数。
+ * 按用户确认的世界等级 9 机制估算自动培养材料完成时间。
+ * Boss 按 3 个保底加 10% 概率第 4 个，即 3.1 个/40 树脂；
+ * 培养秘境按最高难度的公开统计均值；周本和圣遗物不显示预计天数。
  */
-export function buildCompletionEstimate({ plan, history, materials, today }) {
+export function buildCompletionEstimate({ plan, materials, recipes = {}, today, dailyResinBudget = DAILY_RESIN_BUDGET }) {
   const shortages = (plan.displayShortages ?? []).filter((item) => item.shortage > 0);
-  if (shortages.some((item) => !isEstimableMaterial(materials[item.materialId]))) {
-    return { days: null, reason: '含未自动执行材料，无法估算全部完成时间', details: [] };
-  }
   if (shortages.length === 0) return { days: 0, reason: '材料已满足', details: [] };
 
-  const details = [];
+  const groups = new Map();
   for (const shortage of shortages) {
     const material = materials[shortage.materialId];
-    const samples = confirmedSamples(history, materialSourceName(material), material.name);
-    if (samples.length === 0) {
-      return { days: null, reason: `材料“${material.name}”缺少已确认掉落样本`, details };
-    }
-    const average = samples.reduce((total, count) => total + count, 0) / samples.length;
-    if (average <= 0) {
-      return { days: null, reason: `材料“${material.name}”的历史收益为零，无法估算`, details };
-    }
-    const estimatedRuns = Math.ceil(shortage.shortage / average);
-    details.push({
-      materialId: shortage.materialId,
-      materialName: material.name,
-      samples: samples.length,
-      averagePerRun: average,
-      estimatedRuns,
-      estimatedDays: daysUntilRuns(material.openDays ?? [], today, estimatedRuns),
-    });
+    const policy = resolvePolicy(shortage.materialId, material);
+    if (!policy) return { days: null, reason: buildUnsupportedReason(material), details: [] };
+    const baseMaterialId = getBaseMaterialId(shortage.materialId, recipes);
+    const key = `${policy.sourceType}:${policy.sourceName}:${baseMaterialId}`;
+    const group = groups.get(key) ?? {
+      ...policy,
+      baseMaterialId,
+      baseShortage: 0,
+      materialNames: [],
+    };
+    group.baseShortage += shortage.shortage * getBaseUnits(shortage.materialId, recipes);
+    group.materialNames.push(material.name);
+    groups.set(key, group);
   }
+
+  const resinBudget = normalizeDailyResinBudget(dailyResinBudget);
+  const details = [...groups.values()].map((group) => buildDetail(group, resinBudget, today));
   return {
     days: Math.max(...details.map((item) => item.estimatedDays)),
-    reason: '基于已确认背包差值的历史均值；按每个开放日执行一批估算',
+    reason: '按世界等级 9 与最高难度秘境掉落期望估算；不考虑双倍掉落',
     details,
   };
 }
 
-function isEstimableMaterial(material) {
-  return material?.status === 'supported'
-    && ['domain', 'boss', 'weeklyBoss'].includes(material.executionType)
-    && Boolean(materialSourceName(material));
+function resolvePolicy(materialId, material) {
+  if (material?.status !== 'supported') return null;
+  if (material.executionType === 'boss' && material.bossName) {
+    return { sourceType: 'boss', sourceName: material.bossName, expectedBaseYield: 3.1, resinPerClaim: 40, openDays: material.openDays ?? [] };
+  }
+  if (material.executionType === 'domain' && material.domainName) {
+    const materialKind = String(materialId).startsWith('114') ? 'weaponMaterial' : 'talentBook';
+    return {
+      sourceType: 'domain',
+      sourceName: material.domainName,
+      expectedBaseYield: DOMAIN_EXPECTED_BASE_YIELD[materialKind],
+      resinPerClaim: 20,
+      openDays: material.openDays ?? [],
+    };
+  }
+  return null;
 }
 
-function materialSourceName(material) {
-  return material.domainName ?? material.bossName ?? '';
+function buildUnsupportedReason(material) {
+  if (material?.executionType === 'weeklyBoss') return '周本材料不显示预计天数';
+  if (material?.executionType === 'artifactDomain') return '圣遗物秘境不显示预计天数';
+  if (material?.executionType === 'route') return '路线材料缺少已确认背包差值样本，暂不显示预计天数';
+  return '含未自动执行材料，无法估算全部完成时间';
 }
 
-function confirmedSamples(history, sourceName, materialName) {
-  return (Array.isArray(history) ? history : [])
-    .map((record) => record.execution)
-    .filter((execution) => execution?.status === 'completed'
-      && (execution.task?.domainName ?? execution.task?.bossName) === sourceName
-      && (execution.appliedGains === true || Object.keys(execution.trackedRewards ?? {}).length > 0))
-    .map((execution) => Number(execution.trackedRewards?.[materialName]) || 0);
+function buildDetail(group, dailyResinBudget, today) {
+  const estimatedClaims = Math.ceil(group.baseShortage / group.expectedBaseYield);
+  const claimsPerOpenDay = Math.max(1, Math.floor(dailyResinBudget / group.resinPerClaim));
+  const requiredOpenDays = Math.ceil(estimatedClaims / claimsPerOpenDay);
+  return {
+    sourceType: group.sourceType,
+    sourceName: group.sourceName,
+    materialNames: [...new Set(group.materialNames)],
+    baseShortage: group.baseShortage,
+    expectedBaseYield: group.expectedBaseYield,
+    resinPerClaim: group.resinPerClaim,
+    estimatedClaims,
+    estimatedResin: estimatedClaims * group.resinPerClaim,
+    claimsPerOpenDay,
+    estimatedDays: daysUntilRuns(group.openDays, today, requiredOpenDays),
+  };
+}
+
+function normalizeDailyResinBudget(value) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 20 ? Math.floor(parsed / 20) * 20 : DAILY_RESIN_BUDGET;
+}
+
+function getBaseMaterialId(materialId, recipes, seen = new Set()) {
+  const id = String(materialId);
+  if (seen.has(id)) return id;
+  const recipe = recipes[id];
+  if (!recipe || recipe.inputs?.length !== 1 || recipe.resultCount !== 1) return id;
+  return getBaseMaterialId(recipe.inputs[0].id, recipes, new Set(seen).add(id));
+}
+
+function getBaseUnits(materialId, recipes, seen = new Set()) {
+  const id = String(materialId);
+  if (seen.has(id)) return 1;
+  const recipe = recipes[id];
+  if (!recipe || recipe.inputs?.length !== 1 || recipe.resultCount !== 1) return 1;
+  return recipe.inputs[0].count * getBaseUnits(recipe.inputs[0].id, recipes, new Set(seen).add(id));
 }
 
 function daysUntilRuns(openDays, today, requiredRuns) {

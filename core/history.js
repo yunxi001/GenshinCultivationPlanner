@@ -17,6 +17,7 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
       task: execution.task ? {
         executionType: execution.task.executionType,
         domainName: execution.task.domainName ?? null,
+        bossName: execution.task.bossName ?? null,
         materialName: execution.task.materialName,
         materials: execution.task.materials ?? [],
       } : null,

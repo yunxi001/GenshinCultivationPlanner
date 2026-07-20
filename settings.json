@@ -164,6 +164,12 @@
     "default": true
   },
   {
+    "name": "estimateDailyResin",
+    "type": "input-text",
+    "label": "预计每日可用树脂：默认 180（自然恢复 24 小时）。仅影响完成天数预估，不会改变实际刷取树脂规则。",
+    "default": "180"
+  },
+  {
     "name": "domainUseCondensedResin",
     "type": "checkbox",
     "label": "允许使用浓缩树脂：优先消耗已有浓缩树脂；脚本不会合成浓缩树脂。默认开启。",

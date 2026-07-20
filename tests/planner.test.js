@@ -309,7 +309,7 @@ test('运行摘要明确计划模式、候选任务和无历史数据时的预�
   assert.match(summary, /<br><b>仍缺材料<\/b>/);
 });
 
-test('完成预估只使用已确认背包差值，并按开放日推算所需天数', () => {
+test('完成预估按最高难度培养秘境期望和开放日推算', () => {
   const estimateMaterials = {
     book: { name: '测试书', status: 'supported', executionType: 'domain', domainName: '测试秘境', openDays: [1, 4, 0] },
   };
@@ -317,18 +317,15 @@ test('完成预估只使用已确认背包差值，并按开放日推算所需�
     plan: { displayShortages: [{ materialId: 'book', shortage: 5 }] },
     materials: estimateMaterials,
     today: 1,
-    history: [
-      { execution: { status: 'completed', appliedGains: true, task: { domainName: '测试秘境' }, trackedRewards: { 测试书: 2 } } },
-      { execution: { status: 'completed', appliedGains: true, task: { domainName: '测试秘境' }, trackedRewards: { 测试书: 3 } } },
-      { execution: { status: 'completed', appliedGains: false, task: { domainName: '测试秘境' }, trackedRewards: {} } },
-    ],
+    recipes: {},
   });
-  assert.equal(estimate.days, 3);
-  assert.equal(estimate.details[0].estimatedRuns, 2);
-  assert.match(estimate.reason, /历史均值/);
+  assert.equal(estimate.days, 0);
+  assert.equal(estimate.details[0].estimatedClaims, 1);
+  assert.equal(estimate.details[0].estimatedResin, 20);
+  assert.match(estimate.reason, /世界等级 9/);
 });
 
-test('完成预估支持世界 Boss 的已确认背包差值', () => {
+test('完成预估按世界等级 9 Boss 的 3.1 个期望计算', () => {
   const estimateMaterials = {
     core: { name: '测试首领材料', status: 'supported', executionType: 'boss', bossName: '测试首领', openDays: [0, 1, 2, 3, 4, 5, 6] },
   };
@@ -336,13 +333,20 @@ test('完成预估支持世界 Boss 的已确认背包差值', () => {
     plan: { displayShortages: [{ materialId: 'core', shortage: 5 }] },
     materials: estimateMaterials,
     today: 1,
-    history: [
-      { execution: { status: 'completed', appliedGains: true, task: { bossName: '测试首领' }, trackedRewards: { 测试首领材料: 3 } } },
-    ],
   });
-  assert.equal(estimate.days, 1);
-  assert.equal(estimate.details[0].averagePerRun, 3);
-  assert.equal(estimate.details[0].estimatedRuns, 2);
+  assert.equal(estimate.days, 0);
+  assert.equal(estimate.details[0].expectedBaseYield, 3.1);
+  assert.equal(estimate.details[0].estimatedClaims, 2);
+});
+
+test('完成预估不为周本和圣遗物输出预计天数', () => {
+  const weekly = buildCompletionEstimate({
+    plan: { displayShortages: [{ materialId: 'weekly', shortage: 1 }] },
+    materials: { weekly: { name: '测试周本材料', status: 'supported', executionType: 'weeklyBoss', domainName: '测试周本', openDays: [0] } },
+    today: 1,
+  });
+  assert.equal(weekly.days, null);
+  assert.match(weekly.reason, /周本/);
 });
 
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
@@ -422,10 +426,11 @@ test('运行记录保存执行结果、库存前后值和剩余缺口，并限�
     plan: { displayShortages: [{ materialId: 'book', shortage: 3 }, { materialId: 'done', shortage: 0 }] },
     inventoryBefore: { book: 1 },
     inventoryAfter: { book: 3 },
-    execution: { status: 'completed', trackedRewards: { 测试天赋书: 2 } },
+    execution: { status: 'completed', task: { executionType: 'boss', bossName: '测试首领', materialName: '测试首领' }, trackedRewards: { 测试天赋书: 2 } },
     domainResinPolicy: { condensedResinUseCount: 1 },
   });
   assert.equal(record.execution.trackedRewards.测试天赋书, 2);
+  assert.equal(record.execution.task.bossName, '测试首领');
   assert.deepEqual(record.remainingShortages, [{ materialId: 'book', shortage: 3 }]);
   const history = appendRunHistory(Array.from({ length: 100 }, (_, index) => ({ index })), record);
   assert.equal(history.length, 100);

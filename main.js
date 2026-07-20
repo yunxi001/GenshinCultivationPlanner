@@ -210,7 +210,7 @@ async function main() {
   } catch {
     // 首次运行没有历史文件属于正常情况。
   }
-  const estimate = buildCompletionEstimate({ plan, history, materials, today });
+  const estimate = buildCompletionEstimate({ plan, history, materials, recipes, today, dailyResinBudget: settings.estimateDailyResin });
   plan.estimate = estimate;
   log.info('[预估] {message}', Number.isFinite(estimate.days)
     ? `约 ${estimate.days} 天；${estimate.reason}`
