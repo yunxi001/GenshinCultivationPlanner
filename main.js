@@ -188,9 +188,11 @@ async function main() {
       name, item.required, owned, shortage, item.status, item.reason ?? '无');
   }
   for (const task of plan.todayQueue) {
-    const name = task.materials
+    const name = task.materials?.length
       ? task.materials.map((item) => `${item.materialName}×${item.shortage}`).join('、')
-      : materials[task.materialId]?.name ?? task.materialId;
+      : task.executionType === 'artifactDomain'
+        ? `${task.domainName}（圣遗物填充）`
+        : materials[task.materialId]?.name ?? task.materialName ?? task.materialId;
     const domainName = task.domainName ?? materials[task.materialId]?.domainName;
     log.info('[候选任务] {name} | 类型={type} | 目标={target} | 缺口={shortage} | 状态={status}',
       name, task.executionType, domainName ?? '未配置', task.shortage, task.status);
