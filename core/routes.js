@@ -40,11 +40,15 @@ function findLocalSpecialtyPaths(name, pathing) {
     .flatMap((country) => findFiles(`${country}/${name}`, pathing)));
 }
 
-function findFiles(folder, pathing) {
-  if (!pathing.isFolder(folder)) return [];
-  return pathing.readPaths(folder)
-    .filter((path) => path.toLowerCase().endsWith('.json'))
-    .filter((path) => pathing.isFile(path));
+function findFiles(folder, pathing, visited = new Set()) {
+  // 订阅路线常按“材料/作者/路线.json”分层保存，不能只读取第一层目录。
+  if (!pathing.isFolder(folder) || visited.has(folder)) return [];
+  visited.add(folder);
+  return pathing.readPaths(folder).flatMap((path) => {
+    if (pathing.isFile(path) && path.toLowerCase().endsWith('.json')) return [path];
+    if (pathing.isFolder(path)) return findFiles(path, pathing, visited);
+    return [];
+  });
 }
 
 function normalizeOverride(override) {

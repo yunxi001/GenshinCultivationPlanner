@@ -260,31 +260,38 @@ test('背包读取按页分组，未返回按零计而 OCR 失败保留未确认
   assert.deepEqual(failed.failedNames, ['怪物材料']);
 });
 
-test('自动发现：地方特产跨国别目录，怪物支持“愚人众·”目录别名', () => {
+test('自动发现：地方特产跨国别目录，怪物支持别名和嵌套作者目录', () => {
   const folders = new Set([
     '地方特产',
     '地方特产/璃月',
     '地方特产/璃月/清心',
     '敌人与魔物/债务处理人',
+    '敌人与魔物/蕈兽',
+    '敌人与魔物/蕈兽/蕈兽@翎镞',
   ]);
   const files = new Set([
     '地方特产/璃月/清心/01-清心.json',
     '敌人与魔物/债务处理人/债务处理人-1.json',
+    '敌人与魔物/蕈兽/蕈兽@翎镞/蕈兽-地表集中点35只.json',
   ]);
   const children = {
     '地方特产': ['地方特产/璃月'],
     '地方特产/璃月': ['地方特产/璃月/清心'],
     '地方特产/璃月/清心': ['地方特产/璃月/清心/01-清心.json'],
     '敌人与魔物/债务处理人': ['敌人与魔物/债务处理人/债务处理人-1.json'],
+    '敌人与魔物/蕈兽': ['敌人与魔物/蕈兽/蕈兽@翎镞'],
+    '敌人与魔物/蕈兽/蕈兽@翎镞': ['敌人与魔物/蕈兽/蕈兽@翎镞/蕈兽-地表集中点35只.json'],
   };
   const result = discoverAutoPathingRoutes({
     shortages: [
       { materialId: '100031', shortage: 2 },
       { materialId: '112031', shortage: 3 },
+      { materialId: '112059', shortage: 2 },
     ],
     sourceCandidates: {
       '100031': { name: '清心', type: 'localSpecialty', routeNames: ['清心'] },
       '112031': { name: '督察长祭刀', type: 'monster', routeNames: ['愚人众·债务处理人', '债务处理人'] },
+      '112059': { name: '蕈兽孢子', type: 'monster', routeNames: ['蕈兽'] },
     },
     pathing: {
       readPaths: (path) => children[path] ?? [],
@@ -292,10 +299,11 @@ test('自动发现：地方特产跨国别目录，怪物支持“愚人众·”
       isFile: (path) => files.has(path),
     },
   });
-  assert.equal(result.matched.length, 2);
+  assert.equal(result.matched.length, 3);
   assert.equal(result.missing.length, 0);
   assert.equal(result.matched[0].paths[0], '地方特产/璃月/清心/01-清心.json');
   assert.equal(result.matched[1].paths[0], '敌人与魔物/债务处理人/债务处理人-1.json');
+  assert.equal(result.matched[2].paths[0], '敌人与魔物/蕈兽/蕈兽@翎镞/蕈兽-地表集中点35只.json');
 });
 
 test('运行摘要明确计划模式、候选任务和无历史数据时的预计完成状态', () => {
