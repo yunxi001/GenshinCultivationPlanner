@@ -11,7 +11,8 @@ export function buildBossExecutionConfig(task, settings) {
     bossName: task.bossName,
     partyName,
     strategyName: settings.bossCombatStrategyName?.trim() || '',
-    runCount: UNLIMITED_RUN_COUNT,
+    specifyRunCount: settings.bossTestSingleRun === true,
+    runCount: settings.bossTestSingleRun === true ? 1 : UNLIMITED_RUN_COUNT,
     reviveRetryCount: 3,
     trackedMaterials: task.materials ?? [{ materialId: task.materialId, materialName: task.materialName, shortage: task.shortage }],
   };

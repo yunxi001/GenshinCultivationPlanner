@@ -116,6 +116,12 @@
     "default": false
   },
   {
+    "name": "bossTestSingleRun",
+    "type": "checkbox",
+    "label": "Boss 单次测试（默认关闭）：开启时只领取 1 次 Boss 奖励（40 树脂）；用于实机回归。正式连续刷取请关闭。",
+    "default": false
+  },
+  {
     "name": "weeklyBossTeamName",
     "type": "input-text",
     "label": "周本队伍名称（可留空）：留空时复用 Boss 队伍；需与游戏队伍名称完全一致。",

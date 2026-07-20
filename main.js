@@ -382,7 +382,7 @@ async function executeBossTask(task, scriptSettings, inventory) {
   param.BossName = config.bossName;
   param.TeamName = config.partyName;
   if (config.strategyName) param.StrategyName = config.strategyName;
-  param.SpecifyRunCount = false;
+  param.SpecifyRunCount = config.specifyRunCount;
   param.RunCount = config.runCount;
   param.UseTransientResin = false;
   param.UseFragileResin = false;
