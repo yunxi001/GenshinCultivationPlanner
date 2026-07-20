@@ -235,7 +235,12 @@ async function main() {
     notification.Send(summary);
     log.info('[通知] 已请求 BetterGI 发送运行摘要；请在 BetterGI 通知设置中启用 JS 通知与邮件通知');
   }
-  log.info('[完成] 已保存计划记录：record/latest-plan.json；{result}', executionEnabled ? '本次已执行至多一个已验证秘境任务' : '本次未执行培养或刷取任务');
+  const finalResult = !executionEnabled
+    ? '本次未执行培养或刷取任务'
+    : plan.execution?.status === 'failed'
+      ? `本次执行失败：${plan.execution.reason}`
+      : '本次已执行至多一个已验证任务';
+  log.info('[完成] 已保存计划记录：record/latest-plan.json；{result}', finalResult);
 }
 
 function loadTargets(scriptSettings, rulebook) {

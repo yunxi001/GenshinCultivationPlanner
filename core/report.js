@@ -21,11 +21,15 @@ export function buildRunSummary(plan, materials, { executionEnabled = false, est
     : [];
   const weekly = (plan.weeklyStrategy ?? []).map((item) => `${item.label}：${item.tasks
     .map((task) => task.domainName ?? task.materialName ?? task.materialId).join('、')}`);
-  const action = executionEnabled
-    ? execution?.rewardRecognitionFailed
-      ? '已执行；奖励/背包复核未确认'
-      : '已执行完成'
-    : '仅生成计划，未刷取';
+  const action = !executionEnabled
+    ? '仅生成计划，未刷取'
+    : execution?.status === 'failed'
+      ? `执行失败：${execution.reason || '未提供失败原因'}`
+      : execution?.status === 'skipped'
+        ? `未执行：${execution.reason || '没有可执行任务'}`
+        : execution?.rewardRecognitionFailed
+          ? '已执行；奖励/背包复核未确认'
+          : '已执行完成';
   const sections = [
     '<b>养成材料调度摘要</b>',
     `<br><b>本次状态</b>：${action}`,

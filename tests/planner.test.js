@@ -500,6 +500,15 @@ test('运行摘要显示世界 Boss 名称，不显示未定义的秘境名称',
   assert.doesNotMatch(summary, /undefined/);
 });
 
+test('运行摘要会明确显示实际执行失败原因', () => {
+  const summary = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    executionEnabled: true,
+    execution: { status: 'failed', reason: '切换 Boss 队伍失败：四神队' },
+  });
+  assert.match(summary, /执行失败：切换 Boss 队伍失败：四神队/);
+  assert.doesNotMatch(summary, /已执行完成/);
+});
+
 test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {
   const warnings = collectExecutionWarnings({
     todayQueue: [
