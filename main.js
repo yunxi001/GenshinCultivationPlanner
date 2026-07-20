@@ -15,6 +15,7 @@ import { buildRouteExecutionPlan } from './core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
 import { buildBossExecutionConfig } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
+import { switchPartyWithRecovery } from './core/party-switch.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -111,8 +112,9 @@ async function main() {
 
   if (executionEnabled) {
     let execution;
+    const partySwitchState = { initialized: false };
     try {
-      execution = await executeFirstResinTask(plan, settings, domainResinPolicy, materials, inventory);
+      execution = await executeFirstResinTask(plan, settings, domainResinPolicy, materials, inventory, partySwitchState);
     } catch (error) {
       execution = {
         status: 'failed',
@@ -152,7 +154,7 @@ async function main() {
       plan.execution = execution;
     }
     if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
-      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials);
+      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, partySwitchState);
       execution.routes = routeExecution.records;
       if (Object.keys(routeExecution.gains).length > 0) {
         execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
@@ -254,7 +256,7 @@ function loadTargets(scriptSettings, rulebook) {
   return JSON.parse(file.readTextSync(targetFile));
 }
 
-async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory) {
+async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory, partySwitchState) {
   const task = plan.todayQueue.find((item) => (
     item.status === 'supported' && isTaskExecutionEnabled(item, settings)
   ));
@@ -262,9 +264,9 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
     log.info('[执行] 今日没有已启用的树脂任务，本次不执行');
     return { status: 'skipped', reason: '今日没有已启用的树脂任务', rewards: {}, appliedGains: false };
   }
-  if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory);
-  if (task.executionType === 'boss') return executeBossTask(task, settings, inventory);
-  if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory);
+  if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory, partySwitchState);
+  if (task.executionType === 'boss') return executeBossTask(task, settings, inventory, partySwitchState);
+  if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory, partySwitchState);
   if (task.executionType !== 'domain') {
     return { status: 'skipped', reason: `暂不支持执行任务类型：${task.executionType}`, rewards: {}, appliedGains: false };
   }
@@ -275,9 +277,7 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
 
   log.info('[执行] 不合成树脂，直接按“浓缩树脂 → 原粹树脂”的优先级领取奖励');
 
-  log.info('[执行] 先传送七天神像恢复并离开特殊区域，再切换秘境队伍');
-  await genshin.TpToStatueOfTheSeven();
-  const switched = await genshin.SwitchParty(config.partyName);
+  const switched = await switchTaskParty(config.partyName, '秘境', partySwitchState);
   if (!switched) {
     throw new Error(`切换秘境队伍失败：${config.partyName}`);
   }
@@ -319,11 +319,10 @@ function isTaskExecutionEnabled(task, scriptSettings) {
   return true;
 }
 
-async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inventory) {
+async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inventory, partySwitchState) {
   const config = buildArtifactDomainExecutionConfig(task, scriptSettings, resinPolicy);
   log.info('[圣遗物] 准备刷取“{domain}”，仅作为当天无培养树脂任务时的填充', config.domainName);
-  await genshin.TpToStatueOfTheSeven();
-  const switched = await genshin.SwitchParty(config.partyName);
+  const switched = await switchTaskParty(config.partyName, '圣遗物秘境', partySwitchState);
   if (!switched) throw new Error(`切换圣遗物秘境队伍失败：${config.partyName}`);
   const param = new AutoDomainParam(0);
   param.DomainName = config.domainName;
@@ -347,12 +346,11 @@ async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inve
   };
 }
 
-async function executeWeeklyBossTask(task, scriptSettings, materials, inventory) {
+async function executeWeeklyBossTask(task, scriptSettings, materials, inventory, partySwitchState) {
   const config = buildWeeklyBossExecutionConfig(task, scriptSettings);
   log.info('[周本] 准备刷取“{domain}”，材料目标：{materials}', config.domainName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
-  await genshin.TpToStatueOfTheSeven();
-  const switched = await genshin.SwitchParty(config.partyName);
+  const switched = await switchTaskParty(config.partyName, '周本', partySwitchState);
   if (!switched) throw new Error(`切换周本队伍失败：${config.partyName}`);
   const param = new AutoDomainParam(0);
   param.DomainName = config.domainName;
@@ -376,12 +374,11 @@ async function executeWeeklyBossTask(task, scriptSettings, materials, inventory)
   };
 }
 
-async function executeBossTask(task, scriptSettings, inventory) {
+async function executeBossTask(task, scriptSettings, inventory, partySwitchState) {
   const config = buildBossExecutionConfig(task, scriptSettings);
   log.info('[Boss] 准备刷取“{boss}”，材料目标：{materials}', config.bossName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
-  await genshin.TpToStatueOfTheSeven();
-  const switched = await genshin.SwitchParty(config.partyName);
+  const switched = await switchTaskParty(config.partyName, 'Boss', partySwitchState);
   if (!switched) throw new Error(`切换 Boss 队伍失败：${config.partyName}`);
   const param = new AutoBossParam();
   param.BossName = config.bossName;
@@ -413,7 +410,7 @@ function getTrackedMaterialIds(task) {
   return task.materials?.map((item) => item.materialId) ?? [task.materialId];
 }
 
-async function executeMatchedRoutes(routes, scriptSettings, inventory, materials) {
+async function executeMatchedRoutes(routes, scriptSettings, inventory, materials, partySwitchState) {
   const routePlan = buildRouteExecutionPlan(routes, scriptSettings);
   let currentInventory = inventory;
   let currentParty = '';
@@ -421,7 +418,7 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
   const records = [];
   for (const route of routePlan) {
     if (currentParty !== route.partyName) {
-      const switched = await genshin.SwitchParty(route.partyName);
+      const switched = await switchTaskParty(route.partyName, route.type === 'localSpecialty' ? '采集' : '怪物材料', partySwitchState);
       if (!switched) throw new Error(`切换路线队伍失败：${route.partyName}`);
       currentParty = route.partyName;
       log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
@@ -445,6 +442,17 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
     if (gained > 0) gains[route.name] = (gains[route.name] ?? 0) + gained;
   }
   return { inventory: currentInventory, gains, records };
+}
+
+async function switchTaskParty(partyName, taskLabel, partySwitchState) {
+  return switchPartyWithRecovery({
+    partyName,
+    taskLabel,
+    state: partySwitchState,
+    switchParty: (name) => genshin.SwitchParty(name),
+    teleportToStatue: () => genshin.TpToStatueOfTheSeven(),
+    logger: log,
+  });
 }
 
 function normalizeRewardMap(rawRewards) {

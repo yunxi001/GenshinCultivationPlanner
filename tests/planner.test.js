@@ -19,6 +19,7 @@ import { buildRouteExecutionPlan } from '../core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
 import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
+import { switchPartyWithRecovery } from '../core/party-switch.js';
 
 const materials = {
   talentBook: {
@@ -507,6 +508,29 @@ test('运行摘要会明确显示实际执行失败原因', () => {
   });
   assert.match(summary, /执行失败：切换 Boss 队伍失败：四神队/);
   assert.doesNotMatch(summary, /已执行完成/);
+});
+
+test('首次切队先传送神像，后续失败时才传送并重试', async () => {
+  const calls = [];
+  const state = { initialized: false };
+  const logger = { info: () => calls.push('info'), warn: () => calls.push('warn') };
+  const result = await switchPartyWithRecovery({
+    partyName: '测试队', taskLabel: 'Boss', state, logger,
+    teleportToStatue: async () => calls.push('statue'),
+    switchParty: async () => { calls.push('switch'); return true; },
+  });
+  assert.equal(result, true);
+  assert.deepEqual(calls, ['info', 'statue', 'switch']);
+
+  const retryCalls = [];
+  let attempts = 0;
+  const retryResult = await switchPartyWithRecovery({
+    partyName: '测试队', taskLabel: 'Boss', state, logger: { info: () => {}, warn: () => retryCalls.push('warn') },
+    teleportToStatue: async () => retryCalls.push('statue'),
+    switchParty: async () => { attempts += 1; retryCalls.push('switch'); return attempts === 2; },
+  });
+  assert.equal(retryResult, true);
+  assert.deepEqual(retryCalls, ['switch', 'warn', 'statue', 'switch']);
 });
 
 test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {
