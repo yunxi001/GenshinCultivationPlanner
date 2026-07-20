@@ -32,10 +32,11 @@ export function buildInventoryScanGroups(materialIds, materials) {
  * BetterGI 批量任务会直接省略未找到的名称；本项目将其视为库存 0。
  * -2 表示已找到图标但数量 OCR 失败，此时保留未确认状态。
  */
-export function applyInventoryScanResult(inventory, scanItems, counts) {
+export function applyInventoryScanResult(inventory, scanItems, counts, options = {}) {
   const nextInventory = { ...inventory };
   const scanByName = new Map(scanItems.map((item) => [item.name, item]));
   const failedNames = [];
+  const decreasedNames = [];
 
   for (const [name, item] of scanByName) {
     const count = counts?.[name];
@@ -43,8 +44,16 @@ export function applyInventoryScanResult(inventory, scanItems, counts) {
       failedNames.push(name);
       continue;
     }
-    nextInventory[item.materialId] = count === undefined || count === -1 ? 0 : count;
+    const scannedCount = count === undefined || count === -1 ? 0 : count;
+    const previousCount = nextInventory[item.materialId];
+    if (options.preserveDecreases === true
+      && Number.isInteger(previousCount)
+      && scannedCount < previousCount) {
+      decreasedNames.push(name);
+      continue;
+    }
+    nextInventory[item.materialId] = scannedCount;
   }
 
-  return { inventory: nextInventory, failedNames };
+  return { inventory: nextInventory, failedNames, decreasedNames };
 }

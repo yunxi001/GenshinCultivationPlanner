@@ -258,6 +258,14 @@ test('背包读取按页分组，未返回按零计而 OCR 失败保留未确认
   const failed = applyInventoryScanResult({}, [{ materialId: '112001', name: '怪物材料' }], { 怪物材料: -2 });
   assert.equal(failed.inventory['112001'], undefined);
   assert.deepEqual(failed.failedNames, ['怪物材料']);
+  const preserved = applyInventoryScanResult(
+    { '104301': 21 },
+    [{ materialId: '104301', name: '天赋书' }],
+    {},
+    { preserveDecreases: true },
+  );
+  assert.equal(preserved.inventory['104301'], 21);
+  assert.deepEqual(preserved.decreasedNames, ['天赋书']);
 });
 
 test('自动发现：地方特产跨国别目录，怪物支持别名和嵌套作者目录', () => {

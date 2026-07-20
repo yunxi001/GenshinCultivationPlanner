@@ -131,7 +131,7 @@ async function main() {
       recipes,
     );
     if (execution.status === 'completed' && settings.scanInventory !== false && trackedMaterialIds.length > 0) {
-      inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '执行后');
+      inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '执行后', { preserveDecreases: true });
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
         inventory,
@@ -433,7 +433,13 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
       const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
       log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
       await pathingScript.runFile(routePath);
-      currentInventory = await scanInventoryItemIds(route.scanMaterialIds, currentInventory, materials, `路线“${route.name}”后`);
+      currentInventory = await scanInventoryItemIds(
+        route.scanMaterialIds,
+        currentInventory,
+        materials,
+        `路线“${route.name}”后`,
+        { preserveDecreases: true },
+      );
       const pathGains = {};
       for (const materialId of route.scanMaterialIds) {
         const beforeCount = before[materialId];
@@ -492,7 +498,7 @@ async function scanInventoryMaterials(plan, inventory, materials, phase) {
   return scanInventoryItemIds(plan.crafting.scanMaterialIds, inventory, materials, phase);
 }
 
-async function scanInventoryItemIds(materialIds, inventory, materials, phase) {
+async function scanInventoryItemIds(materialIds, inventory, materials, phase, options = {}) {
   const scanGroups = buildInventoryScanGroups(materialIds, materials);
   const scanCount = Object.values(scanGroups).reduce((total, items) => total + items.length, 0);
   let updatedInventory = inventory;
@@ -506,10 +512,14 @@ async function scanInventoryItemIds(materialIds, inventory, materials, phase) {
     try {
       log.info('[背包] {phase}读取“{tab}”页：{names}', phase, tabName, scanItems.map((item) => item.name).join('、'));
       const counts = await dispatcher.RunCountInventoryItemTask(param);
-      const applied = applyInventoryScanResult(updatedInventory, scanItems, counts);
+      const applied = applyInventoryScanResult(updatedInventory, scanItems, counts, options);
       updatedInventory = applied.inventory;
       if (applied.failedNames.length > 0) {
         log.warn('[背包] {phase}以下材料 OCR 失败，将不用于收益统计：{names}', phase, applied.failedNames.join('、'));
+      }
+      if (applied.decreasedNames.length > 0) {
+        log.warn('[背包] {phase}以下材料返回值低于执行前；本脚本不会消耗培养材料，已保留原库存：{names}',
+          phase, applied.decreasedNames.join('、'));
       }
     } catch (error) {
       log.error('[背包] {phase}读取“{tab}”页失败，相关材料将保留原值：{error}', phase, tabName, error.message ?? String(error));
