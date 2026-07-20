@@ -30,12 +30,24 @@ export function buildArtifactDomainExecutionConfig(task, settings, resinPolicy) 
   const partyName = settings.artifactTeamName?.trim();
   if (!partyName) throw new Error('未配置圣遗物秘境队伍名称，已拒绝执行');
   if (resinPolicy.priority.length === 0) throw new Error('未启用任何圣遗物秘境可用树脂类型，已拒绝执行');
+  const testSingleRun = settings.artifactTestSingleRun === true;
+  const effectiveResinPolicy = testSingleRun
+    ? {
+      ...resinPolicy,
+      priority: ['原粹树脂'],
+      originalResinUseCount: 1,
+      condensedResinUseCount: 0,
+      transientResinUseCount: 0,
+      fragileResinUseCount: 0,
+    }
+    : resinPolicy;
   return {
     domainName: task.domainName,
     partyName,
     strategyName: settings.artifactCombatStrategyName?.trim() || '',
-    resinPolicy,
+    resinPolicy: effectiveResinPolicy,
     autoArtifactSalvage: false,
     maxArtifactStar: '4',
+    testSingleRun,
   };
 }

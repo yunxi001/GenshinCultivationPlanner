@@ -92,6 +92,12 @@
     "default": ""
   },
   {
+    "name": "artifactTestSingleRun",
+    "type": "checkbox",
+    "label": "圣遗物单次测试：仅用于实机验证。开启时只使用一次原粹树脂领奖；关闭时按上方树脂规则持续刷取。",
+    "default": false
+  },
+  {
     "name": "gatheringTeamName",
     "type": "input-text",
     "label": "【暂未执行】采集队伍名称：为后续地方特产路线预留，当前无需填写。",

@@ -328,6 +328,23 @@ test('完成预估只使用已确认背包差值，并按开放日推算所需�
   assert.match(estimate.reason, /历史均值/);
 });
 
+test('完成预估支持世界 Boss 的已确认背包差值', () => {
+  const estimateMaterials = {
+    core: { name: '测试首领材料', status: 'supported', executionType: 'boss', bossName: '测试首领', openDays: [0, 1, 2, 3, 4, 5, 6] },
+  };
+  const estimate = buildCompletionEstimate({
+    plan: { displayShortages: [{ materialId: 'core', shortage: 5 }] },
+    materials: estimateMaterials,
+    today: 1,
+    history: [
+      { execution: { status: 'completed', appliedGains: true, task: { bossName: '测试首领' }, trackedRewards: { 测试首领材料: 3 } } },
+    ],
+  });
+  assert.equal(estimate.days, 1);
+  assert.equal(estimate.details[0].averagePerRun, 3);
+  assert.equal(estimate.details[0].estimatedRuns, 2);
+});
+
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
   const plan = createPlan({
     targets: [{ id: 'test', requirements: [{ materialId: 'high', count: 3 }] }],
@@ -567,6 +584,14 @@ test('圣遗物秘境仅在当天没有培养树脂任务时作为可选填充',
   const config = buildArtifactDomainExecutionConfig(plan.todayQueue[0], { artifactDomainEnabled: true, artifactTeamName: '圣遗物队伍' }, buildDomainResinPolicy({}));
   assert.equal(config.domainName, '芬德尼尔之顶');
   assert.equal(config.autoArtifactSalvage, false);
+  const singleRunConfig = buildArtifactDomainExecutionConfig(plan.todayQueue[0], {
+    artifactDomainEnabled: true,
+    artifactTeamName: '圣遗物队伍',
+    artifactTestSingleRun: true,
+  }, buildDomainResinPolicy({}));
+  assert.equal(singleRunConfig.testSingleRun, true);
+  assert.deepEqual(singleRunConfig.resinPolicy.priority, ['原粹树脂']);
+  assert.equal(singleRunConfig.resinPolicy.originalResinUseCount, 1);
 });
 
 test('秘境执行配置必须具备队伍、映射任务和允许树脂', () => {
