@@ -16,6 +16,7 @@ import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
 import { buildBossExecutionConfig } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 import { switchPartyWithRecovery } from './core/party-switch.js';
+import { collectCraftingMaterialIds } from './core/crafting.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -125,9 +126,12 @@ async function main() {
       log.error('[执行] 未开始或未完成秘境刷取：{error}', execution.reason);
     }
     plan.execution = execution;
-    const trackedMaterialIds = getTrackedMaterialIds(execution.task);
+    const trackedMaterialIds = collectCraftingMaterialIds(
+      new Map(getTrackedMaterialIds(execution.task).map((materialId) => [materialId, 1])),
+      recipes,
+    );
     if (execution.status === 'completed' && settings.scanInventory !== false && trackedMaterialIds.length > 0) {
-      inventory = await scanInventoryMaterials(plan, inventory, materials, '执行后');
+      inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '执行后');
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
         inventory,
@@ -154,7 +158,7 @@ async function main() {
       plan.execution = execution;
     }
     if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
-      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, partySwitchState);
+      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, recipes, partySwitchState);
       execution.routes = routeExecution.records;
       if (Object.keys(routeExecution.gains).length > 0) {
         execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
@@ -410,8 +414,8 @@ function getTrackedMaterialIds(task) {
   return task.materials?.map((item) => item.materialId) ?? [task.materialId];
 }
 
-async function executeMatchedRoutes(routes, scriptSettings, inventory, materials, partySwitchState) {
-  const routePlan = buildRouteExecutionPlan(routes, scriptSettings);
+async function executeMatchedRoutes(routes, scriptSettings, inventory, materials, recipes, partySwitchState) {
+  const routePlan = buildRouteExecutionPlan(routes, scriptSettings, recipes);
   let currentInventory = inventory;
   let currentParty = '';
   const gains = {};
@@ -423,23 +427,39 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
       currentParty = route.partyName;
       log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
     }
-    let gained = 0;
-    const routeRecord = { materialId: route.materialId, name: route.name, type: route.type, paths: [], gained: 0 };
+    const gainedById = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, 0]));
+    const routeRecord = { name: route.name, type: route.type, materials: [], paths: [], gained: {} };
     for (const routePath of route.paths) {
-      const before = currentInventory[route.materialId];
+      const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
       log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
       await pathingScript.runFile(routePath);
-      currentInventory = await scanInventoryItemIds([route.materialId], currentInventory, materials, `路线“${route.name}”后`);
-      const after = currentInventory[route.materialId];
-      const delta = Number.isInteger(before) && Number.isInteger(after) ? Math.max(0, after - before) : 0;
-      gained += delta;
-      routeRecord.paths.push({ path: routePath, gain: delta });
-      log.info('[路线执行] “{name}”路线完成，确认收益：{gain}；累计：{total}/{shortage}', route.name, delta, gained, route.shortage);
-      if (gained >= route.shortage) break;
+      currentInventory = await scanInventoryItemIds(route.scanMaterialIds, currentInventory, materials, `路线“${route.name}”后`);
+      const pathGains = {};
+      for (const materialId of route.scanMaterialIds) {
+        const beforeCount = before[materialId];
+        const afterCount = currentInventory[materialId];
+        const delta = Number.isInteger(beforeCount) && Number.isInteger(afterCount)
+          ? Math.max(0, afterCount - beforeCount)
+          : 0;
+        gainedById[materialId] += delta;
+        if (delta > 0) {
+          const materialName = materials[materialId]?.name ?? materialId;
+          pathGains[materialName] = delta;
+          gains[materialName] = (gains[materialName] ?? 0) + delta;
+        }
+      }
+      routeRecord.paths.push({ path: routePath, gains: pathGains });
+      log.info('[路线执行] “{name}”路线完成，材料链确认收益：{gains}', route.name,
+        Object.keys(pathGains).length > 0 ? JSON.stringify(pathGains) : '无');
     }
-    routeRecord.gained = gained;
+    routeRecord.materials = route.scanMaterialIds.map((materialId) => ({
+      materialId,
+      name: materials[materialId]?.name ?? materialId,
+      shortage: route.materials.find((item) => item.materialId === materialId)?.shortage ?? 0,
+      gained: gainedById[materialId],
+    }));
+    routeRecord.gained = Object.fromEntries(routeRecord.materials.map((item) => [item.name, item.gained]));
     records.push(routeRecord);
-    if (gained > 0) gains[route.name] = (gains[route.name] ?? 0) + gained;
   }
   return { inventory: currentInventory, gains, records };
 }

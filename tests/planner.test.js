@@ -477,6 +477,28 @@ test('路线执行默认关闭，开启后要求对应队伍与有效路径', ()
   assert.equal(plan[0].partyName, '采集队');
 });
 
+test('同一路线命中多个材料等级时只执行一次并读取完整合成链', () => {
+  const sharedPath = '敌人与魔物/蕈兽/作者/蕈兽.json';
+  const routes = {
+    matched: [
+      { materialId: '112059', name: '蕈兽孢子', type: 'monster', shortage: 2, paths: [sharedPath] },
+      { materialId: '112061', name: '孢囊晶尘', type: 'monster', shortage: 16, paths: [sharedPath] },
+    ],
+  };
+  const recipes = {
+    '112060': { resultCount: 1, inputs: [{ id: '112059', count: 3 }] },
+    '112061': { resultCount: 1, inputs: [{ id: '112060', count: 3 }] },
+  };
+  const plan = buildRouteExecutionPlan(routes, {
+    routeExecutionEnabled: true,
+    monsterTeamName: '怪物队',
+  }, recipes);
+  assert.equal(plan.length, 1);
+  assert.equal(plan[0].paths.length, 1);
+  assert.deepEqual(plan[0].materials.map((item) => item.materialId), ['112059', '112061']);
+  assert.deepEqual(new Set(plan[0].scanMaterialIds), new Set(['112059', '112060', '112061']));
+});
+
 test('周本执行只使用原粹树脂并支持复用 Boss 队伍', () => {
   const config = buildWeeklyBossExecutionConfig(
     { executionType: 'weeklyBoss', domainName: '深入风龙废墟', materialId: '113005', materialName: '东风的吐息', shortage: 2 },
