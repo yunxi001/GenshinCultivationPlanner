@@ -417,6 +417,12 @@ function getTrackedMaterialIds(task) {
 
 async function executeMatchedRoutes(routes, scriptSettings, inventory, materials, recipes, partySwitchState) {
   const routePlan = buildRouteExecutionPlan(routes, scriptSettings, recipes);
+  if (routePlan.length > 0) {
+    // 调度器原生 Pathing 项目会在执行前自动挂载拾取触发器；
+    // JS 调用 pathingScript 时需要显式补齐，否则路线能行走但不会可靠拾取材料。
+    dispatcher.AddTrigger(new RealtimeTimer('AutoPick'));
+    log.info('[路线执行] 已启用 BetterGI 原生自动拾取');
+  }
   let currentInventory = inventory;
   let currentParty = '';
   const gains = {};
