@@ -275,12 +275,12 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
 
   log.info('[执行] 不合成树脂，直接按“浓缩树脂 → 原粹树脂”的优先级领取奖励');
 
+  log.info('[执行] 先传送七天神像恢复并离开特殊区域，再切换秘境队伍');
+  await genshin.TpToStatueOfTheSeven();
   const switched = await genshin.SwitchParty(config.partyName);
   if (!switched) {
     throw new Error(`切换秘境队伍失败：${config.partyName}`);
   }
-  log.info('[执行] 已切换秘境队伍，传送七天神像恢复后再进入秘境');
-  await genshin.TpToStatueOfTheSeven();
 
   const param = new AutoDomainParam(0);
   param.DomainName = config.domainName;
@@ -322,9 +322,9 @@ function isTaskExecutionEnabled(task, scriptSettings) {
 async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inventory) {
   const config = buildArtifactDomainExecutionConfig(task, scriptSettings, resinPolicy);
   log.info('[圣遗物] 准备刷取“{domain}”，仅作为当天无培养树脂任务时的填充', config.domainName);
+  await genshin.TpToStatueOfTheSeven();
   const switched = await genshin.SwitchParty(config.partyName);
   if (!switched) throw new Error(`切换圣遗物秘境队伍失败：${config.partyName}`);
-  await genshin.TpToStatueOfTheSeven();
   const param = new AutoDomainParam(0);
   param.DomainName = config.domainName;
   param.PartyName = config.partyName;
@@ -351,9 +351,9 @@ async function executeWeeklyBossTask(task, scriptSettings, materials, inventory)
   const config = buildWeeklyBossExecutionConfig(task, scriptSettings);
   log.info('[周本] 准备刷取“{domain}”，材料目标：{materials}', config.domainName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
+  await genshin.TpToStatueOfTheSeven();
   const switched = await genshin.SwitchParty(config.partyName);
   if (!switched) throw new Error(`切换周本队伍失败：${config.partyName}`);
-  await genshin.TpToStatueOfTheSeven();
   const param = new AutoDomainParam(0);
   param.DomainName = config.domainName;
   param.PartyName = config.partyName;
@@ -380,9 +380,9 @@ async function executeBossTask(task, scriptSettings, inventory) {
   const config = buildBossExecutionConfig(task, scriptSettings);
   log.info('[Boss] 准备刷取“{boss}”，材料目标：{materials}', config.bossName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
+  await genshin.TpToStatueOfTheSeven();
   const switched = await genshin.SwitchParty(config.partyName);
   if (!switched) throw new Error(`切换 Boss 队伍失败：${config.partyName}`);
-  await genshin.TpToStatueOfTheSeven();
   const param = new AutoBossParam();
   param.BossName = config.bossName;
   param.TeamName = config.partyName;
