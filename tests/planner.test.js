@@ -485,6 +485,15 @@ test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
   assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
 });
 
+test('运行摘要显示世界 Boss 名称，不显示未定义的秘境名称', () => {
+  const summary = buildRunSummary({
+    todayQueue: [{ executionType: 'boss', bossName: '无相之雷', materials: [{ materialName: '雷光棱镜', shortage: 5 }] }],
+    displayShortages: [], weeklyStrategy: [],
+  }, {}, {});
+  assert.match(summary, /无相之雷：雷光棱镜×5/);
+  assert.doesNotMatch(summary, /undefined/);
+});
+
 test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {
   const warnings = collectExecutionWarnings({
     todayQueue: [

@@ -4,7 +4,7 @@
 export function buildRunSummary(plan, materials, { executionEnabled = false, estimateDays = null, estimateReason = '', execution = null } = {}) {
   const planned = plan.todayQueue
     .map((task) => task.materials?.length
-      ? `${task.domainName}：${task.materials.map((item) => `${item.materialName}×${item.shortage}`).join('/')}`
+      ? `${task.domainName ?? task.bossName ?? task.materialName}：${task.materials.map((item) => `${item.materialName}×${item.shortage}`).join('/')}`
       : task.executionType === 'artifactDomain'
         ? `${task.domainName}（圣遗物填充）`
         : `${materials[task.materialId]?.name ?? task.materialName ?? task.materialId}(${task.shortage})`)

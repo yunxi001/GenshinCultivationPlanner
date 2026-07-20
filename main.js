@@ -193,7 +193,7 @@ async function main() {
       : task.executionType === 'artifactDomain'
         ? `${task.domainName}（圣遗物填充）`
         : materials[task.materialId]?.name ?? task.materialName ?? task.materialId;
-    const domainName = task.domainName ?? materials[task.materialId]?.domainName;
+    const domainName = task.domainName ?? task.bossName ?? materials[task.materialId]?.domainName;
     log.info('[候选任务] {name} | 类型={type} | 目标={target} | 缺口={shortage} | 状态={status}',
       name, task.executionType, domainName ?? '未配置', task.shortage, task.status);
   }
