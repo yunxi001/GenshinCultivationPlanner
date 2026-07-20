@@ -11,12 +11,13 @@ import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
-import { buildRouteExecutionPlan } from './core/route-executor.js';
+import { areRouteTargetsSatisfied, buildRouteExecutionPlan, runSubscribedRouteFile } from './core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
 import { buildBossExecutionConfig } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 import { switchPartyWithRecovery } from './core/party-switch.js';
 import { collectCraftingMaterialIds } from './core/crafting.js';
+import { normalizeRewardMap } from './core/rewards.js';
 
 async function main() {
   const executionEnabled = isExecutionEnabled(settings.planOnly);
@@ -420,43 +421,60 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
   let currentParty = '';
   const gains = {};
   const records = [];
+  const confirmedTargetGains = {};
   for (const route of routePlan) {
-    if (currentParty !== route.partyName) {
-      const switched = await switchTaskParty(route.partyName, route.type === 'localSpecialty' ? '采集' : '怪物材料', partySwitchState);
-      if (!switched) throw new Error(`切换路线队伍失败：${route.partyName}`);
-      currentParty = route.partyName;
-      log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
+    if (areRouteTargetsSatisfied(route.materials, confirmedTargetGains)) {
+      log.info('[路线执行] “{name}”已达到本次缺口，跳过剩余路线', route.name);
+      continue;
     }
     const gainedById = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, 0]));
     const routeRecord = { name: route.name, type: route.type, materials: [], paths: [], gained: {} };
-    for (const routePath of route.paths) {
-      const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
-      log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
-      await pathingScript.runFile(routePath);
-      currentInventory = await scanInventoryItemIds(
-        route.scanMaterialIds,
-        currentInventory,
-        materials,
-        `路线“${route.name}”后`,
-        { preserveDecreases: true },
-      );
-      const pathGains = {};
-      for (const materialId of route.scanMaterialIds) {
-        const beforeCount = before[materialId];
-        const afterCount = currentInventory[materialId];
-        const delta = Number.isInteger(beforeCount) && Number.isInteger(afterCount)
-          ? Math.max(0, afterCount - beforeCount)
-          : 0;
-        gainedById[materialId] += delta;
-        if (delta > 0) {
-          const materialName = materials[materialId]?.name ?? materialId;
-          pathGains[materialName] = delta;
-          gains[materialName] = (gains[materialName] ?? 0) + delta;
-        }
+    try {
+      if (currentParty !== route.partyName) {
+        const switched = await switchTaskParty(route.partyName, route.type === 'localSpecialty' ? '采集' : '怪物材料', partySwitchState);
+        if (!switched) throw new Error(`切换路线队伍失败：${route.partyName}`);
+        currentParty = route.partyName;
+        log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
       }
-      routeRecord.paths.push({ path: routePath, gains: pathGains });
-      log.info('[路线执行] “{name}”路线完成，材料链确认收益：{gains}', route.name,
-        Object.keys(pathGains).length > 0 ? JSON.stringify(pathGains) : '无');
+      for (const routePath of route.paths) {
+        const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
+        log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
+        await runSubscribedRouteFile({
+          isFile: (path) => pathingScript.IsFile(path),
+          runFileFromUser: (path) => pathingScript.RunFileFromUser(path),
+        }, routePath);
+        currentInventory = await scanInventoryItemIds(
+          route.scanMaterialIds,
+          currentInventory,
+          materials,
+          `路线“${route.name}”后`,
+          { preserveDecreases: true },
+        );
+        const pathGains = {};
+        for (const materialId of route.scanMaterialIds) {
+          const beforeCount = before[materialId];
+          const afterCount = currentInventory[materialId];
+          const delta = Number.isInteger(beforeCount) && Number.isInteger(afterCount)
+            ? Math.max(0, afterCount - beforeCount)
+            : 0;
+          gainedById[materialId] += delta;
+          if (route.materials.some((item) => item.materialId === materialId)) {
+            confirmedTargetGains[materialId] = (confirmedTargetGains[materialId] ?? 0) + delta;
+          }
+          if (delta > 0) {
+            const materialName = materials[materialId]?.name ?? materialId;
+            pathGains[materialName] = delta;
+            gains[materialName] = (gains[materialName] ?? 0) + delta;
+          }
+        }
+        routeRecord.paths.push({ path: routePath, gains: pathGains });
+        log.info('[路线执行] “{name}”路线完成，材料链确认收益：{gains}', route.name,
+          Object.keys(pathGains).length > 0 ? JSON.stringify(pathGains) : '无');
+      }
+    } catch (error) {
+      routeRecord.status = 'failed';
+      routeRecord.reason = error.message ?? String(error);
+      log.error('[路线执行] “{name}”执行失败：{reason}', route.name, routeRecord.reason);
     }
     routeRecord.materials = route.scanMaterialIds.map((materialId) => ({
       materialId,
@@ -465,6 +483,14 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
       gained: gainedById[materialId],
     }));
     routeRecord.gained = Object.fromEntries(routeRecord.materials.map((item) => [item.name, item.gained]));
+    const confirmedGain = routeRecord.materials.some((item) => item.gained > 0);
+    if (routeRecord.status !== 'failed') {
+      routeRecord.status = confirmedGain ? 'completed' : 'unconfirmed';
+      routeRecord.reason = confirmedGain ? null : '路线接口未返回完成状态，且背包未确认到材料增长';
+    }
+    if (routeRecord.status === 'unconfirmed') {
+      log.warn('[路线执行] “{name}”未确认到材料增长，不能据此判定路线成功', route.name);
+    }
     records.push(routeRecord);
   }
   return { inventory: currentInventory, gains, records };
@@ -479,19 +505,6 @@ async function switchTaskParty(partyName, taskLabel, partySwitchState) {
     teleportToStatue: () => genshin.TpToStatueOfTheSeven(),
     logger: log,
   });
-}
-
-function normalizeRewardMap(rawRewards) {
-  if (!rawRewards) return {};
-  const entries = Object.entries(rawRewards);
-  if (entries.length > 0) return Object.fromEntries(entries);
-  // ClearScript 对 .NET Dictionary 的枚举方式随版本不同，此分支兼容 Keys 属性。
-  if (rawRewards.Keys) {
-    const result = {};
-    for (const key of rawRewards.Keys) result[String(key)] = Number(rawRewards[key]) || 0;
-    return result;
-  }
-  return {};
 }
 
 async function scanInventoryMaterials(plan, inventory, materials, phase) {

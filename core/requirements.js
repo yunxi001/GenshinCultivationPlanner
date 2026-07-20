@@ -3,7 +3,8 @@ const TALENT_LEVELS = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 /**
  * 将角色和武器目标展开为逐项材料需求。
- * 当前等级按“已完成该等级对应突破”解释；例如 70 → 90 仅计入 80 级突破。
+ * 当前等级按游戏中显示的等级解释；若正好位于突破等级，默认尚未完成该档突破。
+ * 例如 70 → 90 会计入 70、80 级突破，达到 90 本身不再需要额外突破。
  */
 export function expandTargets(targets, rulebook) {
   return targets.map((target) => {
@@ -40,7 +41,7 @@ function expandWeaponTarget(target, weapons) {
 
 function appendAscensionCosts(output, costs, currentLevel, targetLevel) {
   ASCENSION_LEVELS.forEach((level, index) => {
-    if (level > currentLevel && level <= targetLevel) output.push(...(costs[`ascend${index + 1}`] ?? []));
+    if (level >= currentLevel && level < targetLevel) output.push(...(costs[`ascend${index + 1}`] ?? []));
   });
 }
 

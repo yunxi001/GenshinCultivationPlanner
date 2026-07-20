@@ -15,11 +15,12 @@ import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
-import { buildRouteExecutionPlan } from '../core/route-executor.js';
+import { areRouteTargetsSatisfied, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
 import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
 import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
+import { normalizeRewardMap } from '../core/rewards.js';
 
 const materials = {
   talentBook: {
@@ -129,7 +130,7 @@ test('未确认库存不会被误判为零库存或可执行任务', () => {
   assert.equal(plan.manualItems[0].reason, '尚未确认背包库存');
 });
 
-test('角色与武器目标会按等级和天赋区间展开为材料需求', () => {
+test('角色与武器位于突破等级时会计入当前突破档', () => {
   const plan = createPlan({
     targets: [
       {
@@ -150,9 +151,9 @@ test('角色与武器目标会按等级和天赋区间展开为材料需求', ()
     today: 1,
   });
 
-  assert.equal(plan.requirements[1001], 20);
+  assert.equal(plan.requirements[1001], 32);
   assert.equal(plan.requirements[1002], 10);
-  assert.equal(plan.requirements[1003], 6);
+  assert.equal(plan.requirements[1003], 15);
 });
 
 test('设置页目标文本兼容中文英文标点并区分角色和武器', () => {
@@ -314,6 +315,31 @@ test('自动发现：地方特产跨国别目录，怪物支持别名和嵌套�
   assert.equal(result.matched[2].paths[0], '敌人与魔物/蕈兽/蕈兽@翎镞/蕈兽-地表集中点35只.json');
 });
 
+test('来源候选表缺项时仍按材料名称发现新版地方特产路线', () => {
+  const folders = new Set(['地方特产', '地方特产/须弥', '地方特产/须弥/月莲']);
+  const files = new Set(['地方特产/须弥/月莲/01-月莲.json']);
+  const children = {
+    '地方特产': ['地方特产/须弥'],
+    '地方特产/须弥': ['地方特产/须弥/月莲'],
+    '地方特产/须弥/月莲': ['地方特产/须弥/月莲/01-月莲.json'],
+  };
+  const result = discoverAutoPathingRoutes({
+    shortages: [{
+      materialId: '101215', shortage: 60,
+      material: { name: '月莲', status: 'manual', executionType: 'none' },
+    }],
+    sourceCandidates: {},
+    pathing: {
+      readPaths: (path) => children[path] ?? [],
+      isFolder: (path) => folders.has(path),
+      isFile: (path) => files.has(path),
+    },
+  });
+  assert.equal(result.matched.length, 1);
+  assert.equal(result.matched[0].name, '月莲');
+  assert.deepEqual(result.matched[0].paths, ['地方特产/须弥/月莲/01-月莲.json']);
+});
+
 test('运行摘要明确计划模式、候选任务和无历史数据时的预计完成状态', () => {
   const summary = buildRunSummary({
     todayQueue: [{ materialId: 'book', shortage: 12 }],
@@ -323,6 +349,29 @@ test('运行摘要明确计划模式、候选任务和无历史数据时的预�
   assert.match(summary, /测试天赋书\(12\)/);
   assert.match(summary, /等待累计实际掉落数据/);
   assert.match(summary, /<br><b>仍缺材料<\/b>/);
+});
+
+test('空的 BetterGI 奖励字典不会把元数据误认为奖励', () => {
+  assert.deepEqual(normalizeRewardMap({ Count: 0, Keys: [], Values: [], Comparer: {} }), {});
+  assert.deepEqual(normalizeRewardMap({ Count: 1, Keys: ['「诤言」的教导'], '「诤言」的教导': 3 }), {
+    '「诤言」的教导': 3,
+  });
+  assert.deepEqual(normalizeRewardMap({ 月莲: 5 }), { 月莲: 5 });
+});
+
+test('运行摘要会明确显示未确认增长的路线', () => {
+  const summary = buildRunSummary({
+    todayQueue: [], displayShortages: [], weeklyStrategy: [],
+  }, {}, {
+    executionEnabled: true,
+    execution: {
+      status: 'skipped',
+      reason: '今日没有树脂任务',
+      routes: [{ name: '月莲', status: 'unconfirmed', reason: '未确认增长', gained: {} }],
+    },
+  });
+  assert.match(summary, /部分路线未确认材料增长/);
+  assert.match(summary, /月莲：未确认增长/);
 });
 
 test('完成预估按最高难度培养秘境期望和开放日推算', () => {
@@ -505,6 +554,25 @@ test('同一路线命中多个材料等级时只执行一次并读取完整合�
   assert.equal(plan[0].paths.length, 1);
   assert.deepEqual(plan[0].materials.map((item) => item.materialId), ['112059', '112061']);
   assert.deepEqual(new Set(plan[0].scanMaterialIds), new Set(['112059', '112060', '112061']));
+});
+
+test('已订阅路线只通过 User AutoPathing 接口执行', async () => {
+  const calls = [];
+  await runSubscribedRouteFile({
+    isFile: (path) => path === '地方特产/月莲.json',
+    runFileFromUser: async (path) => calls.push(path),
+  }, '地方特产/月莲.json');
+  assert.deepEqual(calls, ['地方特产/月莲.json']);
+  await assert.rejects(() => runSubscribedRouteFile({
+    isFile: () => false,
+    runFileFromUser: async () => {},
+  }, '不存在.json'), /路线文件不存在/);
+});
+
+test('路线累计收益达到材料缺口后停止后续路径', () => {
+  const routeMaterials = [{ materialId: '101215', name: '月莲', shortage: 20 }];
+  assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 19 }), false);
+  assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 20 }), true);
 });
 
 test('周本执行只使用原粹树脂并支持复用 Boss 队伍', () => {

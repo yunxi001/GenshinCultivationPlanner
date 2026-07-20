@@ -47,3 +47,20 @@ export function buildRouteExecutionPlan(routes, settings, recipes = {}) {
     };
   });
 }
+
+/** 已订阅路线必须从 User/AutoPathing 根目录执行，不能按当前 JS 脚本目录解析。 */
+export async function runSubscribedRouteFile(pathing, routePath) {
+  if (!pathing?.isFile?.(routePath)) {
+    throw new Error(`已订阅路线文件不存在：${routePath}`);
+  }
+  if (typeof pathing.runFileFromUser !== 'function') {
+    throw new Error('当前 BetterGI 不支持从 User/AutoPathing 执行订阅路线');
+  }
+  await pathing.runFileFromUser(routePath);
+}
+
+export function areRouteTargetsSatisfied(materials, confirmedGains) {
+  return materials.length > 0 && materials.every((item) => (
+    (confirmedGains[item.materialId] ?? 0) >= item.shortage
+  ));
+}

@@ -21,19 +21,48 @@ export function buildRunSummary(plan, materials, { executionEnabled = false, est
     : [];
   const weekly = (plan.weeklyStrategy ?? []).map((item) => `${item.label}：${item.tasks
     .map((task) => task.domainName ?? task.materialName ?? task.materialId).join('、')}`);
+  const routeGroups = new Map();
+  for (const route of execution?.routes ?? []) {
+    if (!routeGroups.has(route.name)) routeGroups.set(route.name, { statuses: [], reasons: [], gained: {} });
+    const group = routeGroups.get(route.name);
+    group.statuses.push(route.status);
+    if (route.reason) group.reasons.push(route.reason);
+    for (const [name, count] of Object.entries(route.gained ?? {})) {
+      group.gained[name] = (group.gained[name] ?? 0) + count;
+    }
+  }
+  const routeResults = [...routeGroups.entries()].map(([name, route]) => {
+    if (route.statuses.includes('failed')) return `${name}：失败（${route.reasons[0] || '未知原因'}）`;
+    const routeGains = Object.entries(route.gained)
+      .filter(([, count]) => count > 0)
+      .map(([name, count]) => `${name}×${count}`)
+      .join('、');
+    if (!routeGains && route.statuses.includes('unconfirmed')) return `${name}：未确认增长`;
+    return `${name}：${routeGains || '已完成'}`;
+  });
+  const hasRouteFailure = (execution?.routes ?? []).some((route) => route.status === 'failed');
+  const hasUnconfirmedRoute = (execution?.routes ?? []).some((route) => route.status === 'unconfirmed');
+  const hasRouteExecution = (execution?.routes ?? []).length > 0;
   const action = !executionEnabled
     ? '仅生成计划，未刷取'
     : execution?.status === 'failed'
       ? `执行失败：${execution.reason || '未提供失败原因'}`
+      : hasRouteFailure
+        ? '部分执行失败：存在路线执行错误'
+        : hasUnconfirmedRoute
+          ? '已执行；部分路线未确认材料增长'
+          : execution?.status === 'skipped' && hasRouteExecution
+            ? '已执行路线任务'
       : execution?.status === 'skipped'
         ? `未执行：${execution.reason || '没有可执行任务'}`
-        : execution?.rewardRecognitionFailed
+        : execution?.rewardRecognitionFailed && execution?.appliedGains !== true
           ? '已执行；奖励/背包复核未确认'
           : '已执行完成';
   const sections = [
     '<b>养成材料调度摘要</b>',
     `<br><b>本次状态</b>：${action}`,
     `<br><br><b>本次刷取</b>${formatItems(gains, '本次无已确认收益')}`,
+    `<br><br><b>路线结果</b>${formatItems(routeResults, '本次无路线任务')}`,
     `<br><br><b>仍缺材料</b>${formatItems(missing, '无')}`,
     `<br><br><b>下一步候选</b>${formatItems(planned, '无')}`,
     `<br><br><b>本周循环策略</b>${formatItems(weekly, '本周无可执行树脂任务')}`,

@@ -7,7 +7,7 @@ export function discoverAutoPathingRoutes({ shortages, sourceCandidates = {}, pa
   const missing = [];
   for (const shortage of shortages) {
     if (!shortage.shortage || shortage.shortage <= 0) continue;
-    const candidate = sourceCandidates[shortage.materialId];
+    const candidate = sourceCandidates[shortage.materialId] ?? inferLocalSpecialtyCandidate(shortage);
     if (!candidate || !['localSpecialty', 'monster'].includes(candidate.type)) continue;
 
     const overridden = normalizeOverride(routeOverrides[shortage.materialId]);
@@ -24,6 +24,18 @@ export function discoverAutoPathingRoutes({ shortages, sourceCandidates = {}, pa
     else missing.push({ ...item, reason: '未在已订阅的 AutoPathing 路线中找到同名目录' });
   }
   return { matched, missing };
+}
+
+function inferLocalSpecialtyCandidate(shortage) {
+  const materialId = String(shortage.materialId);
+  const name = shortage.material?.name;
+  if (!/^(100|101)/.test(materialId) || !name) return null;
+  return {
+    materialId,
+    name,
+    type: 'localSpecialty',
+    routeNames: [name],
+  };
 }
 
 function findSubscribedPaths(candidate, pathing) {
