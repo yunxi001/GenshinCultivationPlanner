@@ -142,7 +142,7 @@
   {
     "name": "bossCombatStrategyName",
     "type": "input-text",
-    "label": "Boss 战斗策略名称（可留空）：填写 BetterGI 自动首领策略名称；留空时使用 BetterGI 当前默认策略。",
+    "label": "Boss 战斗策略名称（可留空）：填写 BetterGI 自动首领策略名称；留空时使用 BetterGI 全局“自动首领”配置中的策略。",
     "default": ""
   },
   {

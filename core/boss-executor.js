@@ -10,6 +10,7 @@ export function buildBossExecutionConfig(task, settings) {
   return {
     bossName: task.bossName,
     partyName,
+    // 留空时由 BetterGI 自动首领配置决定实际战斗策略。
     strategyName: settings.bossCombatStrategyName?.trim() || '',
     specifyRunCount: settings.bossTestSingleRun === true,
     runCount: settings.bossTestSingleRun === true ? 1 : UNLIMITED_RUN_COUNT,

@@ -484,11 +484,13 @@ test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
   assert.equal(config.partyName, 'Boss 队伍');
   assert.equal(config.runCount, 9999);
   assert.equal(config.specifyRunCount, false);
+  assert.equal(config.strategyName, '急冻树策略');
   const singleRunConfig = buildBossExecutionConfig({
     executionType: 'boss', bossName: '急冻树', materialId: '113010', materialName: '极寒之核', shortage: 4,
   }, { bossTeamName: 'Boss 队伍', bossTestSingleRun: true });
   assert.equal(singleRunConfig.specifyRunCount, true);
   assert.equal(singleRunConfig.runCount, 1);
+  assert.equal(singleRunConfig.strategyName, '');
   assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
 });
 
