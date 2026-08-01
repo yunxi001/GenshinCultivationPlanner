@@ -1,6 +1,6 @@
 import { createPlan } from './core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups } from './core/inventory.js';
-import { discoverAutoPathingRoutes } from './core/routes.js';
+import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from './core/routes.js';
 import { buildRunSummary } from './core/report.js';
 import { collectExecutionWarnings } from './core/preflight.js';
 import { buildDomainResinPolicy } from './core/resin.js';
@@ -85,6 +85,7 @@ async function main() {
       for (const item of plan.routes.missing) {
         log.warn('[路线] 未匹配 {type}“{name}”：{reason}', item.type, item.name, item.reason);
       }
+      applyMatchedRouteSupport(plan, plan.routes);
     } catch (error) {
       plan.routes = { matched: [], missing: [], error: error.message ?? String(error) };
       log.error('[路线] 自动检查已订阅路线失败：{error}', plan.routes.error);
@@ -156,6 +157,7 @@ async function main() {
       plan.domainResinPolicy = domainResinPolicy;
       plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
       plan.routes = discoveredRoutes;
+      applyMatchedRouteSupport(plan, discoveredRoutes);
       plan.execution = execution;
     }
     if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
@@ -181,6 +183,7 @@ async function main() {
         today,
       });
       plan.routes = discoveredRoutes;
+      applyMatchedRouteSupport(plan, discoveredRoutes);
       plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
       plan.domainResinPolicy = domainResinPolicy;
       plan.execution = execution;
@@ -248,11 +251,18 @@ async function main() {
     notification.Send(summary);
     log.info('[通知] 已请求 BetterGI 发送运行摘要；请在 BetterGI 通知设置中启用 JS 通知与邮件通知');
   }
+  const routeCount = plan.execution?.routes?.length ?? 0;
   const finalResult = !executionEnabled
     ? '本次未执行培养或刷取任务'
     : plan.execution?.status === 'failed'
       ? `本次执行失败：${plan.execution.reason}`
-      : '本次已执行至多一个已验证任务';
+      : plan.execution?.task && routeCount > 0
+        ? `本次已执行 1 个树脂任务和 ${routeCount} 组路线任务`
+        : plan.execution?.task
+          ? '本次已执行 1 个树脂任务'
+          : routeCount > 0
+            ? `本次已执行 ${routeCount} 组路线任务`
+            : `本次未执行：${plan.execution?.reason || '没有可执行任务'}`;
   log.info('[完成] 已保存计划记录：record/latest-plan.json；{result}', finalResult);
 }
 
@@ -286,7 +296,11 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
   log.info('[执行] 准备刷取秘境“{domain}”，材料目标：{materials}', config.domainName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
 
-  log.info('[执行] 不合成树脂，直接按“浓缩树脂 → 原粹树脂”的优先级领取奖励');
+  if (config.testSingleRun) {
+    log.info('[执行] 培养秘境单次测试已开启：仅使用一次原粹树脂领奖，不使用浓缩、须臾或脆弱树脂');
+  } else {
+    log.info('[执行] 不合成树脂，直接按“浓缩树脂 → 原粹树脂”的优先级领取奖励');
+  }
 
   const switched = await switchTaskParty(config.partyName, '秘境', partySwitchState);
   if (!switched) {

@@ -10,7 +10,8 @@ export function collectExecutionWarnings(plan, settings) {
   if (types.has('domain') && settings.domainUseOriginalResin === false
     && settings.domainUseCondensedResin !== true
     && settings.domainUseTransientResin !== true
-    && settings.domainUseFragileResin !== true) {
+    && settings.domainUseFragileResin !== true
+    && settings.domainTestSingleRun !== true) {
     warnings.push('今日有秘境候选任务，但所有允许使用的树脂类型均已关闭');
   }
   if (types.has('boss') && settings.bossExecutionEnabled === true && !settings.bossTeamName?.trim()) {

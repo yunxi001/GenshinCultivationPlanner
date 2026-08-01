@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createPlan } from '../core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups, getInventoryTab } from '../core/inventory.js';
-import { discoverAutoPathingRoutes } from '../core/routes.js';
+import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from '../core/routes.js';
 import { buildRunSummary } from '../core/report.js';
 import { collectExecutionWarnings } from '../core/preflight.js';
 import { buildDomainResinPolicy } from '../core/resin.js';
@@ -414,6 +414,21 @@ test('完成预估不为周本和圣遗物输出预计天数', () => {
   assert.match(weekly.reason, /周本/);
 });
 
+test('已匹配路线显示为自动路线来源，但预估未接入时不虚构预计天数', () => {
+  const estimate = buildCompletionEstimate({
+    plan: {
+      displayShortages: [{
+        materialId: 'route', shortage: 10,
+        material: { name: '测试特产', status: 'supported', executionType: 'route' },
+      }],
+    },
+    materials: { route: { name: '测试特产', status: 'manual', executionType: 'none' } },
+    today: 1,
+  });
+  assert.equal(estimate.days, null);
+  assert.match(estimate.reason, /路线材料完成时间预估尚未接入/);
+});
+
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
   const plan = createPlan({
     targets: [{ id: 'test', requirements: [{ materialId: 'high', count: 3 }] }],
@@ -473,6 +488,19 @@ test('秘境树脂策略默认先使用浓缩树脂，再使用原粹树脂', ()
   assert.equal(policy.originalResinUseCount, 9999);
   assert.equal(policy.condensedResinUseCount, 9999);
   assert.equal(policy.fragileResinUseCount, 0);
+});
+
+test('培养秘境单次测试不受正式树脂开关关闭影响', () => {
+  const warnings = collectExecutionWarnings({
+    todayQueue: [{ executionType: 'domain' }],
+    routes: { matched: [] },
+  }, {
+    domainTeamName: '秘境队',
+    domainTestSingleRun: true,
+    domainUseOriginalResin: false,
+    domainUseCondensedResin: false,
+  });
+  assert.equal(warnings.some((warning) => warning.includes('树脂类型均已关闭')), false);
 });
 
 test('执行收益以背包前后差值为准，不把未确认库存当作零', () => {
@@ -589,6 +617,22 @@ test('路线累计收益达到材料缺口后停止后续路径', () => {
   const routeMaterials = [{ materialId: '101215', name: '月莲', shortage: 20 }];
   assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 19 }), false);
   assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 20 }), true);
+});
+
+test('已匹配路线从人工待办升级为路线执行来源', () => {
+  const item = {
+    materialId: '101215', shortage: 20, status: 'manual', reason: '尚未配置已验证的执行适配',
+    material: { name: '月莲', status: 'manual', executionType: 'none' },
+  };
+  const plan = { shortages: [item], displayShortages: [item], manualItems: [item] };
+  applyMatchedRouteSupport(plan, {
+    matched: [{ materialId: '101215', type: 'localSpecialty', source: 'autoDiscovered' }],
+  });
+  assert.equal(plan.displayShortages[0].status, 'supported');
+  assert.equal(plan.displayShortages[0].material.executionType, 'route');
+  assert.equal(plan.displayShortages[0].material.routeType, 'localSpecialty');
+  assert.match(plan.displayShortages[0].reason, /已自动匹配/);
+  assert.deepEqual(plan.manualItems, []);
 });
 
 test('周本执行只使用原粹树脂并支持复用 Boss 队伍', () => {
@@ -749,12 +793,36 @@ test('秘境执行配置必须具备队伍、映射任务和允许树脂', () =>
     { executionType: 'domain', domainName: '太山府' }, {}, buildDomainResinPolicy({}),
   ), /未配置秘境队伍/);
   assert.throws(() => buildDomainExecutionConfig(
-    { executionType: 'domain', domainName: '太山府' },
-    { domainTeamName: '秘境队', weekday: '0' }, buildDomainResinPolicy({}),
+    { executionType: 'domain', domainName: '太山府', day: 0 },
+    { domainTeamName: '秘境队' }, buildDomainResinPolicy({}),
   ), /未配置正确的奖励序号/);
   const sundayConfig = buildDomainExecutionConfig(
     { executionType: 'domain', domainName: '太山府', sundaySelectedValue: '2' },
     { domainTeamName: '秘境队', weekday: '0' }, buildDomainResinPolicy({}),
   );
   assert.equal(sundayConfig.sundaySelectedValue, '2');
+});
+
+test('培养秘境单次测试只允许领取一次原粹树脂奖励', () => {
+  const config = buildDomainExecutionConfig(
+    { executionType: 'domain', domainName: '太山府', materials: [] },
+    { domainTeamName: '秘境队', domainTestSingleRun: true },
+    buildDomainResinPolicy({}),
+  );
+  assert.equal(config.testSingleRun, true);
+  assert.deepEqual(config.resinPolicy.priority, ['原粹树脂']);
+  assert.equal(config.resinPolicy.originalResinUseCount, 1);
+  assert.equal(config.resinPolicy.condensedResinUseCount, 0);
+  assert.equal(config.resinPolicy.transientResinUseCount, 0);
+  assert.equal(config.resinPolicy.fragileResinUseCount, 0);
+
+  const disabledPolicy = buildDomainResinPolicy({
+    domainUseOriginalResin: false,
+    domainUseCondensedResin: false,
+  });
+  assert.doesNotThrow(() => buildDomainExecutionConfig(
+    { executionType: 'domain', domainName: '太山府', materials: [] },
+    { domainTeamName: '秘境队', domainTestSingleRun: true },
+    disabledPolicy,
+  ));
 });

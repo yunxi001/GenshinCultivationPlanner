@@ -17,7 +17,8 @@ export function buildCompletionEstimate({ plan, materials, recipes = {}, today, 
 
   const groups = new Map();
   for (const shortage of shortages) {
-    const material = materials[shortage.materialId];
+    // 路线发现会为本次计划补充 executionType=route；优先使用计划内的动态来源信息。
+    const material = shortage.material ?? materials[shortage.materialId];
     const policy = resolvePolicy(shortage.materialId, material);
     if (!policy) return { days: null, reason: buildUnsupportedReason(material), details: [] };
     const baseMaterialId = getBaseMaterialId(shortage.materialId, recipes);
@@ -63,7 +64,7 @@ function resolvePolicy(materialId, material) {
 function buildUnsupportedReason(material) {
   if (material?.executionType === 'weeklyBoss') return '周本材料不显示预计天数';
   if (material?.executionType === 'artifactDomain') return '圣遗物秘境不显示预计天数';
-  if (material?.executionType === 'route') return '路线材料缺少已确认背包差值样本，暂不显示预计天数';
+  if (material?.executionType === 'route') return '路线材料完成时间预估尚未接入，暂不显示预计天数';
   return '含未自动执行材料，无法估算全部完成时间';
 }
 

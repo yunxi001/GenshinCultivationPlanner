@@ -26,6 +26,40 @@ export function discoverAutoPathingRoutes({ shortages, sourceCandidates = {}, pa
   return { matched, missing };
 }
 
+/**
+ * 已匹配的路线属于可自动执行来源，不应继续在计划和邮件中标记为“手动材料”。
+ * 路线不进入树脂周计划，只更新材料状态并从人工待办中移除。
+ */
+export function applyMatchedRouteSupport(plan, routes) {
+  const matchedById = new Map((routes?.matched ?? []).map((route) => [String(route.materialId), route]));
+  if (matchedById.size === 0) return plan;
+
+  const markItem = (item) => {
+    const route = matchedById.get(String(item.materialId));
+    if (!route || !(item.shortage > 0)) return item;
+    const reason = route.source === 'manualOverride'
+      ? '已匹配用户覆盖的订阅路线'
+      : '已自动匹配 BetterGI 订阅路线';
+    return {
+      ...item,
+      status: 'supported',
+      reason,
+      material: {
+        ...item.material,
+        status: 'supported',
+        executionType: 'route',
+        routeType: route.type,
+        reason,
+      },
+    };
+  };
+
+  plan.shortages = (plan.shortages ?? []).map(markItem);
+  plan.displayShortages = (plan.displayShortages ?? []).map(markItem);
+  plan.manualItems = (plan.manualItems ?? []).filter((item) => !matchedById.has(String(item.materialId)));
+  return plan;
+}
+
 function inferLocalSpecialtyCandidate(shortage) {
   const materialId = String(shortage.materialId);
   const name = shortage.material?.name;
