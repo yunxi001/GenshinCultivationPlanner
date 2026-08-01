@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createPlan } from '../core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups, getInventoryTab } from '../core/inventory.js';
 import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from '../core/routes.js';
@@ -21,6 +22,7 @@ import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { normalizeRewardMap } from '../core/rewards.js';
+import { normalizeScriptSettings } from '../core/settings.js';
 
 const materials = {
   talentBook: {
@@ -174,6 +176,68 @@ test('设置页目标文本会拒绝未知名称、重复项、倒退等级和�
   assert.throws(() => parseTargetText('测试角色:80>70', rulebook), /不能倒退/);
   assert.throws(() => parseTargetText('测试角色:70>90;测试角色:70>90', rulebook), /重复/);
   assert.throws(() => parseTargetText('测试武器:70>90,1/1/1>2/2/2', rulebook), /不能填写天赋/);
+});
+
+test('紧凑运行模式转换为现有执行器配置', () => {
+  const normalized = normalizeScriptSettings({
+    domainRunMode: '单次测试',
+    bossRunMode: '单次测试 Boss',
+    weeklyRunMode: '启用周本',
+    artifactRunMode: '正式｜月童的库藏',
+    resinStrategy: '仅原粹',
+  });
+  assert.equal(normalized.domainTestSingleRun, true);
+  assert.equal(normalized.bossExecutionEnabled, true);
+  assert.equal(normalized.bossTestSingleRun, true);
+  assert.equal(normalized.weeklyBossExecutionEnabled, true);
+  assert.equal(normalized.artifactDomainEnabled, true);
+  assert.equal(normalized.artifactTestSingleRun, false);
+  assert.equal(normalized.artifactDomainName, '月童的库藏');
+  assert.equal(normalized.domainUseCondensedResin, false);
+  assert.equal(normalized.domainUseOriginalResin, true);
+  assert.equal(normalized.domainUseTransientResin, false);
+  assert.equal(normalized.domainUseFragileResin, false);
+});
+
+test('紧凑设置不存在时保留旧配置兼容行为', () => {
+  const legacy = {
+    bossExecutionEnabled: true,
+    bossTestSingleRun: false,
+    artifactDomainEnabled: true,
+    artifactDomainName: '月童的库藏',
+  };
+  assert.deepEqual(normalizeScriptSettings(legacy), legacy);
+});
+
+test('高级战斗策略文本兼容中英文分隔符并拒绝错误输入', () => {
+  const normalized = normalizeScriptSettings({
+    combatStrategiesText: '秘境=秘境策略；Boss：首领策略\n周本=周本策略;圣遗物=圣遗物策略',
+  });
+  assert.equal(normalized.domainCombatStrategyName, '秘境策略');
+  assert.equal(normalized.bossCombatStrategyName, '首领策略');
+  assert.equal(normalized.weeklyBossCombatStrategyName, '周本策略');
+  assert.equal(normalized.artifactCombatStrategyName, '圣遗物策略');
+  assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '未知=策略' }), /未知的战斗策略类型/);
+  assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '秘境策略' }), /格式错误/);
+  assert.throws(() => normalizeScriptSettings({ bossRunMode: '随便刷' }), /未知的世界 Boss 模式/);
+});
+
+test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
+  const items = JSON.parse(readFileSync(new URL('../settings.json', import.meta.url), 'utf8'));
+  const editableItems = items.filter((item) => item.type !== 'separator');
+  const legacyNames = new Set([
+    'domainTestSingleRun', 'bossExecutionEnabled', 'bossTestSingleRun',
+    'weeklyBossExecutionEnabled', 'artifactDomainEnabled', 'artifactDomainName',
+    'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
+    'domainUseTransientResin', 'domainUseFragileResin',
+  ]);
+  assert.equal(editableItems.length, 17);
+  assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
+  for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
+    const values = Object.values(item.cascadeOptions).flat();
+    assert.equal(values.includes(item.default), true, `${item.name} 的默认值必须存在于二级选项中`);
+    assert.equal(new Set(values).size, values.length, `${item.name} 的二级选项不能重复`);
+  }
 });
 
 test('计划星期按服务器时间并以凌晨四点作为刷新边界', () => {

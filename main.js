@@ -18,25 +18,33 @@ import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '
 import { switchPartyWithRecovery } from './core/party-switch.js';
 import { collectCraftingMaterialIds } from './core/crafting.js';
 import { normalizeRewardMap } from './core/rewards.js';
+import { normalizeScriptSettings } from './core/settings.js';
 
 async function main() {
-  const executionEnabled = isExecutionEnabled(settings.planOnly);
-  log.info('[模式] 当前为{mode}；planOnly 原始值={value}', executionEnabled ? '实际执行模式' : '仅计划模式', String(settings.planOnly));
+  let scriptSettings;
+  try {
+    scriptSettings = normalizeScriptSettings(settings);
+  } catch (error) {
+    log.error('[配置] {message}', error?.message ?? String(error));
+    throw error;
+  }
+  const executionEnabled = isExecutionEnabled(scriptSettings.planOnly);
+  log.info('[模式] 当前为{mode}；planOnly 原始值={value}', executionEnabled ? '实际执行模式' : '仅计划模式', String(scriptSettings.planOnly));
 
   const materials = JSON.parse(file.readTextSync('data/materials.json'));
   const recipes = JSON.parse(file.readTextSync('data/crafting-recipes.json'));
   const rulebook = JSON.parse(file.readTextSync('data/rulebook.json'));
-  const targetData = loadTargets(settings, rulebook);
+  const targetData = loadTargets(scriptSettings, rulebook);
   const sourceCandidates = JSON.parse(file.readTextSync('data/source-candidates.json'));
   const routeOverrides = JSON.parse(file.readTextSync('data/route-overrides.json'));
   const today = resolvePlanningWeekday({
-    automatic: settings.useServerWeekday !== false,
-    manualWeekday: settings.weekday,
+    automatic: scriptSettings.useServerWeekday !== false,
+    manualWeekday: scriptSettings.weekday,
     nowMs: Date.now(),
     serverOffsetMs: ServerTime.GetServerTimeZoneOffset(),
   });
   log.info('[初始化] 目标数量：{count}；计划日：{day}（{source}）', (targetData.targets ?? []).length, today,
-    settings.useServerWeekday !== false ? '服务器时间 04:00 刷新规则' : '手动指定');
+    scriptSettings.useServerWeekday !== false ? '服务器时间 04:00 刷新规则' : '手动指定');
   for (const target of targetData.targets ?? []) {
     log.info('[目标] {kind}：{name}', target.kind, target.name);
   }
@@ -52,7 +60,7 @@ async function main() {
   });
 
   // 兼容 BetterGI 已保存的旧设置：字段不存在时也默认开启读取。
-  if (settings.scanInventory !== false) {
+  if (scriptSettings.scanInventory !== false) {
     inventory = await scanInventoryMaterials(plan, inventory, materials, '执行前');
 
     plan = createPlan({
@@ -67,7 +75,7 @@ async function main() {
     log.info('[背包] 已关闭自动读取，库存仅使用目标文件中的 inventory 字段');
   }
 
-  if (settings.discoverRoutes !== false) {
+  if (scriptSettings.discoverRoutes !== false) {
     try {
       plan.routes = discoverAutoPathingRoutes({
         shortages: plan.displayShortages,
@@ -94,13 +102,13 @@ async function main() {
     log.info('[路线] 已关闭已订阅路线检查');
   }
 
-  appendArtifactFallbackTask(plan, settings);
+  appendArtifactFallbackTask(plan, scriptSettings);
 
-  const executionWarnings = collectExecutionWarnings(plan, settings);
+  const executionWarnings = collectExecutionWarnings(plan, scriptSettings);
   for (const warning of executionWarnings) {
     log.warn('[执行前检查] {warning}', warning);
   }
-  const domainResinPolicy = buildDomainResinPolicy(settings);
+  const domainResinPolicy = buildDomainResinPolicy(scriptSettings);
   plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
   const discoveredRoutes = plan.routes;
   log.info('[树脂] 秘境策略：指定使用={specified}；BetterGI 实际顺序={priority}；原粹/浓缩/须臾/脆弱上限={original}/{condensed}/{transient}/{fragile}',
@@ -117,7 +125,7 @@ async function main() {
     let execution;
     const partySwitchState = { initialized: false };
     try {
-      execution = await executeFirstResinTask(plan, settings, domainResinPolicy, materials, inventory, partySwitchState);
+      execution = await executeFirstResinTask(plan, scriptSettings, domainResinPolicy, materials, inventory, partySwitchState);
     } catch (error) {
       execution = {
         status: 'failed',
@@ -132,7 +140,7 @@ async function main() {
       new Map(getTrackedMaterialIds(execution.task).map((materialId) => [materialId, 1])),
       recipes,
     );
-    if (execution.status === 'completed' && settings.scanInventory !== false && trackedMaterialIds.length > 0) {
+    if (execution.status === 'completed' && scriptSettings.scanInventory !== false && trackedMaterialIds.length > 0) {
       inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '执行后', { preserveDecreases: true });
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
@@ -160,9 +168,9 @@ async function main() {
       applyMatchedRouteSupport(plan, discoveredRoutes);
       plan.execution = execution;
     }
-    if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
+    if (execution.status !== 'failed' && scriptSettings.routeExecutionEnabled === true) {
       try {
-        const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, recipes, partySwitchState);
+        const routeExecution = await executeMatchedRoutes(discoveredRoutes, scriptSettings, inventory, materials, recipes, partySwitchState);
         execution.routes = routeExecution.records;
         if (Object.keys(routeExecution.gains).length > 0) {
           execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
@@ -224,7 +232,7 @@ async function main() {
   } catch {
     // 首次运行没有历史文件属于正常情况。
   }
-  const estimate = buildCompletionEstimate({ plan, history, materials, recipes, today, dailyResinBudget: settings.estimateDailyResin });
+  const estimate = buildCompletionEstimate({ plan, history, materials, recipes, today, dailyResinBudget: scriptSettings.estimateDailyResin });
   plan.estimate = estimate;
   log.info('[预估] {message}', Number.isFinite(estimate.days)
     ? `约 ${estimate.days} 天；${estimate.reason}`
@@ -241,7 +249,7 @@ async function main() {
   const updatedHistory = appendRunHistory(history, runRecord);
   await file.writeText('record/history.json', JSON.stringify(updatedHistory, null, 2), false);
   log.info('[记录] 已保存本次运行记录；历史保留 {count} 条', updatedHistory.length);
-  if (settings.sendRunSummary === true) {
+  if (scriptSettings.sendRunSummary === true) {
     const summary = buildRunSummary(plan, materials, {
       executionEnabled,
       execution: plan.execution,

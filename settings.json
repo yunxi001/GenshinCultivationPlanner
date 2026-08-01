@@ -2,7 +2,7 @@
   {
     "name": "basicSection",
     "type": "separator",
-    "label": "【基本设置】填写培养目标后，首次保持“仅生成计划”开启；核对背包、缺口、来源和路线无误后，再关闭计划模式。脚本不执行角色或武器升级，也不刷摩拉、经验书和元素突破玉。"
+    "label": "【使用说明】填写培养目标后，首次保持“仅生成计划”开启；核对背包、缺口、来源和路线无误后，再关闭计划模式。脚本负责计算和调度，不执行角色/武器升级，也不刷摩拉、经验书和元素突破玉。"
   },
   {
     "name": "targetsText",
@@ -13,130 +13,117 @@
   {
     "name": "planOnly",
     "type": "checkbox",
-    "label": "仅生成计划（安全开关，默认开启）：只读取背包、计算材料并发送摘要，绝不进入秘境、Boss 或路线；关闭后才允许实际执行。",
+    "label": "仅生成计划（安全开关，默认开启）：只读取背包、计算材料并发送摘要，不进入秘境、Boss 或路线；关闭后才允许实际执行。",
     "default": true
   },
   {
     "name": "sendRunSummary",
     "type": "checkbox",
-    "label": "发送运行摘要：通过 BetterGI 已配置的 JS 通知渠道发送本次收益、缺口、执行状态和每周策略。",
+    "label": "发送运行摘要：通过 BetterGI 已配置的 JS 通知渠道发送本次收益、剩余缺口、执行状态和每周策略。",
     "default": false
   },
   {
     "name": "domainSection",
     "type": "separator",
-    "label": "【培养材料秘境】只要当天存在已映射且开放的培养材料秘境，就会自动作为候选；计划模式不会执行。"
+    "label": "【培养材料秘境】自动选择当天开放且存在缺口的培养秘境。单次测试只使用 1 次原粹树脂；正式运行按下方树脂策略执行。"
+  },
+  {
+    "name": "domainRunMode",
+    "type": "cascade-select",
+    "label": "培养秘境运行模式",
+    "cascadeOptions": {
+      "正式使用": ["正式运行"],
+      "安全测试": ["单次测试"]
+    },
+    "default": "正式运行"
   },
   {
     "name": "domainTeamName",
     "type": "input-text",
-    "label": "秘境队伍名称（实际执行必填）：必须与游戏队伍名称完全一致；脚本会先传送神像，再切换队伍。",
-    "default": ""
-  },
-  {
-    "name": "domainTestSingleRun",
-    "type": "checkbox",
-    "label": "培养秘境单次测试（默认关闭）：开启后只使用 1 次原粹树脂领奖，不使用浓缩、须臾或脆弱树脂；正式使用时关闭。",
-    "default": false
-  },
-  {
-    "name": "domainCombatStrategyName",
-    "type": "input-text",
-    "label": "秘境战斗策略名称（通常留空）：留空时使用 BetterGI 默认/队伍策略。",
+    "label": "培养秘境队伍名称（实际执行必填）：必须与游戏队伍名称完全一致；脚本开始时会先传送神像，再切换队伍。",
     "default": ""
   },
   {
     "name": "routeSection",
     "type": "separator",
-    "label": "【地方特产与怪物路线】自动检查 BetterGI 已订阅路线；只有开启下面的执行开关后才实际运行。"
+    "label": "【地方特产与怪物路线】自动匹配 BetterGI 已订阅路线；开启后在树脂任务结束后执行，并按背包前后差值计数。"
   },
   {
     "name": "routeExecutionEnabled",
     "type": "checkbox",
-    "label": "执行已匹配路线（默认关闭）：在树脂任务结束后运行地方特产/怪物路线，并按背包前后差值计数。",
+    "label": "执行已匹配路线（默认关闭）：找不到路线或队伍连续切换失败时会跳过并明确提醒，不会无限重试。",
     "default": false
   },
   {
     "name": "gatheringTeamName",
     "type": "input-text",
-    "label": "采集队伍名称（开启路线执行后填写）：连续切换失败两次后跳过该队伍的剩余路线；特殊采集路线请配置所需角色。",
+    "label": "采集队伍名称（开启路线后填写）：必须与游戏队伍名称完全一致；特殊采集路线请配置所需角色。",
     "default": ""
   },
   {
     "name": "monsterTeamName",
     "type": "input-text",
-    "label": "怪物材料队伍名称（开启路线执行后填写）：连续切换失败两次后跳过该队伍的剩余路线；刷蕈兽孢子时避免火、雷改变掉落。",
+    "label": "怪物材料队伍名称（开启路线后填写）：必须与游戏队伍名称完全一致；刷蕈兽孢子时避免火、雷改变掉落。",
     "default": ""
   },
   {
     "name": "bossSection",
     "type": "separator",
-    "label": "【世界 Boss】机制特殊的首领必须先确认队伍和策略能稳定通关；默认不自动执行。"
+    "label": "【世界 Boss】部分首领机制特殊，正式启用前应先用“单次测试 Boss”确认专属队伍和战斗策略可以稳定通关。"
   },
   {
-    "name": "bossExecutionEnabled",
-    "type": "checkbox",
-    "label": "允许自动执行世界 Boss（默认关闭）。",
-    "default": false
+    "name": "bossRunMode",
+    "type": "cascade-select",
+    "label": "世界 Boss 运行模式",
+    "cascadeOptions": {
+      "关闭": ["关闭 Boss"],
+      "安全测试": ["单次测试 Boss"],
+      "正式使用": ["连续刷取 Boss"]
+    },
+    "default": "关闭 Boss"
   },
   {
     "name": "bossTeamName",
     "type": "input-text",
-    "label": "世界 Boss 队伍名称（开启 Boss 执行后必填）：必须与游戏队伍名称完全一致。",
-    "default": ""
-  },
-  {
-    "name": "bossTestSingleRun",
-    "type": "checkbox",
-    "label": "Boss 单次测试（默认关闭）：开启后只领取 1 次奖励；正式连续刷取时关闭。",
-    "default": false
-  },
-  {
-    "name": "bossCombatStrategyName",
-    "type": "input-text",
-    "label": "Boss 战斗策略名称（通常留空）：留空时使用 BetterGI 全局“自动首领”配置。",
+    "label": "世界 Boss 队伍名称（启用后必填）：必须与游戏队伍名称完全一致。",
     "default": ""
   },
   {
     "name": "weeklyBossSection",
     "type": "separator",
-    "label": "【周本】策略复杂度最高，当前建议保持关闭；仅在专属队伍和策略已验证后开启。"
+    "label": "【周本】策略复杂度最高，默认关闭；只有专属队伍和策略已经单独验证时才建议启用。"
   },
   {
-    "name": "weeklyBossExecutionEnabled",
-    "type": "checkbox",
-    "label": "允许自动执行周本（默认关闭）。",
-    "default": false
+    "name": "weeklyRunMode",
+    "type": "cascade-select",
+    "label": "周本运行模式",
+    "cascadeOptions": {
+      "关闭": ["关闭周本"],
+      "正式使用": ["启用周本"]
+    },
+    "default": "关闭周本"
   },
   {
     "name": "weeklyBossTeamName",
     "type": "input-text",
-    "label": "周本队伍名称（开启周本后填写）：留空时复用世界 Boss 队伍。",
-    "default": ""
-  },
-  {
-    "name": "weeklyBossCombatStrategyName",
-    "type": "input-text",
-    "label": "周本战斗策略名称（通常留空）：留空时复用 Boss 战斗策略或 BetterGI 默认策略。",
+    "label": "周本队伍名称（启用后填写）：留空时复用世界 Boss 队伍。",
     "default": ""
   },
   {
     "name": "artifactSection",
     "type": "separator",
-    "label": "【圣遗物秘境填充】仅在当天没有周本、世界 Boss 或培养材料秘境可执行时使用；默认关闭。"
+    "label": "【圣遗物秘境填充】仅在没有周本、世界 Boss 或当天培养材料秘境可执行时使用。一个菜单同时选择关闭/测试/正式模式和目标秘境。"
   },
   {
-    "name": "artifactDomainEnabled",
-    "type": "checkbox",
-    "label": "启用圣遗物秘境填充（默认关闭）。",
-    "default": false
-  },
-  {
-    "name": "artifactDomainName",
-    "type": "select",
-    "label": "圣遗物秘境（启用填充后选择）：仅列出 BetterGI 已内置的传送点。",
-    "options": ["", "铭记之谷", "仲夏庭园", "无妄引咎密宫", "孤云凌霄之处", "华池岩岫", "芬德尼尔之顶", "山脊守望", "椛染之庭", "沉眠之庭", "缘觉塔", "岩中幽谷", "赤金的城墟", "熔铁的孤塞", "罪祸的终末", "临瀑之城", "褪色的剧场", "虹灵的净土", "荒废砌造坞", "霜凝的机枢", "月童的库藏", "山风的荆冕"],
-    "default": ""
+    "name": "artifactRunMode",
+    "type": "cascade-select",
+    "label": "圣遗物填充模式与秘境",
+    "cascadeOptions": {
+      "关闭": ["关闭圣遗物填充"],
+      "单次测试": ["单次｜铭记之谷", "单次｜仲夏庭园", "单次｜无妄引咎密宫", "单次｜孤云凌霄之处", "单次｜华池岩岫", "单次｜芬德尼尔之顶", "单次｜山脊守望", "单次｜椛染之庭", "单次｜沉眠之庭", "单次｜缘觉塔", "单次｜岩中幽谷", "单次｜赤金的城墟", "单次｜熔铁的孤塞", "单次｜罪祸的终末", "单次｜临瀑之城", "单次｜褪色的剧场", "单次｜虹灵的净土", "单次｜荒废砌造坞", "单次｜霜凝的机枢", "单次｜月童的库藏", "单次｜山风的荆冕"],
+      "正式填充": ["正式｜铭记之谷", "正式｜仲夏庭园", "正式｜无妄引咎密宫", "正式｜孤云凌霄之处", "正式｜华池岩岫", "正式｜芬德尼尔之顶", "正式｜山脊守望", "正式｜椛染之庭", "正式｜沉眠之庭", "正式｜缘觉塔", "正式｜岩中幽谷", "正式｜赤金的城墟", "正式｜熔铁的孤塞", "正式｜罪祸的终末", "正式｜临瀑之城", "正式｜褪色的剧场", "正式｜虹灵的净土", "正式｜荒废砌造坞", "正式｜霜凝的机枢", "正式｜月童的库藏", "正式｜山风的荆冕"]
+    },
+    "default": "关闭圣遗物填充"
   },
   {
     "name": "artifactTeamName",
@@ -145,50 +132,30 @@
     "default": ""
   },
   {
-    "name": "artifactTestSingleRun",
-    "type": "checkbox",
-    "label": "圣遗物单次测试（默认关闭）：开启后只使用 1 次原粹树脂领奖。",
-    "default": false
-  },
-  {
-    "name": "artifactCombatStrategyName",
-    "type": "input-text",
-    "label": "圣遗物秘境战斗策略名称（通常留空）。",
-    "default": ""
-  },
-  {
     "name": "advancedSection",
     "type": "separator",
-    "label": "【树脂与预估】正式秘境默认消耗已有浓缩树脂，再消耗原粹树脂；脚本不会合成浓缩树脂。"
+    "label": "【高级设置】树脂策略决定正式秘境可使用的树脂类型；脚本不会合成浓缩树脂。战斗策略通常留空，沿用 BetterGI 默认配置即可。"
   },
   {
-    "name": "domainUseCondensedResin",
-    "type": "checkbox",
-    "label": "允许使用已有浓缩树脂（默认开启）。",
-    "default": true
-  },
-  {
-    "name": "domainUseOriginalResin",
-    "type": "checkbox",
-    "label": "允许使用原粹树脂（默认开启）。",
-    "default": true
-  },
-  {
-    "name": "domainUseTransientResin",
-    "type": "checkbox",
-    "label": "允许使用须臾树脂（默认关闭）：仅在明确愿意消耗时开启。",
-    "default": false
-  },
-  {
-    "name": "domainUseFragileResin",
-    "type": "checkbox",
-    "label": "允许使用脆弱树脂（默认关闭）：仅在明确愿意消耗时开启。",
-    "default": false
+    "name": "resinStrategy",
+    "type": "cascade-select",
+    "label": "正式运行树脂策略（按所列顺序使用）",
+    "cascadeOptions": {
+      "常规树脂": ["浓缩→原粹", "仅原粹", "仅浓缩"],
+      "包含消耗品": ["浓缩→原粹→须臾", "浓缩→原粹→须臾→脆弱"]
+    },
+    "default": "浓缩→原粹"
   },
   {
     "name": "estimateDailyResin",
     "type": "input-text",
-    "label": "预计每日可用树脂：默认 180，仅影响预计完成天数，不改变实际执行。",
+    "label": "预计每日可用树脂：默认 180，只影响培养材料秘境的预计完成天数，不改变实际执行。",
     "default": "180"
+  },
+  {
+    "name": "combatStrategiesText",
+    "type": "input-text",
+    "label": "专用战斗策略（可选）：留空使用 BetterGI 默认配置。格式：秘境=策略名；Boss=策略名；周本=策略名；圣遗物=策略名。支持中英文分号、冒号和等号；类型或格式写错会拒绝运行并给出中文提示。",
+    "default": ""
   }
 ]
