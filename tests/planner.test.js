@@ -556,6 +556,22 @@ test('同一路线命中多个材料等级时只执行一次并读取完整合�
   assert.deepEqual(new Set(plan[0].scanMaterialIds), new Set(['112059', '112060', '112061']));
 });
 
+test('同一材料的多条订阅路径保留为一个路线任务', () => {
+  const paths = [
+    '地方特产/月莲/01.json',
+    '地方特产/月莲/02.json',
+    '地方特产/月莲/03.json',
+  ];
+  const plan = buildRouteExecutionPlan({
+    matched: [{ materialId: '101215', name: '月莲', type: 'localSpecialty', shortage: 46, paths }],
+  }, {
+    routeExecutionEnabled: true,
+    gatheringTeamName: '采集队',
+  });
+  assert.equal(plan.length, 1);
+  assert.deepEqual(plan[0].paths, paths);
+});
+
 test('已订阅路线只通过 User AutoPathing 接口执行', async () => {
   const calls = [];
   await runSubscribedRouteFile({
@@ -661,6 +677,22 @@ test('首次切队先传送神像，后续失败时才传送并重试', async ()
   });
   assert.equal(retryResult, true);
   assert.deepEqual(retryCalls, ['switch', 'warn', 'statue', 'switch']);
+});
+
+test('同一错误队伍连续失败后，本次运行不再重复切换', async () => {
+  const calls = [];
+  const state = { initialized: true };
+  const options = {
+    partyName: '不存在的队伍', taskLabel: '采集', state,
+    logger: { info: () => {}, warn: () => calls.push('warn') },
+    teleportToStatue: async () => calls.push('statue'),
+    switchParty: async () => { calls.push('switch'); return false; },
+  };
+  assert.equal(await switchPartyWithRecovery(options), false);
+  assert.deepEqual(calls, ['switch', 'warn', 'statue', 'switch']);
+
+  assert.equal(await switchPartyWithRecovery(options), false);
+  assert.deepEqual(calls, ['switch', 'warn', 'statue', 'switch', 'warn']);
 });
 
 test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {

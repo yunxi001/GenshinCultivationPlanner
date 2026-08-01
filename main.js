@@ -159,13 +159,19 @@ async function main() {
       plan.execution = execution;
     }
     if (execution.status !== 'failed' && settings.routeExecutionEnabled === true) {
-      const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, recipes, partySwitchState);
-      execution.routes = routeExecution.records;
-      if (Object.keys(routeExecution.gains).length > 0) {
-        execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
-        execution.appliedGains = true;
+      try {
+        const routeExecution = await executeMatchedRoutes(discoveredRoutes, settings, inventory, materials, recipes, partySwitchState);
+        execution.routes = routeExecution.records;
+        if (Object.keys(routeExecution.gains).length > 0) {
+          execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
+          execution.appliedGains = true;
+        }
+        inventory = routeExecution.inventory;
+      } catch (error) {
+        const reason = error.message ?? String(error);
+        execution.routes = [{ name: '路线任务', type: 'route', status: 'failed', reason, paths: [], materials: [], gained: {} }];
+        log.error('[路线执行] 初始化或收尾失败，已停止路线并继续保存报告：{reason}', reason);
       }
-      inventory = routeExecution.inventory;
       plan = createPlan({
         targets: targetData.targets ?? [],
         inventory,
@@ -428,7 +434,14 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
   const gains = {};
   const records = [];
   const confirmedTargetGains = {};
+  const unavailablePartyReasons = new Map();
   for (const route of routePlan) {
+    if (unavailablePartyReasons.has(route.partyName)) {
+      const reason = unavailablePartyReasons.get(route.partyName);
+      log.warn('[路线执行] 跳过“{name}”：队伍“{party}”本次已确认不可用', route.name, route.partyName);
+      records.push(buildSkippedRouteRecord(route, materials, reason));
+      continue;
+    }
     if (areRouteTargetsSatisfied(route.materials, confirmedTargetGains)) {
       log.info('[路线执行] “{name}”已达到本次缺口，跳过剩余路线', route.name);
       continue;
@@ -438,11 +451,19 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
     try {
       if (currentParty !== route.partyName) {
         const switched = await switchTaskParty(route.partyName, route.type === 'localSpecialty' ? '采集' : '怪物材料', partySwitchState);
-        if (!switched) throw new Error(`切换路线队伍失败：${route.partyName}`);
+        if (!switched) {
+          const reason = `切换路线队伍失败：${route.partyName}`;
+          unavailablePartyReasons.set(route.partyName, reason);
+          throw new Error(reason);
+        }
         currentParty = route.partyName;
         log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
       }
       for (const routePath of route.paths) {
+        if (areRouteTargetsSatisfied(route.materials, confirmedTargetGains)) {
+          log.info('[路线执行] “{name}”已达到本次缺口，停止剩余路线', route.name);
+          break;
+        }
         const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
         log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
         await runSubscribedRouteFile({
@@ -500,6 +521,24 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
     records.push(routeRecord);
   }
   return { inventory: currentInventory, gains, records };
+}
+
+function buildSkippedRouteRecord(route, materials, reason) {
+  const routeMaterials = route.scanMaterialIds.map((materialId) => ({
+    materialId,
+    name: materials[materialId]?.name ?? materialId,
+    shortage: route.materials.find((item) => item.materialId === materialId)?.shortage ?? 0,
+    gained: 0,
+  }));
+  return {
+    name: route.name,
+    type: route.type,
+    status: 'failed',
+    reason,
+    paths: [],
+    materials: routeMaterials,
+    gained: Object.fromEntries(routeMaterials.map((item) => [item.name, 0])),
+  };
 }
 
 async function switchTaskParty(partyName, taskLabel, partySwitchState) {
