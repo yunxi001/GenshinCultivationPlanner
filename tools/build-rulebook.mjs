@@ -44,6 +44,8 @@ const sourceCandidates = buildSourceCandidates(materials);
 await fs.writeFile(materialsPath, `${JSON.stringify(materials, null, 2)}\n`, 'utf8');
 await fs.writeFile(recipesPath, `${JSON.stringify(recipes, null, 2)}\n`, 'utf8');
 await fs.writeFile(sourceCandidatesPath, `${JSON.stringify(sourceCandidates, null, 2)}\n`, 'utf8');
+// 规则库更新后同步角色/武器下拉列表，避免新增内容只能手动输入。
+await import('./update-target-selectors.mjs');
 console.log(`已生成规则库：${Object.keys(characters).length} 名角色，${Object.keys(weapons).length} 把武器，${Object.keys(materials).length} 项材料，${Object.keys(recipes).length} 条合成配方，${Object.keys(sourceCandidates).length} 项来源候选`);
 
 function buildCharacters() {

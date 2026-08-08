@@ -22,6 +22,15 @@ export function buildPlan(shortages, today) {
       continue;
     }
 
+    if (item.material?.executionType === 'weeklyBoss') {
+      manualItems.push({
+        ...item,
+        status: 'manual',
+        reason: '周本材料当前版本需手动获取',
+      });
+      continue;
+    }
+
     if (!item.shortage || item.shortage <= 0) {
       continue;
     }
@@ -63,12 +72,12 @@ export function buildWeeklyStrategy(weeklyPlan, today) {
 }
 
 /**
- * 周本与世界 Boss 只能消耗原粹树脂。只要当天仍有可执行任务，秘境不得先合成浓缩树脂。
+ * 世界 Boss 只能消耗原粹树脂。只要当天仍有可执行任务，秘境不得抢占执行顺序。
  */
 export function hasPendingOriginalResinTask(tasks) {
   return tasks.some((task) => (
     task.status === STATUS_SUPPORTED
-    && (task.executionType === 'weeklyBoss' || task.executionType === 'boss')
+    && task.executionType === 'boss'
   ));
 }
 
@@ -97,7 +106,7 @@ function mergeDomainTasks(tasks) {
   const grouped = new Map();
   for (const task of tasks) {
     const targetName = task.executionType === 'boss' ? task.bossName : task.domainName;
-    if (!['domain', 'weeklyBoss', 'boss'].includes(task.executionType) || !targetName) {
+    if (!['domain', 'boss'].includes(task.executionType) || !targetName) {
       grouped.set(`single:${task.materialId}`, task);
       continue;
     }
@@ -122,7 +131,6 @@ function mergeDomainTasks(tasks) {
 
 function compareTasks(left, right) {
   const typePriority = {
-    weeklyBoss: 4,
     boss: 3,
     domain: 2,
     artifactDomain: 1,

@@ -24,7 +24,8 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
       trackedRewards: execution.trackedRewards ?? {},
       routes: execution.routes ?? [],
       appliedGains: execution.appliedGains === true,
-      rewardRecognitionFailed: execution.rewardRecognitionFailed === true,
+      result: classifyExecutionResult(execution),
+      evidence: buildExecutionEvidence(execution),
     } : null,
     domainResinPolicy,
     inventoryBefore,
@@ -33,4 +34,21 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
       .filter((item) => item.shortage > 0)
       .map((item) => ({ materialId: item.materialId, shortage: item.shortage })),
   };
+}
+
+function buildExecutionEvidence(execution) {
+  const materialTrackingApplicable = execution.task != null && execution.task.executionType !== 'artifactDomain';
+  return {
+    inventoryChecked: execution.inventoryChecked === true,
+    inventoryGainConfirmed: execution.inventoryChecked === true && execution.appliedGains === true,
+    materialTrackingApplicable,
+  };
+}
+
+function classifyExecutionResult(execution) {
+  if (execution.status === 'failed') return 'failed';
+  if (execution.status === 'skipped') return 'skipped';
+  if (execution.task?.executionType === 'artifactDomain') return 'completed-untracked';
+  if (execution.inventoryChecked === true && execution.appliedGains === true) return 'completed-inventory-confirmed';
+  return 'completed-unconfirmed';
 }

@@ -11,25 +11,23 @@ import { appendRunHistory, buildRunRecord } from './core/history.js';
 import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
-import { areRouteTargetsSatisfied, buildRouteExecutionPlan, runSubscribedRouteFile } from './core/route-executor.js';
-import { buildWeeklyBossExecutionConfig } from './core/weekly-executor.js';
+import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from './core/route-executor.js';
 import { buildBossExecutionConfig } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 import { switchPartyWithRecovery } from './core/party-switch.js';
-import { collectCraftingMaterialIds } from './core/crafting.js';
-import { normalizeRewardMap } from './core/rewards.js';
-import { normalizeScriptSettings } from './core/settings.js';
+import { assertExecutionConfirmed, normalizeScriptSettings } from './core/settings.js';
 
 async function main() {
   let scriptSettings;
   try {
     scriptSettings = normalizeScriptSettings(settings);
+    assertExecutionConfirmed(scriptSettings);
   } catch (error) {
     log.error('[配置] {message}', error?.message ?? String(error));
     throw error;
   }
-  const executionEnabled = isExecutionEnabled(scriptSettings.planOnly);
-  log.info('[模式] 当前为{mode}；planOnly 原始值={value}', executionEnabled ? '实际执行模式' : '仅计划模式', String(scriptSettings.planOnly));
+  const executionEnabled = true;
+  log.info('[模式] 已确认配置，进入实际执行模式');
 
   const materials = JSON.parse(file.readTextSync('data/materials.json'));
   const recipes = JSON.parse(file.readTextSync('data/crafting-recipes.json'));
@@ -120,8 +118,9 @@ async function main() {
     domainResinPolicy.fragileResinUseCount);
   plan.domainResinPolicy = domainResinPolicy;
   const inventoryBeforeExecution = { ...inventory };
+  const trackedMaterialIds = [...plan.crafting.scanMaterialIds];
 
-  if (executionEnabled) {
+  {
     let execution;
     const partySwitchState = { initialized: false };
     try {
@@ -136,52 +135,50 @@ async function main() {
       log.error('[执行] 未开始或未完成秘境刷取：{error}', execution.reason);
     }
     plan.execution = execution;
-    const trackedMaterialIds = collectCraftingMaterialIds(
-      new Map(getTrackedMaterialIds(execution.task).map((materialId) => [materialId, 1])),
-      recipes,
-    );
-    if (execution.status === 'completed' && scriptSettings.scanInventory !== false && trackedMaterialIds.length > 0) {
-      inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '执行后', { preserveDecreases: true });
+    if (execution.status !== 'failed' && scriptSettings.routeExecutionEnabled === true) {
+      try {
+        const routeExecution = await executeMatchedRoutes(discoveredRoutes, scriptSettings, materials, recipes, partySwitchState);
+        execution.routes = routeExecution.records;
+      } catch (error) {
+        const reason = error.message ?? String(error);
+        execution.routes = [{ name: '路线任务', type: 'route', status: 'failed', reason, paths: [], materials: [], gained: {} }];
+        log.error('[路线执行] 初始化或收尾失败，已停止路线并继续保存报告：{reason}', reason);
+      }
+    }
+
+    const hasExecutionAttempt = execution.status !== 'skipped' || (execution.routes?.length ?? 0) > 0;
+    if (hasExecutionAttempt && scriptSettings.scanInventory !== false && trackedMaterialIds.length > 0) {
+      inventory = await scanInventoryItemIds(trackedMaterialIds, inventory, materials, '全部任务结束后', { preserveDecreases: true });
       execution.trackedRewards = buildTrackedInventoryGains(
         inventoryBeforeExecution,
         inventory,
         trackedMaterialIds,
         materials,
       );
+      execution.inventoryChecked = true;
       execution.appliedGains = Object.keys(execution.trackedRewards).length > 0;
-      if (execution.appliedGains) {
-        log.info('[执行] 已按背包前后差值确认目标材料收益：{rewards}', JSON.stringify(execution.trackedRewards));
-      } else {
-        log.warn('[执行] 执行后背包未确认到目标材料增长，可能是奖励识别或背包 OCR 失败');
-      }
-      plan = createPlan({
-        targets: targetData.targets ?? [],
-        inventory,
-        materials,
-        recipes,
-        rulebook,
-        today,
-      });
-      plan.domainResinPolicy = domainResinPolicy;
-      plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
-      plan.routes = discoveredRoutes;
-      applyMatchedRouteSupport(plan, discoveredRoutes);
-      plan.execution = execution;
-    }
-    if (execution.status !== 'failed' && scriptSettings.routeExecutionEnabled === true) {
-      try {
-        const routeExecution = await executeMatchedRoutes(discoveredRoutes, scriptSettings, inventory, materials, recipes, partySwitchState);
-        execution.routes = routeExecution.records;
-        if (Object.keys(routeExecution.gains).length > 0) {
-          execution.trackedRewards = { ...(execution.trackedRewards ?? {}), ...routeExecution.gains };
-          execution.appliedGains = true;
+      if (execution.routes?.length > 0) {
+        execution.routes = applyFinalRouteInventoryGains(
+          execution.routes,
+          inventoryBeforeExecution,
+          inventory,
+        );
+        for (const route of execution.routes.filter((item) => item.status === 'unconfirmed')) {
+          log.warn('[路线执行] “{name}”在全部任务结束后的背包复核中未确认到材料增长', route.name);
         }
-        inventory = routeExecution.inventory;
-      } catch (error) {
-        const reason = error.message ?? String(error);
-        execution.routes = [{ name: '路线任务', type: 'route', status: 'failed', reason, paths: [], materials: [], gained: {} }];
-        log.error('[路线执行] 初始化或收尾失败，已停止路线并继续保存报告：{reason}', reason);
       }
+      if (execution.appliedGains) {
+        log.info('[执行] 已按整次运行的背包前后差值确认目标材料收益：{rewards}', JSON.stringify(execution.trackedRewards));
+      } else if (execution.task?.executionType === 'artifactDomain' && !(execution.routes?.length > 0)) {
+        log.info('[执行] 圣遗物填充不按目标培养材料的背包差值统计收益');
+      } else if (execution.routes?.length > 0) {
+        log.warn('[执行] 全部任务结束后未确认到目标材料增长，可能是路线未获得材料或背包 OCR 失败');
+      } else {
+        log.warn('[执行] 树脂任务调用结束，但最终背包差值未确认到目标材料增长');
+      }
+    }
+
+    if (hasExecutionAttempt) {
       plan = createPlan({
         targets: targetData.targets ?? [],
         inventory,
@@ -255,6 +252,7 @@ async function main() {
       execution: plan.execution,
       estimateDays: estimate.days,
       estimateReason: estimate.reason,
+      estimateDetails: estimate.details,
     });
     notification.Send(summary);
     log.info('[通知] 已请求 BetterGI 发送运行摘要；请在 BetterGI 通知设置中启用 JS 通知与邮件通知');
@@ -265,9 +263,9 @@ async function main() {
     : plan.execution?.status === 'failed'
       ? `本次执行失败：${plan.execution.reason}`
       : plan.execution?.task && routeCount > 0
-        ? `本次已执行 1 个树脂任务和 ${routeCount} 组路线任务`
+        ? `本次已调用 1 个树脂任务并执行 ${routeCount} 组路线任务`
         : plan.execution?.task
-          ? '本次已执行 1 个树脂任务'
+          ? '本次已调用 1 个树脂任务；实际领奖结果以执行证据为准'
           : routeCount > 0
             ? `本次已执行 ${routeCount} 组路线任务`
             : `本次未执行：${plan.execution?.reason || '没有可执行任务'}`;
@@ -293,7 +291,6 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
     log.info('[执行] 今日没有已启用的树脂任务，本次不执行');
     return { status: 'skipped', reason: '今日没有已启用的树脂任务', rewards: {}, appliedGains: false };
   }
-  if (task.executionType === 'weeklyBoss') return executeWeeklyBossTask(task, settings, materials, inventory, partySwitchState);
   if (task.executionType === 'boss') return executeBossTask(task, settings, inventory, partySwitchState);
   if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory, partySwitchState);
   if (task.executionType !== 'domain') {
@@ -307,7 +304,7 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
   if (config.testSingleRun) {
     log.info('[执行] 培养秘境单次测试已开启：仅使用一次原粹树脂领奖，不使用浓缩、须臾或脆弱树脂');
   } else {
-    log.info('[执行] 不合成树脂，直接按“浓缩树脂 → 原粹树脂”的优先级领取奖励');
+    log.info('[执行] 不合成树脂，按已配置顺序领取奖励：{priority}', config.resinPolicy.priority.join(' → '));
   }
 
   const switched = await switchTaskParty(config.partyName, '秘境', partySwitchState);
@@ -325,29 +322,22 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
   param.CondensedResinUseCount = config.resinPolicy.condensedResinUseCount;
   param.TransientResinUseCount = config.resinPolicy.transientResinUseCount;
   param.FragileResinUseCount = config.resinPolicy.fragileResinUseCount;
-  param.RewardRecognitionEnabled = true;
+  param.RewardRecognitionEnabled = false;
 
-  const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
-  const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
-  const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
-  if (Object.keys(rewards).length === 0) {
-    log.warn('[执行] BetterGI 未识别到奖励；本次已刷取但无法统计实际掉落，将在摘要中明确标记');
-  }
-  log.info('[执行] 秘境“{domain}”完成，识别到目标材料奖励：{rewards}', config.domainName, JSON.stringify(trackedRewards));
+  await dispatcher.RunAutoDomainTask(param);
+  log.info('[执行] 秘境“{domain}”任务调用结束；收益将在全部任务结束后统一读取背包确认', config.domainName);
   return {
     status: 'completed',
     task,
-    rewards,
-    trackedRewards,
-    rewardRecognitionFailed: Object.keys(rewards).length === 0,
-    appliedGains: Object.keys(rewards).length > 0,
+    rewards: {},
+    trackedRewards: {},
+    appliedGains: false,
     inventoryBefore: inventory,
   };
 }
 
-/** 周本和 Boss 机制、队伍需求差异大，必须由用户显式开启后才允许自动执行。 */
+/** 世界 Boss 机制与队伍需求差异大，必须由用户显式开启后才允许自动执行。 */
 function isTaskExecutionEnabled(task, scriptSettings) {
-  if (task.executionType === 'weeklyBoss') return scriptSettings.weeklyBossExecutionEnabled === true;
   if (task.executionType === 'boss') return scriptSettings.bossExecutionEnabled === true;
   return true;
 }
@@ -368,41 +358,12 @@ async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inve
   param.FragileResinUseCount = config.resinPolicy.fragileResinUseCount;
   param.AutoArtifactSalvage = config.autoArtifactSalvage;
   param.MaxArtifactStar = config.maxArtifactStar;
-  param.RewardRecognitionEnabled = true;
-  const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
-  if (Object.keys(rewards).length === 0) log.warn('[圣遗物] BetterGI 未识别到奖励名称；本次不按背包材料差值计数');
+  param.RewardRecognitionEnabled = false;
+  await dispatcher.RunAutoDomainTask(param);
+  log.info('[圣遗物] 任务调用结束；圣遗物收益不纳入培养材料计数');
   return {
-    status: 'completed', task, rewards, trackedRewards: {},
-    rewardRecognitionFailed: Object.keys(rewards).length === 0,
+    status: 'completed', task, rewards: {}, trackedRewards: {},
     appliedGains: false,
-    inventoryBefore: inventory,
-  };
-}
-
-async function executeWeeklyBossTask(task, scriptSettings, materials, inventory, partySwitchState) {
-  const config = buildWeeklyBossExecutionConfig(task, scriptSettings);
-  log.info('[周本] 准备刷取“{domain}”，材料目标：{materials}', config.domainName,
-    config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
-  const switched = await switchTaskParty(config.partyName, '周本', partySwitchState);
-  if (!switched) throw new Error(`切换周本队伍失败：${config.partyName}`);
-  const param = new AutoDomainParam(0);
-  param.DomainName = config.domainName;
-  param.PartyName = config.partyName;
-  if (config.strategyName) param.CombatStrategyPath = param.SetCombatStrategyPath(config.strategyName);
-  param.SpecifyResinUse = true;
-  param.SetResinPriorityList('原粹树脂');
-  param.OriginalResinUseCount = config.originalResinUseCount;
-  param.CondensedResinUseCount = 0;
-  param.TransientResinUseCount = 0;
-  param.FragileResinUseCount = 0;
-  param.RewardRecognitionEnabled = true;
-  const rewards = normalizeRewardMap(await dispatcher.RunAutoDomainTask(param));
-  const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
-  const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
-  return {
-    status: 'completed', task, rewards, trackedRewards,
-    rewardRecognitionFailed: Object.keys(rewards).length === 0,
-    appliedGains: Object.keys(trackedRewards).length > 0,
     inventoryBefore: inventory,
   };
 }
@@ -423,27 +384,17 @@ async function executeBossTask(task, scriptSettings, inventory, partySwitchState
   param.UseFragileResin = false;
   param.ReviveRetryCount = config.reviveRetryCount;
   param.ReturnToStatueAfterEachRound = false;
-  param.RewardRecognitionEnabled = true;
-  const rewards = normalizeRewardMap(await dispatcher.RunAutoBossTask(param));
-  const trackedNames = new Set(config.trackedMaterials.map((item) => item.materialName));
-  const trackedRewards = Object.fromEntries(Object.entries(rewards).filter(([name]) => trackedNames.has(name)));
-  if (Object.keys(rewards).length === 0) {
-    log.warn('[Boss] BetterGI 未识别到奖励；将以执行后背包差值作为最终统计依据');
-  }
+  param.RewardRecognitionEnabled = false;
+  await dispatcher.RunAutoBossTask(param);
+  log.info('[Boss] 任务调用结束；收益将在全部任务结束后统一读取背包确认');
   return {
-    status: 'completed', task, rewards, trackedRewards,
-    rewardRecognitionFailed: Object.keys(rewards).length === 0,
-    appliedGains: Object.keys(trackedRewards).length > 0,
+    status: 'completed', task, rewards: {}, trackedRewards: {},
+    appliedGains: false,
     inventoryBefore: inventory,
   };
 }
 
-function getTrackedMaterialIds(task) {
-  if (!task) return [];
-  return task.materials?.map((item) => item.materialId) ?? [task.materialId];
-}
-
-async function executeMatchedRoutes(routes, scriptSettings, inventory, materials, recipes, partySwitchState) {
+async function executeMatchedRoutes(routes, scriptSettings, materials, recipes, partySwitchState) {
   const routePlan = buildRouteExecutionPlan(routes, scriptSettings, recipes);
   if (routePlan.length > 0) {
     // 调度器原生 Pathing 项目会在执行前自动挂载拾取触发器；
@@ -451,11 +402,8 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
     dispatcher.AddTrigger(new RealtimeTimer('AutoPick'));
     log.info('[路线执行] 已启用 BetterGI 原生自动拾取');
   }
-  let currentInventory = inventory;
   let currentParty = '';
-  const gains = {};
   const records = [];
-  const confirmedTargetGains = {};
   const unavailablePartyReasons = new Map();
   for (const route of routePlan) {
     if (unavailablePartyReasons.has(route.partyName)) {
@@ -464,11 +412,6 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
       records.push(buildSkippedRouteRecord(route, materials, reason));
       continue;
     }
-    if (areRouteTargetsSatisfied(route.materials, confirmedTargetGains)) {
-      log.info('[路线执行] “{name}”已达到本次缺口，跳过剩余路线', route.name);
-      continue;
-    }
-    const gainedById = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, 0]));
     const routeRecord = { name: route.name, type: route.type, materials: [], paths: [], gained: {} };
     try {
       if (currentParty !== route.partyName) {
@@ -482,43 +425,13 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
         log.info('[路线执行] 已切换{type}队伍：{party}', route.type === 'localSpecialty' ? '采集' : '怪物材料', currentParty);
       }
       for (const routePath of route.paths) {
-        if (areRouteTargetsSatisfied(route.materials, confirmedTargetGains)) {
-          log.info('[路线执行] “{name}”已达到本次缺口，停止剩余路线', route.name);
-          break;
-        }
-        const before = Object.fromEntries(route.scanMaterialIds.map((materialId) => [materialId, currentInventory[materialId]]));
         log.info('[路线执行] 开始“{name}”：{path}', route.name, routePath);
         await runSubscribedRouteFile({
           isFile: (path) => pathingScript.IsFile(path),
           runFileFromUser: (path) => pathingScript.RunFileFromUser(path),
         }, routePath);
-        currentInventory = await scanInventoryItemIds(
-          route.scanMaterialIds,
-          currentInventory,
-          materials,
-          `路线“${route.name}”后`,
-          { preserveDecreases: true },
-        );
-        const pathGains = {};
-        for (const materialId of route.scanMaterialIds) {
-          const beforeCount = before[materialId];
-          const afterCount = currentInventory[materialId];
-          const delta = Number.isInteger(beforeCount) && Number.isInteger(afterCount)
-            ? Math.max(0, afterCount - beforeCount)
-            : 0;
-          gainedById[materialId] += delta;
-          if (route.materials.some((item) => item.materialId === materialId)) {
-            confirmedTargetGains[materialId] = (confirmedTargetGains[materialId] ?? 0) + delta;
-          }
-          if (delta > 0) {
-            const materialName = materials[materialId]?.name ?? materialId;
-            pathGains[materialName] = delta;
-            gains[materialName] = (gains[materialName] ?? 0) + delta;
-          }
-        }
-        routeRecord.paths.push({ path: routePath, gains: pathGains });
-        log.info('[路线执行] “{name}”路线完成，材料链确认收益：{gains}', route.name,
-          Object.keys(pathGains).length > 0 ? JSON.stringify(pathGains) : '无');
+        routeRecord.paths.push({ path: routePath });
+        log.info('[路线执行] “{name}”路线文件执行完成；收益将在全部任务结束后统一复核', route.name);
       }
     } catch (error) {
       routeRecord.status = 'failed';
@@ -529,20 +442,16 @@ async function executeMatchedRoutes(routes, scriptSettings, inventory, materials
       materialId,
       name: materials[materialId]?.name ?? materialId,
       shortage: route.materials.find((item) => item.materialId === materialId)?.shortage ?? 0,
-      gained: gainedById[materialId],
+      gained: 0,
     }));
     routeRecord.gained = Object.fromEntries(routeRecord.materials.map((item) => [item.name, item.gained]));
-    const confirmedGain = routeRecord.materials.some((item) => item.gained > 0);
     if (routeRecord.status !== 'failed') {
-      routeRecord.status = confirmedGain ? 'completed' : 'unconfirmed';
-      routeRecord.reason = confirmedGain ? null : '路线接口未返回完成状态，且背包未确认到材料增长';
-    }
-    if (routeRecord.status === 'unconfirmed') {
-      log.warn('[路线执行] “{name}”未确认到材料增长，不能据此判定路线成功', route.name);
+      routeRecord.status = 'pendingInventoryCheck';
+      routeRecord.reason = '等待全部任务结束后的统一背包复核';
     }
     records.push(routeRecord);
   }
-  return { inventory: currentInventory, gains, records };
+  return { records };
 }
 
 function buildSkippedRouteRecord(route, materials, reason) {
@@ -606,11 +515,6 @@ async function scanInventoryItemIds(materialIds, inventory, materials, phase, op
     }
   }
   return updatedInventory;
-}
-
-function isExecutionEnabled(planOnlyValue) {
-  // BetterGI 不同版本可能把 checkbox 值传为布尔、数字或字符串。
-  return planOnlyValue === false || planOnlyValue === 0 || planOnlyValue === 'false' || planOnlyValue === '0';
 }
 
 await main();

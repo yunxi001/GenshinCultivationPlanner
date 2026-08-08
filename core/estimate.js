@@ -82,6 +82,7 @@ function buildDetail(group, dailyResinBudget, today) {
     estimatedClaims,
     estimatedResin: estimatedClaims * group.resinPerClaim,
     claimsPerOpenDay,
+    requiredOpenDays,
     estimatedDays: daysUntilRuns(group.openDays, today, requiredOpenDays),
   };
 }

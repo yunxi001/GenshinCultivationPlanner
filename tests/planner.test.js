@@ -16,13 +16,11 @@ import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
-import { areRouteTargetsSatisfied, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
-import { buildWeeklyBossExecutionConfig } from '../core/weekly-executor.js';
+import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
 import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
-import { normalizeRewardMap } from '../core/rewards.js';
-import { normalizeScriptSettings } from '../core/settings.js';
+import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
 
 const materials = {
   talentBook: {
@@ -178,18 +176,75 @@ test('设置页目标文本会拒绝未知名称、重复项、倒退等级和�
   assert.throws(() => parseTargetText('测试武器:70>90,1/1/1>2/2/2', rulebook), /不能填写天赋/);
 });
 
+test('角色和武器下拉选择会组合三个独立天赋区间，并兼容旧目标文本', () => {
+  const selected = normalizeScriptSettings({
+    selectedCharacter: '测试角色',
+    characterLevelRange: '70>90',
+    characterNormalAttackRange: '2>9',
+    characterElementalSkillRange: '6>10',
+    characterElementalBurstRange: '8>10',
+    selectedWeapon: '测试武器',
+    weaponLevelRange: '70>90',
+  });
+  assert.equal(selected.targetsText, '测试角色:70>90,2/6/8>9/10/10；测试武器:70>90');
+  assert.equal(normalizeScriptSettings({ targetsText: '测试角色:70>90' }).targetsText, '测试角色:70>90');
+  assert.equal(normalizeScriptSettings({
+    selectedCharacter: '测试角色',
+    characterLevelRange: '80>90',
+    characterTalentRange: '不计算天赋材料',
+  }).targetsText, '测试角色:80>90');
+  assert.equal(normalizeScriptSettings({
+    selectedCharacter: '测试角色',
+    characterLevelRange: '80>90',
+    characterNormalAttackRange: '不培养普通攻击',
+    characterElementalSkillRange: '6>9',
+    characterElementalBurstRange: '不培养元素爆发',
+  }).targetsText, '测试角色:80>90,1/6/1>1/9/1');
+  assert.equal(normalizeScriptSettings({
+    selectedCharacter: '不选择角色',
+    selectedWeapon: '不选择武器',
+    targetsText: '测试武器:70>90',
+  }).targetsText, '测试武器:70>90');
+  assert.throws(() => normalizeScriptSettings({ selectedCharacter: '测试角色' }), /所选角色等级不能为空/);
+  assert.throws(() => normalizeScriptSettings({
+    selectedCharacter: '测试角色', characterLevelRange: '80>90', characterNormalAttackRange: '9>8',
+  }), /普通攻击天赋区间必须/);
+});
+
+test('启用自定义目标后会完全替代上方角色和武器选择', () => {
+  const custom = normalizeScriptSettings({
+    customTargetsEnabled: true,
+    targetsText: '自定义角色:80>90',
+    selectedCharacter: '下拉角色',
+    characterLevelRange: '70>90',
+    selectedWeapon: '下拉武器',
+    weaponLevelRange: '70>90',
+  });
+  assert.equal(custom.targetsText, '自定义角色:80>90');
+  assert.equal(normalizeScriptSettings({
+    customTargetsEnabled: false,
+    targetsText: '被禁用的目标:80>90',
+    selectedCharacter: '下拉角色',
+    characterLevelRange: '80>90',
+  }).targetsText, '下拉角色:80>90');
+  assert.throws(() => normalizeScriptSettings({ customTargetsEnabled: true }), /自定义培养目标不能为空/);
+});
+
 test('紧凑运行模式转换为现有执行器配置', () => {
   const normalized = normalizeScriptSettings({
+    gatheringRouteExecutionEnabled: true,
+    monsterRouteExecutionEnabled: false,
     domainRunMode: '单次测试',
     bossRunMode: '单次测试 Boss',
-    weeklyRunMode: '启用周本',
     artifactRunMode: '正式｜月童的库藏',
     resinStrategy: '仅原粹',
   });
   assert.equal(normalized.domainTestSingleRun, true);
+  assert.equal(normalized.gatheringRouteExecutionEnabled, true);
+  assert.equal(normalized.monsterRouteExecutionEnabled, false);
+  assert.equal(normalized.routeExecutionEnabled, true);
   assert.equal(normalized.bossExecutionEnabled, true);
   assert.equal(normalized.bossTestSingleRun, true);
-  assert.equal(normalized.weeklyBossExecutionEnabled, true);
   assert.equal(normalized.artifactDomainEnabled, true);
   assert.equal(normalized.artifactTestSingleRun, false);
   assert.equal(normalized.artifactDomainName, '月童的库藏');
@@ -207,37 +262,78 @@ test('紧凑设置不存在时保留旧配置兼容行为', () => {
     artifactDomainName: '月童的库藏',
   };
   assert.deepEqual(normalizeScriptSettings(legacy), legacy);
+  const legacyRoutes = normalizeScriptSettings({ routeExecutionEnabled: true });
+  assert.equal(legacyRoutes.gatheringRouteExecutionEnabled, true);
+  assert.equal(legacyRoutes.monsterRouteExecutionEnabled, true);
 });
 
 test('高级战斗策略文本兼容中英文分隔符并拒绝错误输入', () => {
   const normalized = normalizeScriptSettings({
-    combatStrategiesText: '秘境=秘境策略；Boss：首领策略\n周本=周本策略;圣遗物=圣遗物策略',
+    combatStrategiesText: '秘境=秘境策略；Boss：首领策略\n圣遗物=圣遗物策略',
   });
   assert.equal(normalized.domainCombatStrategyName, '秘境策略');
   assert.equal(normalized.bossCombatStrategyName, '首领策略');
-  assert.equal(normalized.weeklyBossCombatStrategyName, '周本策略');
   assert.equal(normalized.artifactCombatStrategyName, '圣遗物策略');
   assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '未知=策略' }), /未知的战斗策略类型/);
   assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '秘境策略' }), /格式错误/);
   assert.throws(() => normalizeScriptSettings({ bossRunMode: '随便刷' }), /未知的世界 Boss 模式/);
 });
 
+test('未确认实际执行风险时必须在任何任务开始前拒绝运行', () => {
+  assert.throws(() => assertExecutionConfirmed({}), /请先勾选“我已确认配置并允许实际执行”/);
+  assert.throws(() => assertExecutionConfirmed({ executionConfirmed: false }), /拒绝运行/);
+  assert.doesNotThrow(() => assertExecutionConfirmed({ executionConfirmed: true }));
+  assert.doesNotThrow(() => assertExecutionConfirmed({ executionConfirmed: 'true' }));
+});
+
 test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
   const items = JSON.parse(readFileSync(new URL('../settings.json', import.meta.url), 'utf8'));
+  const generatedRulebook = JSON.parse(readFileSync(new URL('../data/rulebook.json', import.meta.url), 'utf8'));
   const editableItems = items.filter((item) => item.type !== 'separator');
   const legacyNames = new Set([
+    'planOnly', 'weeklyRunMode', 'weeklyBossTeamName',
     'domainTestSingleRun', 'bossExecutionEnabled', 'bossTestSingleRun',
     'weeklyBossExecutionEnabled', 'artifactDomainEnabled', 'artifactDomainName',
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
   ]);
-  assert.equal(editableItems.length, 17);
+  assert.equal(editableItems.length, 24);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
     assert.equal(values.includes(item.default), true, `${item.name} 的默认值必须存在于二级选项中`);
     assert.equal(new Set(values).size, values.length, `${item.name} 的二级选项不能重复`);
   }
+  const characterNames = Object.values(items.find((item) => item.name === 'selectedCharacter').cascadeOptions)
+    .flat().filter((name) => name !== '不选择角色');
+  const weaponNames = Object.values(items.find((item) => item.name === 'selectedWeapon').cascadeOptions)
+    .flat().filter((name) => name !== '不选择武器');
+  assert.deepEqual(new Set(characterNames), new Set(Object.keys(generatedRulebook.characters)));
+  assert.deepEqual(new Set(weaponNames), new Set(Object.keys(generatedRulebook.weapons)));
+  const names = items.map((item) => item.name);
+  assert.ok(names.indexOf('selectedCharacter') < names.indexOf('domainRunMode'));
+  assert.ok(names.indexOf('executionConfirmed') < names.indexOf('domainRunMode'));
+  assert.equal(items.find((item) => item.name === 'executionConfirmed').default, false);
+  assert.ok(names.indexOf('customTargetsEnabled') < names.indexOf('targetsText'));
+  assert.ok(names.indexOf('gatheringRouteExecutionEnabled') < names.indexOf('monsterRouteExecutionEnabled'));
+  assert.ok(names.indexOf('monsterRouteExecutionEnabled') < names.indexOf('bossRunMode'));
+  assert.ok(names.indexOf('bossRunMode') < names.indexOf('advancedSection'));
+  assert.equal(names.at(-1), 'sendRunSummary');
+  const sectionLabels = {
+    domainSection: '培养材料秘境',
+    gatheringRouteSection: '地方特产路线',
+    monsterRouteSection: '怪物材料路线',
+    bossSection: '世界 Boss',
+    artifactSection: '圣遗物秘境填充',
+    advancedSection: '高级设置',
+  };
+  for (const [sectionName, title] of Object.entries(sectionLabels)) {
+    const label = items.find((item) => item.name === sectionName).label;
+    assert.match(label, new RegExp(`^\\n━+ ${title} ━+\\n$`));
+    assert.ok((label.match(/━/g) ?? []).length >= 34, `${title} 的标题线应接近填满设置窗口`);
+  }
+  const bossLabel = items.find((item) => item.name === 'bossSection').label;
+  assert.equal((bossLabel.match(/━/g) ?? []).length, 36, '世界 Boss 标题不能因右侧重线过长而换行');
 });
 
 test('计划星期按服务器时间并以凌晨四点作为刷新边界', () => {
@@ -404,23 +500,52 @@ test('来源候选表缺项时仍按材料名称发现新版地方特产路线',
   assert.deepEqual(result.matched[0].paths, ['地方特产/须弥/月莲/01-月莲.json']);
 });
 
-test('运行摘要明确计划模式、候选任务和无历史数据时的预计完成状态', () => {
+test('运行摘要明确未执行状态、候选任务和无历史数据时的预计完成状态', () => {
   const summary = buildRunSummary({
     todayQueue: [{ materialId: 'book', shortage: 12 }],
     shortages: [{ materialId: 'book', shortage: 12 }],
   }, { book: { name: '测试天赋书' } });
-  assert.match(summary, /仅生成计划，未刷取/);
+  assert.match(summary, /本次未执行/);
   assert.match(summary, /测试天赋书\(12\)/);
   assert.match(summary, /等待累计实际掉落数据/);
   assert.match(summary, /<br><b>仍缺材料<\/b>/);
 });
 
-test('空的 BetterGI 奖励字典不会把元数据误认为奖励', () => {
-  assert.deepEqual(normalizeRewardMap({ Count: 0, Keys: [], Values: [], Comparer: {} }), {});
-  assert.deepEqual(normalizeRewardMap({ Count: 1, Keys: ['「诤言」的教导'], '「诤言」的教导': 3 }), {
-    '「诤言」的教导': 3,
+test('运行摘要把周本缺口明确列为手动获取', () => {
+  const weeklyMaterial = {
+    materialId: 'weekly', shortage: 2, status: 'manual',
+    material: { name: '东风的吐息', executionType: 'weeklyBoss' },
+  };
+  const summary = buildRunSummary({
+    todayQueue: [], displayShortages: [weeklyMaterial], manualItems: [weeklyMaterial], weeklyStrategy: [],
+  }, { weekly: { name: '东风的吐息' } }, { executionEnabled: true });
+  assert.match(summary, /需手动获取的周本材料/);
+  assert.match(summary, /东风的吐息×2/);
+});
+
+test('运行摘要区分任务调用、背包确认收益和圣遗物非材料统计', () => {
+  const unconfirmed = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    executionEnabled: true,
+    execution: {
+      status: 'completed',
+      task: { executionType: 'boss', bossName: '守望者·堕天' },
+      rewards: {}, trackedRewards: {}, appliedGains: false,
+    },
   });
-  assert.deepEqual(normalizeRewardMap({ 月莲: 5 }), { 月莲: 5 });
+  assert.match(unconfirmed, /世界 Boss：守望者·堕天/);
+  assert.match(unconfirmed, /任务调用结束；未确认是否成功领奖/);
+  assert.doesNotMatch(unconfirmed, /已执行完成/);
+
+  const artifact = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    executionEnabled: true,
+    execution: {
+      status: 'completed',
+      task: { executionType: 'artifactDomain', domainName: '月童的库藏' },
+      rewards: {}, trackedRewards: {}, appliedGains: false,
+    },
+  });
+  assert.match(artifact, /圣遗物任务调用结束/);
+  assert.match(artifact, /圣遗物收益不纳入培养材料计数/);
 });
 
 test('运行摘要会明确显示未确认增长的路线', () => {
@@ -451,7 +576,19 @@ test('完成预估按最高难度培养秘境期望和开放日推算', () => {
   assert.equal(estimate.days, 0);
   assert.equal(estimate.details[0].estimatedClaims, 1);
   assert.equal(estimate.details[0].estimatedResin, 20);
+  assert.equal(estimate.details[0].requiredOpenDays, 1);
   assert.match(estimate.reason, /世界等级 9/);
+});
+
+test('运行摘要把领奖次数、树脂、开放日和自然日分别显示', () => {
+  const summary = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    estimateDays: 3,
+    estimateReason: '按最高难度掉落期望估算',
+    estimateDetails: [{ estimatedClaims: 14, estimatedResin: 280, requiredOpenDays: 2 }],
+  });
+  assert.match(summary, /约14次领奖、280树脂、2个开放日/);
+  assert.match(summary, /从现在起最早约3个自然日/);
+  assert.ok(summary.length <= 500);
 });
 
 test('完成预估按世界等级 9 Boss 的 3.1 个期望计算', () => {
@@ -540,7 +677,7 @@ test('执行前检查会提示缺少候选任务对应的队伍配置', () => {
   const warnings = collectExecutionWarnings({
     todayQueue: [{ executionType: 'domain' }],
     routes: { matched: [{ type: 'localSpecialty' }] },
-  }, {});
+  }, { gatheringRouteExecutionEnabled: true });
   assert.equal(warnings.length, 2);
   assert.match(warnings[0], /秘境队伍/);
   assert.match(warnings[1], /采集队伍/);
@@ -588,14 +725,17 @@ test('运行记录保存执行结果、库存前后值和剩余缺口，并限�
   });
   assert.equal(record.execution.trackedRewards.测试天赋书, 2);
   assert.equal(record.execution.task.bossName, '测试首领');
+  assert.equal(record.execution.evidence.inventoryGainConfirmed, false);
+  assert.equal(record.execution.evidence.materialTrackingApplicable, true);
+  assert.equal(record.execution.result, 'completed-unconfirmed');
   assert.deepEqual(record.remainingShortages, [{ materialId: 'book', shortage: 3 }]);
   const history = appendRunHistory(Array.from({ length: 100 }, (_, index) => ({ index })), record);
   assert.equal(history.length, 100);
   assert.equal(history.at(-1), record);
 });
 
-test('存在可执行周本或世界 Boss 时，秘境不得抢占执行顺序', () => {
-  assert.equal(hasPendingOriginalResinTask([{ executionType: 'weeklyBoss', status: 'supported' }]), true);
+test('存在可执行世界 Boss 时，秘境不得抢占执行顺序', () => {
+  assert.equal(hasPendingOriginalResinTask([{ executionType: 'weeklyBoss', status: 'supported' }]), false);
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'boss', status: 'supported' }]), true);
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'boss', status: 'manual' }, { executionType: 'domain', status: 'supported' }]), false);
 });
@@ -624,6 +764,27 @@ test('路线执行默认关闭，开启后要求对应队伍与有效路径', ()
   assert.throws(() => buildRouteExecutionPlan(routes, { routeExecutionEnabled: true }), /采集队伍/);
   const plan = buildRouteExecutionPlan(routes, { routeExecutionEnabled: true, gatheringTeamName: '采集队' });
   assert.equal(plan[0].partyName, '采集队');
+});
+
+test('地方特产和怪物材料路线可以独立开启', () => {
+  const routes = {
+    matched: [
+      { materialId: 'local', name: '测试特产', type: 'localSpecialty', shortage: 1, paths: ['地方特产/测试.json'] },
+      { materialId: 'monster', name: '测试怪物材料', type: 'monster', shortage: 1, paths: ['敌人与魔物/测试.json'] },
+    ],
+  };
+  const gatheringOnly = buildRouteExecutionPlan(routes, {
+    gatheringRouteExecutionEnabled: true,
+    monsterRouteExecutionEnabled: false,
+    gatheringTeamName: '采集队',
+  });
+  assert.deepEqual(gatheringOnly.map((item) => item.type), ['localSpecialty']);
+  const monsterOnly = buildRouteExecutionPlan(routes, {
+    gatheringRouteExecutionEnabled: false,
+    monsterRouteExecutionEnabled: true,
+    monsterTeamName: '怪物队',
+  });
+  assert.deepEqual(monsterOnly.map((item) => item.type), ['monster']);
 });
 
 test('同一路线命中多个材料等级时只执行一次并读取完整合成链', () => {
@@ -677,10 +838,22 @@ test('已订阅路线只通过 User AutoPathing 接口执行', async () => {
   }, '不存在.json'), /路线文件不存在/);
 });
 
-test('路线累计收益达到材料缺口后停止后续路径', () => {
-  const routeMaterials = [{ materialId: '101215', name: '月莲', shortage: 20 }];
-  assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 19 }), false);
-  assert.equal(areRouteTargetsSatisfied(routeMaterials, { '101215': 20 }), true);
+test('全部任务结束后用一次背包总差值回填路线收益', () => {
+  const records = [{
+    name: '月莲', type: 'localSpecialty', status: 'pendingInventoryCheck', reason: '等待统一复核',
+    paths: [{ path: '地方特产/月莲/01.json' }],
+    materials: [{ materialId: '101215', name: '月莲', shortage: 20, gained: 0 }],
+    gained: { 月莲: 0 },
+  }];
+  const result = applyFinalRouteInventoryGains(
+    records,
+    { '101215': 10 },
+    { '101215': 26 },
+  );
+  assert.equal(result[0].status, 'completed');
+  assert.equal(result[0].reason, null);
+  assert.equal(result[0].materials[0].gained, 16);
+  assert.deepEqual(result[0].gained, { 月莲: 16 });
 });
 
 test('已匹配路线从人工待办升级为路线执行来源', () => {
@@ -699,19 +872,7 @@ test('已匹配路线从人工待办升级为路线执行来源', () => {
   assert.deepEqual(plan.manualItems, []);
 });
 
-test('周本执行只使用原粹树脂并支持复用 Boss 队伍', () => {
-  const config = buildWeeklyBossExecutionConfig(
-    { executionType: 'weeklyBoss', domainName: '深入风龙废墟', materialId: '113005', materialName: '东风的吐息', shortage: 2 },
-    { bossTeamName: '周本队' },
-  );
-  assert.equal(config.partyName, '周本队');
-  assert.equal(config.originalResinUseCount, 9999);
-  assert.throws(() => buildWeeklyBossExecutionConfig(
-    { executionType: 'weeklyBoss', domainName: '深入风龙废墟' }, {},
-  ), /未配置周本队伍/);
-});
-
-test('同一周本的多个掉落材料合并为一次征讨领域任务', () => {
+test('周本材料保留为手动获取项，且不会阻塞同日 Boss 和秘境', () => {
   const shortages = [
     {
       materialId: 'weekly-1', shortage: 3,
@@ -721,11 +882,20 @@ test('同一周本的多个掉落材料合并为一次征讨领域任务', () =>
       materialId: 'weekly-2', shortage: 2,
       material: { name: '东风之爪', executionType: 'weeklyBoss', domainName: '深入风龙废墟', openDays: [0], status: 'supported', priority: 200 },
     },
+    {
+      materialId: 'boss', shortage: 4,
+      material: { name: '极寒之核', executionType: 'boss', bossName: '急冻树', openDays: [0], status: 'supported', priority: 100 },
+    },
+    {
+      materialId: 'book', shortage: 6,
+      material: { name: '「抗争」的指引', executionType: 'domain', domainName: '忘却之峡', openDays: [0], status: 'supported', priority: 50 },
+    },
   ];
   const plan = buildPlan(shortages, 0);
-  assert.equal(plan.todayQueue.length, 1);
-  assert.equal(plan.todayQueue[0].executionType, 'weeklyBoss');
-  assert.equal(plan.todayQueue[0].materials.length, 2);
+  assert.deepEqual(plan.todayQueue.map((item) => item.executionType), ['boss', 'domain']);
+  assert.equal(plan.manualItems.length, 2);
+  assert.ok(plan.manualItems.every((item) => item.status === 'manual'));
+  assert.ok(plan.manualItems.every((item) => /当前版本需手动获取/.test(item.reason)));
 });
 
 test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
@@ -803,16 +973,29 @@ test('同一错误队伍连续失败后，本次运行不再重复切换', async
   assert.deepEqual(calls, ['switch', 'warn', 'statue', 'switch', 'warn']);
 });
 
-test('执行前检查会明确提示默认关闭的周本和 Boss 自动执行', () => {
+test('执行前检查只提示默认关闭的 Boss 自动执行', () => {
   const warnings = collectExecutionWarnings({
     todayQueue: [
       { executionType: 'weeklyBoss', status: 'supported' },
       { executionType: 'boss', status: 'supported' },
     ],
   }, {});
-  assert.equal(warnings.length, 2);
-  assert.match(warnings[0], /周本自动执行默认关闭/);
-  assert.match(warnings[1], /Boss 自动执行默认关闭/);
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /Boss 自动执行默认关闭/);
+});
+
+test('路线开关开启但材料已满足时不误报，存在未匹配缺口时才警告', () => {
+  const noShortageWarnings = collectExecutionWarnings({
+    todayQueue: [], routes: { matched: [], missing: [] },
+  }, { gatheringRouteExecutionEnabled: true, monsterRouteExecutionEnabled: true });
+  assert.deepEqual(noShortageWarnings, []);
+
+  const missingWarnings = collectExecutionWarnings({
+    todayQueue: [],
+    routes: { matched: [], missing: [{ type: 'monster', name: '蕈兽孢子' }] },
+  }, { monsterRouteExecutionEnabled: true });
+  assert.equal(missingWarnings.length, 1);
+  assert.match(missingWarnings[0], /蕈兽孢子/);
 });
 
 test('同一世界 Boss 的多个材料合并为一次首领任务', () => {
