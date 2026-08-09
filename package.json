@@ -15,7 +15,10 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "build:data": "node tools/build-rulebook.mjs",
+    "build:domain-ledger": "node tools/build-domain-validation-ledger.mjs",
+    "preview:policy": "node tools/preview-execution-policy.mjs"
   },
   "devDependencies": {
     "genshin-db": "^5.2.12"
