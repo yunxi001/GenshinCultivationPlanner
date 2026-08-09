@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "private": true,
   "type": "module",
-  "description": "BetterGI 养成材料计算与刷取调度脚本",
+  "description": "BetterGI 角色一键养成材料规划与刷取脚本",
   "author": "yunxi <2739252596@qq.com>",
   "license": "GPL-3.0-only",
   "repository": {
