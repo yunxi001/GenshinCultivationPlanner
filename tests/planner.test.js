@@ -16,6 +16,7 @@ import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
+import { validateDomainVerificationLedger } from '../core/domain-validation.js';
 import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
 import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
@@ -944,6 +945,19 @@ test('来源映射只能使用 BetterGI 培养材料秘境目录中的名称', (
     { domains: { '精通秘境：测试': { domainName: '不存在的秘境' } } },
     { materialDomains: ['太山府'] },
   ), /未知秘境/);
+});
+
+test('每条秘境映射都有版本、开放日、周日序号和验证状态档案', () => {
+  const sourceMap = JSON.parse(readFileSync(new URL('../data/source-execution-map.json', import.meta.url), 'utf8'));
+  const ledger = JSON.parse(readFileSync(new URL('../data/domain-validation-ledger.json', import.meta.url), 'utf8'));
+  const result = validateDomainVerificationLedger(sourceMap, ledger);
+  assert.equal(result.total, 42);
+  assert.equal(result.statuses.pending, 40);
+  assert.equal(result.statuses['historical-pass'], 1);
+  assert.equal(result.statuses['catalog-checked'], 1);
+  const broken = structuredClone(ledger);
+  broken.entries['精通秘境：霜凝祭坛'].sundaySelectedValue = 3;
+  assert.throws(() => validateDomainVerificationLedger(sourceMap, broken), /周日奖励序号应为/);
 });
 
 test('路线执行默认关闭，开启后要求对应队伍与有效路径', () => {
