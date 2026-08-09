@@ -28,6 +28,7 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
       evidence: buildExecutionEvidence(execution),
     } : null,
     domainResinPolicy,
+    profileSnapshot: plan.profileSnapshot ?? null,
     inventoryBefore,
     inventoryAfter,
     remainingShortages: (plan.displayShortages ?? [])

@@ -16,6 +16,8 @@ import { buildBossExecutionConfig } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 import { switchPartyWithRecovery } from './core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from './core/settings.js';
+import { buildProfileSnapshot, formatProfileEntry } from './core/profile.js';
+import { loadAutomaticProfile } from './core/character-development.js';
 
 async function main() {
   let scriptSettings;
@@ -32,7 +34,7 @@ async function main() {
   const materials = JSON.parse(file.readTextSync('data/materials.json'));
   const recipes = JSON.parse(file.readTextSync('data/crafting-recipes.json'));
   const rulebook = JSON.parse(file.readTextSync('data/rulebook.json'));
-  const targetData = loadTargets(scriptSettings, rulebook);
+  const targetData = await loadTargets(scriptSettings, rulebook);
   const sourceCandidates = JSON.parse(file.readTextSync('data/source-candidates.json'));
   const routeOverrides = JSON.parse(file.readTextSync('data/route-overrides.json'));
   const today = resolvePlanningWeekday({
@@ -46,6 +48,9 @@ async function main() {
   for (const target of targetData.targets ?? []) {
     log.info('[目标] {kind}：{name}', target.kind, target.name);
   }
+  for (const entry of targetData.profileSnapshot?.entries ?? []) {
+    log.info('[档案] {profile}', formatProfileEntry(entry));
+  }
 
   let inventory = targetData.inventory ?? {};
   let plan = createPlan({
@@ -55,6 +60,7 @@ async function main() {
     recipes,
     rulebook,
     today,
+    profileSnapshot: targetData.profileSnapshot,
   });
 
   // 兼容 BetterGI 已保存的旧设置：字段不存在时也默认开启读取。
@@ -68,6 +74,7 @@ async function main() {
       recipes,
       rulebook,
       today,
+      profileSnapshot: targetData.profileSnapshot,
     });
   } else {
     log.info('[背包] 已关闭自动读取，库存仅使用目标文件中的 inventory 字段');
@@ -186,6 +193,7 @@ async function main() {
         recipes,
         rulebook,
         today,
+        profileSnapshot: targetData.profileSnapshot,
       });
       plan.routes = discoveredRoutes;
       applyMatchedRouteSupport(plan, discoveredRoutes);
@@ -272,15 +280,24 @@ async function main() {
   log.info('[完成] 已保存计划记录：record/latest-plan.json；{result}', finalResult);
 }
 
-function loadTargets(scriptSettings, rulebook) {
+async function loadTargets(scriptSettings, rulebook) {
+  if (scriptSettings.profileMode === '自动档案') {
+    log.info('[档案] 使用 BetterGI 角色养成接口读取当前等级、天赋与佩戴武器');
+    return loadAutomaticProfile({
+      api: typeof characterDevelopmentTask === 'undefined' ? null : characterDevelopmentTask,
+      selections: scriptSettings.automaticProfileSelections,
+      rulebook,
+    });
+  }
   if (scriptSettings.targetsText?.trim()) {
     const targets = parseTargetText(scriptSettings.targetsText, rulebook);
     log.info('[初始化] 使用设置页目标文本，共解析 {count} 项', targets.length);
-    return { targets, inventory: {} };
+    return { targets, inventory: {}, profileSnapshot: buildProfileSnapshot(targets) };
   }
   const targetFile = scriptSettings.targetFile || 'data/user-targets.json';
   log.info('[初始化] 读取高级目标文件：{path}', targetFile);
-  return JSON.parse(file.readTextSync(targetFile));
+  const targetData = JSON.parse(file.readTextSync(targetFile));
+  return { ...targetData, profileSnapshot: buildProfileSnapshot(targetData.targets ?? [], { source: 'target-file' }) };
 }
 
 async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory, partySwitchState) {

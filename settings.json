@@ -11,9 +11,23 @@
     "default": false
   },
   {
+    "name": "profileMode",
+    "type": "cascade-select",
+    "label": "档案来源：手动档案兼容所有受支持版本；自动档案需要 BetterGI 0.63.0+，会读取当前角色等级、三项天赋和佩戴武器。自动识别失败时会在读取背包前停止，不会猜测默认等级。",
+    "cascadeOptions": {
+      "兼容模式": [
+        "手动档案"
+      ],
+      "BetterGI 0.63.0+": [
+        "自动档案"
+      ]
+    },
+    "default": "手动档案"
+  },
+  {
     "name": "selectedCharacter",
     "type": "cascade-select",
-    "label": "角色选择（可选）：按元素分类选择一名角色。需要多个角色或特殊区间时可启用下方自定义目标；启用后本项及对应等级、天赋选择不再生效。",
+    "label": "角色选择：手动档案时可选；自动档案时必选。需要多个手动目标或特殊区间时可启用下方自定义目标。",
     "cascadeOptions": {
       "不使用下拉选择": [
         "不选择角色"
@@ -156,9 +170,112 @@
     "default": "不选择角色"
   },
   {
+    "name": "autoCharacterTargetLevel",
+    "type": "cascade-select",
+    "label": "自动档案｜角色目标等级：仅自动档案生效；当前等级由 BetterGI 读取。",
+    "cascadeOptions": {
+      "常用目标": [
+        "90",
+        "80",
+        "70",
+        "60",
+        "50",
+        "40",
+        "20"
+      ]
+    },
+    "default": "90"
+  },
+  {
+    "name": "autoNormalTalentTarget",
+    "type": "cascade-select",
+    "label": "自动档案｜普通攻击目标等级：当前等级由 BetterGI 读取；命座 +3 会换算为实际培养等级。",
+    "cascadeOptions": {
+      "不培养": [
+        "不培养普通攻击"
+      ],
+      "目标等级": [
+        "10",
+        "9",
+        "8",
+        "7",
+        "6",
+        "5",
+        "4",
+        "3",
+        "2",
+        "1"
+      ]
+    },
+    "default": "不培养普通攻击"
+  },
+  {
+    "name": "autoSkillTalentTarget",
+    "type": "cascade-select",
+    "label": "自动档案｜元素战技目标等级：当前等级由 BetterGI 读取；命座 +3 会换算为实际培养等级。",
+    "cascadeOptions": {
+      "不培养": [
+        "不培养元素战技"
+      ],
+      "目标等级": [
+        "10",
+        "9",
+        "8",
+        "7",
+        "6",
+        "5",
+        "4",
+        "3",
+        "2",
+        "1"
+      ]
+    },
+    "default": "不培养元素战技"
+  },
+  {
+    "name": "autoBurstTalentTarget",
+    "type": "cascade-select",
+    "label": "自动档案｜元素爆发目标等级：当前等级由 BetterGI 读取；命座 +3 会换算为实际培养等级。",
+    "cascadeOptions": {
+      "不培养": [
+        "不培养元素爆发"
+      ],
+      "目标等级": [
+        "10",
+        "9",
+        "8",
+        "7",
+        "6",
+        "5",
+        "4",
+        "3",
+        "2",
+        "1"
+      ]
+    },
+    "default": "不培养元素爆发"
+  },
+  {
+    "name": "autoWeaponTargetLevel",
+    "type": "cascade-select",
+    "label": "自动档案｜佩戴武器目标等级：武器名称和当前等级由 BetterGI 读取；一星初始武器会自动忽略。",
+    "cascadeOptions": {
+      "常用目标": [
+        "90",
+        "80",
+        "70",
+        "60",
+        "50",
+        "40",
+        "20"
+      ]
+    },
+    "default": "90"
+  },
+  {
     "name": "characterLevelRange",
     "type": "cascade-select",
-    "label": "所选角色等级：选择常用培养区间；非常规等级请改用下方自定义目标。",
+    "label": "手动档案｜所选角色等级：自动档案时本项不生效；非常规等级请改用下方自定义目标。",
     "cascadeOptions": {
       "升至 90 级": [
         "1>90",
@@ -208,7 +325,7 @@
   {
     "name": "characterNormalAttackRange",
     "type": "cascade-select",
-    "label": "所选角色普通攻击天赋（可选）：先选当前等级，再选目标等级；不培养时保持“不培养普通攻击”。",
+    "label": "手动档案｜普通攻击天赋（可选）：自动档案时本项不生效。",
     "cascadeOptions": {
       "不培养": [
         "不培养普通攻击"
@@ -282,7 +399,7 @@
   {
     "name": "characterElementalSkillRange",
     "type": "cascade-select",
-    "label": "所选角色元素战技天赋（可选）：先选当前等级，再选目标等级；不培养时保持“不培养元素战技”。",
+    "label": "手动档案｜元素战技天赋（可选）：自动档案时本项不生效。",
     "cascadeOptions": {
       "不培养": [
         "不培养元素战技"
@@ -356,7 +473,7 @@
   {
     "name": "characterElementalBurstRange",
     "type": "cascade-select",
-    "label": "所选角色元素爆发天赋（可选）：先选当前等级，再选目标等级；不培养时保持“不培养元素爆发”。",
+    "label": "手动档案｜元素爆发天赋（可选）：自动档案时本项不生效。",
     "cascadeOptions": {
       "不培养": [
         "不培养元素爆发"
@@ -430,7 +547,7 @@
   {
     "name": "selectedWeapon",
     "type": "cascade-select",
-    "label": "武器选择（可选）：按武器类型选择一把武器。需要多把武器或特殊区间时可启用下方自定义目标；启用后本项及对应等级选择不再生效。",
+    "label": "手动档案｜武器选择（可选）：自动档案会读取所选角色佩戴武器，本项不生效。",
     "cascadeOptions": {
       "不使用下拉选择": [
         "不选择武器"
@@ -686,7 +803,7 @@
   {
     "name": "weaponLevelRange",
     "type": "cascade-select",
-    "label": "所选武器等级：选择常用培养区间；非常规等级请改用下方自定义目标。",
+    "label": "手动档案｜所选武器等级：自动档案时本项不生效；非常规等级请改用下方自定义目标。",
     "cascadeOptions": {
       "升至 90 级": [
         "1>90",
@@ -736,7 +853,7 @@
   {
     "name": "customTargetsEnabled",
     "type": "checkbox",
-    "label": "启用自定义培养目标（默认关闭）：勾选后，下方自定义内容将完全替代上方角色、武器、等级与天赋选择；上方配置全部不再生效。",
+    "label": "手动档案｜启用自定义培养目标（默认关闭）：仅手动档案生效；勾选后自定义内容完全替代手动角色、武器、等级与天赋选择。",
     "default": false
   },
   {

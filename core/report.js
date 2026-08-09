@@ -1,3 +1,7 @@
+import { formatProfileEntry } from './profile.js';
+
+const MAX_SUMMARY_LENGTH = 500;
+
 /**
  * 生成 BetterGI 通知摘要。通知接口限制为 500 字符，详细数据仍写入 latest-plan.json。
  */
@@ -51,6 +55,7 @@ export function buildRunSummary(plan, materials, {
   const hasUnconfirmedRoute = (execution?.routes ?? []).some((route) => route.status === 'unconfirmed');
   const hasRouteExecution = (execution?.routes ?? []).length > 0;
   const taskResult = formatTaskResult(execution);
+  const profileItems = (plan.profileSnapshot?.entries ?? []).map(formatProfileEntry);
   const action = !executionEnabled
     ? '本次未执行'
     : execution?.status === 'failed'
@@ -76,6 +81,7 @@ export function buildRunSummary(plan, materials, {
   const sections = [
     '<b>养成材料调度摘要</b>',
     `<br><b>本次状态</b>：${action}`,
+    buildProfileSection(profileItems),
     `<br><br><b>本次任务</b>${formatItems(taskResult.tasks, '无树脂任务')}`,
     `<br><br><b>确认收益</b>${formatItems(gains, confirmedGainFallback)}`,
     `<br><br><b>路线结果</b>${formatItems(routeResults, '本次无路线任务')}`,
@@ -90,10 +96,32 @@ export function buildRunSummary(plan, materials, {
   let summary = '';
   for (const section of sections) {
     if (!section) continue;
-    if (summary.length + section.length > 500) return `${summary}<br>…`;
+    if (summary.length + section.length > MAX_SUMMARY_LENGTH) {
+      const suffix = '<br>…其余详见运行记录';
+      return summary.length + suffix.length <= MAX_SUMMARY_LENGTH ? `${summary}${suffix}` : summary;
+    }
     summary += section;
   }
   return summary;
+}
+
+/** 档案按完整条目截断，绝不切断一条角色/武器信息或 HTML 标签。 */
+function buildProfileSection(items) {
+  if (items.length === 0) return '<br><br><b>当前养成状态</b><br>• 未提供档案';
+  const prefix = '<br><br><b>当前养成状态</b>';
+  const lines = [];
+  for (let count = 0; count < items.length; count += 1) {
+    const line = `<br>• ${items[count]}`;
+    const remaining = items.length - count - 1;
+    const marker = remaining > 0 ? `<br>• 另 ${remaining} 项见运行记录` : '';
+    // 为标题、状态和后续省略提示预留空间；超长档案也只按完整条目加入。
+    if (prefix.length + lines.join('').length + line.length + marker.length > 320) {
+      if (remaining + 1 > 0) lines.push(`<br>• 另 ${remaining + 1} 项见运行记录`);
+      break;
+    }
+    lines.push(line);
+  }
+  return `${prefix}${lines.join('')}`;
 }
 
 function formatTaskResult(execution) {

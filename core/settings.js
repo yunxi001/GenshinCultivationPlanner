@@ -13,7 +13,7 @@ const SPLIT_TALENT_FIELDS = [
 export function normalizeScriptSettings(rawSettings = {}) {
   const normalized = { ...rawSettings };
 
-  applyTargetSelections(normalized, rawSettings);
+  applyProfileSettings(normalized, rawSettings);
   applyRouteModes(normalized, rawSettings);
   applyDomainMode(normalized, rawSettings.domainRunMode);
   applyBossMode(normalized, rawSettings.bossRunMode);
@@ -22,6 +22,30 @@ export function normalizeScriptSettings(rawSettings = {}) {
   applyCombatStrategies(normalized, rawSettings.combatStrategiesText);
 
   return normalized;
+}
+
+function applyProfileSettings(settings, rawSettings) {
+  const mode = rawSettings.profileMode || '手动档案';
+  if (!['手动档案', '自动档案'].includes(mode)) throw new Error(`未知的档案模式：“${mode}”`);
+  if (rawSettings.profileMode !== undefined) settings.profileMode = mode;
+  if (mode === '自动档案') {
+    if (!hasValue(rawSettings.selectedCharacter) || rawSettings.selectedCharacter === NO_CHARACTER_SELECTION) {
+      throw new Error('自动档案模式必须选择角色');
+    }
+    settings.automaticProfileSelections = {
+      characterNames: [String(rawSettings.selectedCharacter).trim()],
+      characterTargetLevel: parseTargetLevel(rawSettings.autoCharacterTargetLevel, '角色目标等级', 90),
+      talentTargets: {
+        normal: parseOptionalTargetLevel(rawSettings.autoNormalTalentTarget, '普通攻击目标等级'),
+        skill: parseOptionalTargetLevel(rawSettings.autoSkillTalentTarget, '元素战技目标等级'),
+        burst: parseOptionalTargetLevel(rawSettings.autoBurstTalentTarget, '元素爆发目标等级'),
+      },
+      weaponTargetLevel: parseTargetLevel(rawSettings.autoWeaponTargetLevel, '自动武器目标等级', 90),
+    };
+    settings.targetsText = '';
+    return;
+  }
+  applyTargetSelections(settings, rawSettings);
 }
 
 /** 发布版只支持实际执行；未显式确认时必须在任何读写或游戏操作前终止。 */
@@ -198,4 +222,15 @@ function hasValue(value) {
 function requireValue(value, label) {
   if (!hasValue(value)) throw new Error(`${label}不能为空`);
   return String(value).trim();
+}
+
+function parseTargetLevel(value, label, max) {
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > max) throw new Error(`${label}必须是 1 到 ${max} 的整数`);
+  return parsed;
+}
+
+function parseOptionalTargetLevel(value, label) {
+  if (!hasValue(value) || String(value).startsWith('不培养')) return null;
+  return parseTargetLevel(value, label, 10);
 }

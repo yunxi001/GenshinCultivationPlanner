@@ -21,6 +21,8 @@ import { buildBossExecutionConfig } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
+import { buildProfileSnapshot, formatProfileEntry } from '../core/profile.js';
+import { convertCharacterResult, detectCharacterDevelopmentCapability, loadAutomaticProfile } from '../core/character-development.js';
 
 const materials = {
   talentBook: {
@@ -176,6 +178,128 @@ test('设置页目标文本会拒绝未知名称、重复项、倒退等级和�
   assert.throws(() => parseTargetText('测试武器:70>90,1/1/1>2/2/2', rulebook), /不能填写天赋/);
 });
 
+test('手动目标生成统一档案快照，未填写天赋时不会伪造等级', () => {
+  const targets = parseTargetText('测试角色:80>90；测试武器:70>90', rulebook);
+  const snapshot = buildProfileSnapshot(targets, { capturedAt: '2026-08-09T00:00:00.000Z' });
+  assert.equal(snapshot.source, 'manual-settings');
+  assert.equal(snapshot.entries[0].talents, null);
+  assert.equal(formatProfileEntry(snapshot.entries[0]), '测试角色 Lv.80→90｜天赋未提供（本次不计算）');
+  assert.equal(formatProfileEntry(snapshot.entries[1]), '测试武器 Lv.70→90');
+});
+
+test('BetterGI 能力检测以接口存在性为准，不仅依赖版本号', () => {
+  assert.equal(detectCharacterDevelopmentCapability(null).available, false);
+  assert.equal(detectCharacterDevelopmentCapability({ GetCharacter() {} }).available, false);
+  assert.equal(detectCharacterDevelopmentCapability({ GetCharacter() {}, GetMultiCharacters() {} }).available, true);
+});
+
+test('BetterGI 0.63 档案会换算命座加成并生成角色与佩戴武器目标', async () => {
+  const automaticRulebook = {
+    characters: { 测试角色: {} },
+    weapons: { 测试武器: { rarity: 5 } },
+  };
+  const api = {
+    async GetCharacter(name, categories) {
+      assert.equal(name, '测试角色');
+      assert.equal(categories, '属性;武器;天赋');
+      return {
+        CharacterName: name, Level: 80, LevelLimit: 90,
+        WeaponName: '测试武器', WeaponLevel: 70, WeaponLevelLimit: 80,
+        AttackLevel: 6, AttackHasBonus: false,
+        SkillLevel: 11, SkillHasBonus: true,
+        BurstLevel: 9, BurstHasBonus: false,
+      };
+    },
+    async GetMultiCharacters() { return []; },
+  };
+  const result = await loadAutomaticProfile({
+    api,
+    selections: {
+      characterNames: ['测试角色'], characterTargetLevel: 90,
+      talentTargets: { normal: 9, skill: 10, burst: null }, weaponTargetLevel: 90,
+    },
+    rulebook: automaticRulebook,
+    capturedAt: '2026-08-09T00:00:00.000Z',
+  });
+  assert.deepEqual(result.targets[0].talents.skill, {
+    current: 8, target: 10, requestedTarget: 10, displayedCurrent: 11, hasBonus: true,
+  });
+  assert.equal(result.targets[1].name, '测试武器');
+  assert.equal(result.targets[1].equippedBy, '测试角色');
+  assert.match(formatProfileEntry(result.profileSnapshot.entries[0]), /战技含命座\+3/);
+});
+
+test('自动档案忽略一星初始武器，并拒绝未知武器、空字段和接口异常', async () => {
+  const automaticRulebook = { characters: { 测试角色: {} }, weapons: { 无锋剑: { rarity: 1 } } };
+  const base = {
+    CharacterName: '测试角色', Level: 90,
+    WeaponName: '无锋剑', WeaponLevel: 1,
+    AttackLevel: 1, SkillLevel: 1, BurstLevel: 1,
+  };
+  const selections = {
+    characterNames: ['测试角色'], characterTargetLevel: 90,
+    talentTargets: { normal: null, skill: null, burst: null }, weaponTargetLevel: 90,
+  };
+  const converted = convertCharacterResult(base, '测试角色', selections, automaticRulebook);
+  assert.equal(converted.weaponTarget, null);
+  assert.equal(converted.weaponEntry.ignored, true);
+  await assert.rejects(() => loadAutomaticProfile({ api: null, selections, rulebook: automaticRulebook }), /请改用手动档案/);
+  await assert.rejects(() => loadAutomaticProfile({
+    api: { async GetCharacter() { throw new Error('识别失败'); }, async GetMultiCharacters() {} },
+    selections, rulebook: automaticRulebook,
+  }), /读取角色养成档案失败/);
+  assert.throws(() => convertCharacterResult({ ...base, WeaponName: '未知武器' }, '测试角色', selections, automaticRulebook), /不在当前规则库/);
+  assert.throws(() => convertCharacterResult({ ...base, SkillLevel: null }, '测试角色', selections, automaticRulebook), /识别结果无效/);
+});
+
+test('自动档案支持多角色、旅行者和已经超过目标的满级状态', async () => {
+  const automaticRulebook = {
+    characters: { 甲: {}, '奇偶·男性': {} },
+    weapons: { 甲剑: { rarity: 4 }, 旅剑: { rarity: 4 } },
+  };
+  const results = [
+    { CharacterName: '甲', Level: 90, WeaponName: '甲剑', WeaponLevel: 90, AttackLevel: 10, SkillLevel: 10, BurstLevel: 10 },
+    { CharacterName: '旅行者', Level: 80, WeaponName: '旅剑', WeaponLevel: 70, AttackLevel: 6, SkillLevel: 9, SkillHasBonus: true, BurstLevel: 6 },
+  ];
+  const api = {
+    async GetCharacter() { return null; },
+    async GetMultiCharacters(names, categories) {
+      assert.deepEqual(names, ['甲', '奇偶·男性']);
+      assert.equal(categories, '属性;武器;天赋');
+      return results;
+    },
+  };
+  const result = await loadAutomaticProfile({
+    api,
+    selections: {
+      characterNames: ['甲', '奇偶·男性'], characterTargetLevel: 80,
+      talentTargets: { normal: 9, skill: 9, burst: 9 }, weaponTargetLevel: 80,
+    },
+    rulebook: automaticRulebook,
+  });
+  assert.equal(result.targets.length, 4);
+  assert.deepEqual(result.targets[0].level, { current: 90, target: 90 });
+  assert.equal(result.targets[2].name, '奇偶·男性');
+  assert.equal(result.targets[2].talents.skill.current, 6);
+  assert.equal(result.profileSnapshot.entries[2].recognizedName, '旅行者');
+});
+
+test('自动档案配置只使用目标等级，手动档案继续兼容旧输入', () => {
+  const automatic = normalizeScriptSettings({
+    profileMode: '自动档案', selectedCharacter: '测试角色',
+    autoCharacterTargetLevel: '90', autoNormalTalentTarget: '9',
+    autoSkillTalentTarget: '不培养元素战技', autoBurstTalentTarget: '10',
+    autoWeaponTargetLevel: '80',
+  });
+  assert.deepEqual(automatic.automaticProfileSelections, {
+    characterNames: ['测试角色'], characterTargetLevel: 90,
+    talentTargets: { normal: 9, skill: null, burst: 10 }, weaponTargetLevel: 80,
+  });
+  assert.equal(automatic.targetsText, '');
+  assert.throws(() => normalizeScriptSettings({ profileMode: '自动档案', selectedCharacter: '不选择角色' }), /必须选择角色/);
+  assert.equal(normalizeScriptSettings({ profileMode: '手动档案', targetsText: '测试角色:80>90' }).profileMode, '手动档案');
+});
+
 test('角色和武器下拉选择会组合三个独立天赋区间，并兼容旧目标文本', () => {
   const selected = normalizeScriptSettings({
     selectedCharacter: '测试角色',
@@ -297,7 +421,7 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
   ]);
-  assert.equal(editableItems.length, 24);
+  assert.equal(editableItems.length, 30);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
@@ -562,6 +686,25 @@ test('运行摘要会明确显示未确认增长的路线', () => {
   });
   assert.match(summary, /部分路线未确认材料增长/);
   assert.match(summary, /月莲：未确认增长/);
+});
+
+test('运行摘要优先显示完整档案条目，并始终保持在 500 字符内', () => {
+  const profileTargets = Array.from({ length: 12 }, (_, index) => ({
+    kind: 'character', name: `超长测试角色${index}`,
+    level: { current: 80, target: 90 },
+    talents: {
+      normal: { current: 6, target: 10 }, skill: { current: 8, target: 10 }, burst: { current: 8, target: 10 },
+    },
+  }));
+  const summary = buildRunSummary({
+    todayQueue: [], displayShortages: [], manualItems: [], weeklyStrategy: [],
+    profileSnapshot: buildProfileSnapshot(profileTargets),
+  }, {}, { executionEnabled: true, execution: { status: 'skipped', reason: '无任务' } });
+  assert.ok(summary.length <= 500);
+  assert.match(summary, /当前养成状态/);
+  assert.match(summary, /另 \d+ 项见运行记录/);
+  assert.equal((summary.match(/<b>/g) ?? []).length, (summary.match(/<\/b>/g) ?? []).length);
+  assert.equal(summary.includes('超长测试角<br>'), false);
 });
 
 test('完成预估按最高难度培养秘境期望和开放日推算', () => {

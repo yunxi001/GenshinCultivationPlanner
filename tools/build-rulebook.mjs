@@ -71,6 +71,7 @@ function buildWeapons() {
     if (weapon?.name && weapon.costs) {
       result[weapon.name] = {
         id: weapon.id,
+        rarity: weapon.rarity,
         ascensionCosts: weapon.costs,
       };
     }
