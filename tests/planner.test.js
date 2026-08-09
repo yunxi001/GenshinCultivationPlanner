@@ -26,6 +26,10 @@ import { buildProfileSnapshot, formatProfileEntry } from '../core/profile.js';
 import { convertCharacterResult, detectCharacterDevelopmentCapability, loadAutomaticProfile } from '../core/character-development.js';
 import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from '../core/execution-result.js';
 import { buildRouteSignature, buildRouteYieldEstimate } from '../core/route-estimate.js';
+import {
+  applyExecutionPolicyToTasks, buildExecutionPolicy, createOriginalResinBudget,
+  limitBossRunCount, limitDomainResinPolicy,
+} from '../core/execution-policy.js';
 
 const materials = {
   talentBook: {
@@ -424,7 +428,7 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
   ]);
-  assert.equal(editableItems.length, 31);
+  assert.equal(editableItems.length, 39);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
@@ -884,6 +888,57 @@ test('秘境树脂策略默认先使用浓缩树脂，再使用原粹树脂', ()
   assert.equal(policy.originalResinUseCount, 9999);
   assert.equal(policy.condensedResinUseCount, 9999);
   assert.equal(policy.fragileResinUseCount, 0);
+});
+
+test('执行规则区分任务顺序、树脂顺序、保留量和每类上限', () => {
+  const policy = buildExecutionPolicy(normalizeScriptSettings({
+    resinStrategy: '浓缩→原粹', transientResinAuthorized: true, fragileResinAuthorized: false,
+    taskPriorityText: '限时培养秘境>世界 Boss>普通培养秘境>圣遗物填充',
+    taskLimitsText: '世界 Boss=2；限时培养秘境=3；普通培养秘境=4；圣遗物填充=0',
+    originalResinBudget: '180', originalResinReserve: '40',
+    routeTiming: '树脂任务前', artifactFillCondition: '始终放在队列末尾',
+  }));
+  assert.deepEqual(policy.taskPriority, ['limitedDomain', 'boss', 'domain', 'artifactDomain']);
+  assert.deepEqual(policy.resinPriority, ['浓缩树脂', '原粹树脂', '须臾树脂']);
+  assert.equal(policy.usableOriginalResin, 140);
+  assert.equal(policy.taskLimits.artifactDomain, 0);
+  assert.match(policy.previewLines.join('\n'), /保留 40/);
+
+  const ordered = applyExecutionPolicyToTasks([
+    { executionType: 'domain', limited: false, priority: 100 },
+    { executionType: 'boss', priority: 100 },
+    { executionType: 'domain', limited: true, priority: 100 },
+  ], policy);
+  assert.deepEqual(ordered.map((item) => item.executionType === 'domain' ? (item.limited ? 'limited' : 'domain') : 'boss'), ['limited', 'boss', 'domain']);
+});
+
+test('执行规则拒绝重复类型、遗漏类型、负数和保留量冲突', () => {
+  assert.throws(() => buildExecutionPolicy({
+    taskPriorityText: '世界 Boss>世界 Boss>普通培养秘境>圣遗物填充',
+  }), /重复/);
+  assert.throws(() => buildExecutionPolicy({ taskPriorityText: '世界 Boss>普通培养秘境' }), /完整包含/);
+  assert.throws(() => buildExecutionPolicy({ taskLimitsText: '世界 Boss=-1' }), /格式错误/);
+  assert.throws(() => buildExecutionPolicy({ originalResinBudget: 20, originalResinReserve: 40 }), /不能大于/);
+  assert.throws(() => buildExecutionPolicy({ domainUseOriginalResin: false, domainUseCondensedResin: false }), /至少需要/);
+});
+
+test('原粹树脂预算按任务保守预留且不会越过保留线', () => {
+  const policy = buildExecutionPolicy({
+    taskLimitsText: '世界 Boss=2；限时培养秘境=3；普通培养秘境=4；圣遗物填充=1',
+    originalResinBudget: 180, originalResinReserve: 40,
+  });
+  const budget = createOriginalResinBudget(policy);
+  const bossRuns = limitBossRunCount({ executionType: 'boss' }, policy, budget, 9999);
+  assert.equal(bossRuns, 2);
+  assert.equal(budget.remaining, 60);
+  const domainPolicy = limitDomainResinPolicy({
+    priority: ['浓缩树脂', '原粹树脂'],
+    originalResinUseCount: 9999, condensedResinUseCount: 9999,
+    transientResinUseCount: 0, fragileResinUseCount: 0,
+  }, { executionType: 'domain', limited: false }, policy, budget);
+  assert.equal(domainPolicy.originalResinUseCount, 3);
+  assert.equal(domainPolicy.condensedResinUseCount, 4);
+  assert.equal(budget.remaining, 0);
 });
 
 test('培养秘境单次测试不受正式树脂开关关闭影响', () => {

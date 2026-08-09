@@ -19,6 +19,10 @@ import { assertExecutionConfirmed, normalizeScriptSettings } from './core/settin
 import { buildProfileSnapshot, formatProfileEntry } from './core/profile.js';
 import { loadAutomaticProfile } from './core/character-development.js';
 import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from './core/execution-result.js';
+import {
+  applyExecutionPolicyToTasks, buildExecutionPolicy, createOriginalResinBudget,
+  limitBossRunCount, limitDomainResinPolicy,
+} from './core/execution-policy.js';
 
 async function main() {
   let scriptSettings;
@@ -110,6 +114,10 @@ async function main() {
 
   appendArtifactFallbackTask(plan, scriptSettings);
 
+  const executionPolicy = buildExecutionPolicy(scriptSettings);
+  applyPolicyToPlan(plan, executionPolicy);
+  for (const line of executionPolicy.previewLines) log.info('[规则预览] {line}', line);
+
   const executionWarnings = collectExecutionWarnings(plan, scriptSettings);
   for (const warning of executionWarnings) {
     log.warn('[执行前检查] {warning}', warning);
@@ -125,14 +133,22 @@ async function main() {
     domainResinPolicy.transientResinUseCount,
     domainResinPolicy.fragileResinUseCount);
   plan.domainResinPolicy = domainResinPolicy;
+  plan.executionPolicy = executionPolicy;
   const inventoryBeforeExecution = { ...inventory };
   const trackedMaterialIds = [...plan.crafting.scanMaterialIds];
 
   {
     let execution;
     const partySwitchState = { initialized: false };
+    const resinBudget = createOriginalResinBudget(executionPolicy);
+    let routeRecords = [];
+    if (executionPolicy.routeTiming === '树脂任务前' && scriptSettings.routeExecutionEnabled === true) {
+      routeRecords = await executeRoutesSafely(discoveredRoutes, scriptSettings, materials, recipes, partySwitchState);
+    }
     try {
-      execution = await executeResinTasks(plan, scriptSettings, domainResinPolicy, inventory, partySwitchState);
+      execution = await executeResinTasks(
+        plan, scriptSettings, domainResinPolicy, executionPolicy, resinBudget, inventory, partySwitchState,
+      );
     } catch (error) {
       execution = {
         status: 'failed',
@@ -143,16 +159,11 @@ async function main() {
       log.error('[执行] 未开始或未完成秘境刷取：{error}', execution.reason);
     }
     plan.execution = execution;
-    if (execution.status !== 'failed' && scriptSettings.routeExecutionEnabled === true) {
-      try {
-        const routeExecution = await executeMatchedRoutes(discoveredRoutes, scriptSettings, materials, recipes, partySwitchState);
-        execution.routes = routeExecution.records;
-      } catch (error) {
-        const reason = error.message ?? String(error);
-        execution.routes = [{ name: '路线任务', type: 'route', status: 'failed', reason, paths: [], materials: [], gained: {} }];
-        log.error('[路线执行] 初始化或收尾失败，已停止路线并继续保存报告：{reason}', reason);
-      }
+    if (executionPolicy.routeTiming === '树脂任务后'
+      && execution.status !== 'failed' && scriptSettings.routeExecutionEnabled === true) {
+      routeRecords = await executeRoutesSafely(discoveredRoutes, scriptSettings, materials, recipes, partySwitchState);
     }
+    execution.routes = routeRecords;
 
     const hasExecutionAttempt = execution.status !== 'skipped' || (execution.routes?.length ?? 0) > 0;
     if (hasExecutionAttempt && scriptSettings.scanInventory !== false && trackedMaterialIds.length > 0) {
@@ -205,8 +216,11 @@ async function main() {
       });
       plan.routes = discoveredRoutes;
       applyMatchedRouteSupport(plan, discoveredRoutes);
+      appendArtifactFallbackTask(plan, scriptSettings);
+      applyPolicyToPlan(plan, executionPolicy);
       plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
       plan.domainResinPolicy = domainResinPolicy;
+      plan.executionPolicy = executionPolicy;
       plan.execution = execution;
     }
   }
@@ -258,6 +272,7 @@ async function main() {
     inventoryAfter: inventory,
     execution: plan.execution,
     domainResinPolicy,
+    executionPolicy,
   });
   const updatedHistory = appendRunHistory(history, runRecord);
   await file.writeText('record/history.json', JSON.stringify(updatedHistory, null, 2), false);
@@ -308,11 +323,13 @@ async function loadTargets(scriptSettings, rulebook) {
   return { ...targetData, profileSnapshot: buildProfileSnapshot(targetData.targets ?? [], { source: 'target-file' }) };
 }
 
-async function executeResinTasks(plan, settings, resinPolicy, inventory, partySwitchState) {
+async function executeResinTasks(plan, settings, resinPolicy, executionPolicy, resinBudget, inventory, partySwitchState) {
   const execution = await runResinTaskQueue({
     tasks: plan.todayQueue,
     isEnabled: (task) => isTaskExecutionEnabled(task, settings),
-    executeTask: (task) => executeResinTask(task, settings, resinPolicy, inventory, partySwitchState),
+    executeTask: (task) => executeResinTask(
+      task, settings, resinPolicy, executionPolicy, resinBudget, inventory, partySwitchState,
+    ),
   });
   if (execution.tasks.length === 0) log.info('[执行] 今日没有可执行的树脂任务，本次不执行');
   for (const result of execution.tasks.filter((item) => item.status === EXECUTION_STATUS.SKIPPED)) {
@@ -321,14 +338,26 @@ async function executeResinTasks(plan, settings, resinPolicy, inventory, partySw
   return execution;
 }
 
-async function executeResinTask(task, settings, resinPolicy, inventory, partySwitchState) {
-  if (task.executionType === 'boss') return executeBossTask(task, settings, inventory, partySwitchState);
-  if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory, partySwitchState);
+async function executeResinTask(task, settings, resinPolicy, executionPolicy, resinBudget, inventory, partySwitchState) {
+  if (task.executionType === 'boss') {
+    return executeBossTask(task, settings, executionPolicy, resinBudget, inventory, partySwitchState);
+  }
+  const limitedResinPolicy = limitDomainResinPolicy(resinPolicy, task, executionPolicy, resinBudget);
+  if (limitedResinPolicy.priority.length === 0) {
+    return createTaskResult({
+      status: EXECUTION_STATUS.SKIPPED, task,
+      reason: '该类任务次数上限为 0，或原粹树脂预算已达到保留线',
+      evidence: { taskInvoked: false },
+    });
+  }
+  if (task.executionType === 'artifactDomain') {
+    return executeArtifactDomainTask(task, settings, limitedResinPolicy, inventory, partySwitchState);
+  }
   if (task.executionType !== 'domain') {
     return createTaskResult({ status: EXECUTION_STATUS.SKIPPED, task, reason: `暂不支持执行任务类型：${task.executionType}` });
   }
 
-  const config = buildDomainExecutionConfig(task, settings, resinPolicy);
+  const config = buildDomainExecutionConfig(task, settings, limitedResinPolicy);
   log.info('[执行] 准备刷取秘境“{domain}”，材料目标：{materials}', config.domainName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
 
@@ -398,8 +427,17 @@ async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inve
   });
 }
 
-async function executeBossTask(task, scriptSettings, inventory, partySwitchState) {
+async function executeBossTask(task, scriptSettings, executionPolicy, resinBudget, inventory, partySwitchState) {
   const config = buildBossExecutionConfig(task, scriptSettings);
+  config.runCount = limitBossRunCount(task, executionPolicy, resinBudget, config.runCount);
+  config.specifyRunCount = true;
+  if (config.runCount <= 0) {
+    return createTaskResult({
+      status: EXECUTION_STATUS.SKIPPED, task,
+      reason: 'Boss 次数上限为 0，或原粹树脂预算已达到保留线',
+      evidence: { taskInvoked: false },
+    });
+  }
   log.info('[Boss] 准备刷取“{boss}”，材料目标：{materials}', config.bossName,
     config.trackedMaterials.map((item) => `${item.materialName}×${item.shortage}`).join('、'));
   const switched = await switchTaskParty(config.partyName, 'Boss', partySwitchState);
@@ -483,6 +521,22 @@ async function executeMatchedRoutes(routes, scriptSettings, materials, recipes, 
     records.push(routeRecord);
   }
   return { records };
+}
+
+async function executeRoutesSafely(routes, scriptSettings, materials, recipes, partySwitchState) {
+  try {
+    const routeExecution = await executeMatchedRoutes(routes, scriptSettings, materials, recipes, partySwitchState);
+    return routeExecution.records;
+  } catch (error) {
+    const reason = error.message ?? String(error);
+    log.error('[路线执行] 初始化或收尾失败，已停止路线并继续保存报告：{reason}', reason);
+    return [{ name: '路线任务', type: 'route', status: 'failed', reason, paths: [], materials: [], gained: {} }];
+  }
+}
+
+function applyPolicyToPlan(plan, executionPolicy) {
+  plan.todayQueue = applyExecutionPolicyToTasks(plan.todayQueue, executionPolicy);
+  plan.weeklyPlan = plan.weeklyPlan.map((tasks) => applyExecutionPolicyToTasks(tasks, executionPolicy));
 }
 
 function buildSkippedRouteRecord(route, materials, reason) {

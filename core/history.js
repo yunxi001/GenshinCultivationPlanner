@@ -7,7 +7,7 @@ export function appendRunHistory(history, record) {
 }
 
 /** 将本次运行中与复盘有关的数据固定为可持久化的 JSON。 */
-export function buildRunRecord({ executionEnabled, plan, inventoryBefore, inventoryAfter, execution, domainResinPolicy }) {
+export function buildRunRecord({ executionEnabled, plan, inventoryBefore, inventoryAfter, execution, domainResinPolicy, executionPolicy = null }) {
   return {
     timestamp: new Date().toISOString(),
     executionEnabled,
@@ -41,6 +41,7 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
       evidence: buildExecutionEvidence(execution),
     } : null,
     domainResinPolicy,
+    executionPolicy,
     profileSnapshot: plan.profileSnapshot ?? null,
     inventoryBefore,
     inventoryAfter,

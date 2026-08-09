@@ -19,10 +19,20 @@ export function normalizeScriptSettings(rawSettings = {}) {
   applyBossMode(normalized, rawSettings.bossRunMode);
   applyArtifactMode(normalized, rawSettings.artifactRunMode);
   applyResinStrategy(normalized, rawSettings.resinStrategy);
+  applyConsumableResinAuthorizations(normalized, rawSettings);
   applyCombatStrategies(normalized, rawSettings.combatStrategiesText);
   applyBossOverrides(normalized, rawSettings.bossOverridesText);
 
   return normalized;
+}
+
+function applyConsumableResinAuthorizations(settings, rawSettings) {
+  if (rawSettings.transientResinAuthorized !== undefined) {
+    settings.domainUseTransientResin = rawSettings.transientResinAuthorized === true;
+  }
+  if (rawSettings.fragileResinAuthorized !== undefined) {
+    settings.domainUseFragileResin = rawSettings.fragileResinAuthorized === true;
+  }
 }
 
 /** 格式：Boss名称=队伍名称|策略名称|启用；策略可留空，状态仅允许启用/禁用。 */

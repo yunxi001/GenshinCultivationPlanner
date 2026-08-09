@@ -1037,13 +1037,65 @@
         "浓缩→原粹",
         "仅原粹",
         "仅浓缩"
-      ],
-      "包含消耗品": [
-        "浓缩→原粹→须臾",
-        "浓缩→原粹→须臾→脆弱"
       ]
     },
     "default": "浓缩→原粹"
+  },
+  {
+    "name": "transientResinAuthorized",
+    "type": "checkbox",
+    "label": "允许使用须臾树脂（默认关闭）：仅勾选后才会把须臾树脂加入秘境授权；请先确认即将到期且愿意消耗。",
+    "default": false
+  },
+  {
+    "name": "fragileResinAuthorized",
+    "type": "checkbox",
+    "label": "允许使用脆弱树脂（默认关闭）：与须臾树脂分开授权；勾选后可能消耗背包中的脆弱树脂，请谨慎开启。",
+    "default": false
+  },
+  {
+    "name": "taskPriorityText",
+    "type": "input-text",
+    "label": "树脂任务优先级：必须完整填写四类且不能重复。支持中文/英文箭头和逗号。默认“世界 Boss>限时培养秘境>普通培养秘境>圣遗物填充”。周本不会因自定义顺序进入自动执行。",
+    "default": "世界 Boss>限时培养秘境>普通培养秘境>圣遗物填充"
+  },
+  {
+    "name": "routeTiming",
+    "type": "cascade-select",
+    "label": "地方特产与怪物路线的执行时机：路线不消耗树脂；选择任务前时，路线局部失败不会阻止后续树脂任务。",
+    "cascadeOptions": {
+      "推荐": ["树脂任务后"],
+      "自定义": ["树脂任务前"]
+    },
+    "default": "树脂任务后"
+  },
+  {
+    "name": "originalResinBudget",
+    "type": "input-text",
+    "label": "本次原粹树脂预算（0–200）：用于为多个任务保守分配原粹树脂授权，不读取游戏当前树脂。实际树脂更少时由 BetterGI 自行停止。",
+    "default": "200"
+  },
+  {
+    "name": "originalResinReserve",
+    "type": "input-text",
+    "label": "原粹树脂保留量（0–200）：不会授权任务消耗这部分原粹树脂；不得大于本次预算。浓缩树脂不计入此保留量。",
+    "default": "0"
+  },
+  {
+    "name": "taskLimitsText",
+    "type": "input-text",
+    "label": "每类任务次数上限（可选）：格式“世界 Boss=无限；限时培养秘境=无限；普通培养秘境=无限；圣遗物填充=无限”。秘境上限分别作用于每种已授权树脂，Boss 上限为运行次数；填 0 可禁用该类任务。",
+    "default": "世界 Boss=无限；限时培养秘境=无限；普通培养秘境=无限；圣遗物填充=无限"
+  },
+  {
+    "name": "artifactFillCondition",
+    "type": "cascade-select",
+    "label": "圣遗物填充条件：默认仅在没有培养树脂候选时加入；也可始终放到所有培养任务之后。仍需在上方启用并选择圣遗物秘境。",
+    "cascadeOptions": {
+      "安全默认": ["仅无培养任务"],
+      "自定义": ["始终放在队列末尾"]
+    },
+    "default": "仅无培养任务"
   },
   {
     "name": "estimateDailyResin",
