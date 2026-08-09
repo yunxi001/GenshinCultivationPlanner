@@ -312,7 +312,8 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
   assert.deepEqual(new Set(weaponNames), new Set(Object.keys(generatedRulebook.weapons)));
   const names = items.map((item) => item.name);
   assert.ok(names.indexOf('selectedCharacter') < names.indexOf('domainRunMode'));
-  assert.ok(names.indexOf('executionConfirmed') < names.indexOf('domainRunMode'));
+  assert.equal(names.indexOf('executionConfirmed'), names.indexOf('basicSection') + 1);
+  assert.ok(names.indexOf('executionConfirmed') < names.indexOf('selectedCharacter'));
   assert.equal(items.find((item) => item.name === 'executionConfirmed').default, false);
   assert.ok(names.indexOf('customTargetsEnabled') < names.indexOf('targetsText'));
   assert.ok(names.indexOf('gatheringRouteExecutionEnabled') < names.indexOf('monsterRouteExecutionEnabled'));
