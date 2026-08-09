@@ -25,6 +25,7 @@ import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/setti
 import { buildProfileSnapshot, formatProfileEntry } from '../core/profile.js';
 import { convertCharacterResult, detectCharacterDevelopmentCapability, loadAutomaticProfile } from '../core/character-development.js';
 import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from '../core/execution-result.js';
+import { buildRouteSignature, buildRouteYieldEstimate } from '../core/route-estimate.js';
 
 const materials = {
   talentBook: {
@@ -761,19 +762,67 @@ test('完成预估不为周本和圣遗物输出预计天数', () => {
   assert.match(weekly.reason, /周本/);
 });
 
-test('已匹配路线显示为自动路线来源，但预估未接入时不虚构预计天数', () => {
+test('路线样本不足时不虚构预计轮次或自然日', () => {
   const estimate = buildCompletionEstimate({
     plan: {
       displayShortages: [{
         materialId: 'route', shortage: 10,
         material: { name: '测试特产', status: 'supported', executionType: 'route' },
       }],
+      routes: { matched: [{ materialId: 'route', name: '测试特产', type: 'localSpecialty', paths: ['地区/材料/路线.json'] }] },
     },
     materials: { route: { name: '测试特产', status: 'manual', executionType: 'none' } },
     today: 1,
   });
   assert.equal(estimate.days, null);
-  assert.match(estimate.reason, /路线材料完成时间预估尚未接入/);
+  assert.match(estimate.reason, /有效收益样本/);
+});
+
+test('路线按相同 JSON 集合的历史背包差值估算剩余轮次', () => {
+  const route = { materialId: 'route', name: '测试特产', type: 'localSpecialty', paths: ['地区/A.json', '地区/B.json'] };
+  const history = [5, 7].map((gained) => ({
+    execution: { routes: [{
+      name: '测试特产', type: 'localSpecialty', status: 'completed',
+      paths: [{ path: '地区/B.json' }, { path: '地区/A.json' }],
+      materials: [{ materialId: 'route', gained }],
+    }] },
+  }));
+  const direct = buildRouteYieldEstimate({ route, materialId: 'route', shortage: 13, history });
+  assert.equal(direct.averageYield, 6);
+  assert.equal(direct.estimatedRuns, 3);
+  assert.equal(buildRouteSignature(route), 'localSpecialty:地区\\a.json|地区\\b.json');
+  const estimate = buildCompletionEstimate({
+    plan: {
+      displayShortages: [{
+        materialId: 'route', shortage: 13,
+        material: { name: '测试特产', status: 'supported', executionType: 'route' },
+      }],
+      routes: { matched: [route] },
+    },
+    materials: { route: { name: '测试特产' } }, history, today: 1,
+  });
+  assert.equal(estimate.days, null);
+  assert.equal(estimate.routeDetails[0].estimatedRuns, 3);
+  assert.match(estimate.reason, /约 3 轮/);
+});
+
+test('路线文件集合变化或零收益记录不会沿用旧估算', () => {
+  const history = [{ execution: { routes: [{
+    type: 'monster', status: 'completed', paths: [{ path: '旧路线.json' }],
+    materials: [{ materialId: 'drop', gained: 8 }],
+  }] } }];
+  const changed = buildRouteYieldEstimate({
+    route: { type: 'monster', paths: ['新路线.json'] }, materialId: 'drop', shortage: 10, history,
+  });
+  assert.equal(changed.available, false);
+  assert.equal(changed.sampleCount, 0);
+  const zero = buildRouteYieldEstimate({
+    route: { type: 'monster', paths: ['旧路线.json'] }, materialId: 'drop', shortage: 10,
+    history: [{ execution: { routes: [{
+      type: 'monster', status: 'unconfirmed', paths: ['旧路线.json'], materials: [{ materialId: 'drop', gained: 0 }],
+    }] } }],
+  });
+  assert.equal(zero.available, false);
 });
 
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
