@@ -18,7 +18,7 @@ import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
 import { validateDomainVerificationLedger } from '../core/domain-validation.js';
 import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
-import { buildBossExecutionConfig } from '../core/boss-executor.js';
+import { buildBossExecutionConfig, isBossTaskEnabled } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
@@ -424,7 +424,7 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
   ]);
-  assert.equal(editableItems.length, 30);
+  assert.equal(editableItems.length, 31);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
@@ -1017,6 +1017,53 @@ test('路线执行默认关闭，开启后要求对应队伍与有效路径', ()
   assert.equal(plan[0].partyName, '采集队');
 });
 
+test('路线覆盖可递归展开目录、校验类型并使用专属队伍', () => {
+  const folders = new Set(['自定义/月莲', '自定义/月莲/作者']);
+  const files = new Set(['自定义/月莲/a.json', '自定义/月莲/作者/b.json', '自定义/月莲/readme.txt']);
+  const children = {
+    '自定义/月莲': ['自定义/月莲/a.json', '自定义/月莲/作者', '自定义/月莲/readme.txt'],
+    '自定义/月莲/作者': ['自定义/月莲/作者/b.json'],
+  };
+  const pathing = {
+    readPaths: (path) => children[path] ?? [],
+    isFolder: (path) => folders.has(path),
+    isFile: (path) => files.has(path),
+  };
+  const result = discoverAutoPathingRoutes({
+    shortages: [{ materialId: 'local', shortage: 10 }],
+    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
+    routeOverrides: {
+      local: {
+        paths: ['自定义/月莲'], type: 'localSpecialty', partyName: '纳西妲采集队', requiredCharacters: ['纳西妲'],
+      },
+    },
+    pathing,
+  });
+  assert.deepEqual(result.matched[0].paths, ['自定义/月莲/a.json', '自定义/月莲/作者/b.json']);
+  const plan = buildRouteExecutionPlan(result, { gatheringRouteExecutionEnabled: true });
+  assert.equal(plan[0].partyName, '纳西妲采集队');
+  assert.deepEqual(plan[0].requiredCharacters, ['纳西妲']);
+  const wrongType = discoverAutoPathingRoutes({
+    shortages: [{ materialId: 'local', shortage: 10 }],
+    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
+    routeOverrides: { local: { paths: ['自定义/月莲'], type: 'monster' } },
+    pathing,
+  });
+  assert.match(wrongType.missing[0].reason, /类型/);
+});
+
+test('路线覆盖可以单独禁用材料且不存在路径会明确报错', () => {
+  const base = {
+    shortages: [{ materialId: 'local', shortage: 10 }],
+    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
+    pathing: { readPaths: () => [], isFolder: () => false, isFile: () => false },
+  };
+  const disabled = discoverAutoPathingRoutes({ ...base, routeOverrides: { local: { enabled: false } } });
+  assert.match(disabled.missing[0].reason, /单独禁用/);
+  const missing = discoverAutoPathingRoutes({ ...base, routeOverrides: { local: '不存在.json' } });
+  assert.match(missing.missing[0].reason, /不存在或不是 JSON/);
+});
+
 test('地方特产和怪物材料路线可以独立开启', () => {
   const routes = {
     matched: [
@@ -1165,6 +1212,21 @@ test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
   assert.equal(singleRunConfig.runCount, 1);
   assert.equal(singleRunConfig.strategyName, '');
   assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
+});
+
+test('Boss 专属配置覆盖通用队伍和策略，并可单独禁用', () => {
+  const normalized = normalizeScriptSettings({
+    bossOverridesText: '急冻树=冰抗队|急冻树策略|启用；无相之水=水免队||禁用',
+  });
+  const task = { executionType: 'boss', bossName: '急冻树', materials: [] };
+  const config = buildBossExecutionConfig(task, {
+    ...normalized, bossExecutionEnabled: true, bossTeamName: '通用队', bossCombatStrategyName: '通用策略',
+  });
+  assert.equal(config.partyName, '冰抗队');
+  assert.equal(config.strategyName, '急冻树策略');
+  assert.equal(isBossTaskEnabled(task, { ...normalized, bossExecutionEnabled: true }), true);
+  assert.equal(isBossTaskEnabled({ ...task, bossName: '无相之水' }, { ...normalized, bossExecutionEnabled: true }), false);
+  assert.throws(() => normalizeScriptSettings({ bossOverridesText: '急冻树=队伍|策略|随便' }), /只能填写/);
 });
 
 test('运行摘要显示世界 Boss 名称，不显示未定义的秘境名称', () => {

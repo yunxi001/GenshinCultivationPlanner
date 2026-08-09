@@ -20,8 +20,27 @@ export function normalizeScriptSettings(rawSettings = {}) {
   applyArtifactMode(normalized, rawSettings.artifactRunMode);
   applyResinStrategy(normalized, rawSettings.resinStrategy);
   applyCombatStrategies(normalized, rawSettings.combatStrategiesText);
+  applyBossOverrides(normalized, rawSettings.bossOverridesText);
 
   return normalized;
+}
+
+/** 格式：Boss名称=队伍名称|策略名称|启用；策略可留空，状态仅允许启用/禁用。 */
+function applyBossOverrides(settings, text) {
+  if (!hasValue(text)) return;
+  const result = {};
+  const entries = String(text).split(/[；;\r\n]+/).map((item) => item.trim()).filter(Boolean);
+  for (const entry of entries) {
+    const match = entry.match(/^([^=：:]+?)\s*[=：:]\s*(.+)$/);
+    if (!match) throw new Error(`Boss 专属配置格式错误：“${entry}”`);
+    const bossName = match[1].trim();
+    if (result[bossName]) throw new Error(`Boss 专属配置重复：“${bossName}”`);
+    const parts = match[2].split('|').map((item) => item.trim());
+    if (parts.length !== 3 || !parts[0]) throw new Error(`Boss“${bossName}”应填写“队伍名称|策略名称|启用/禁用”`);
+    if (!['启用', '禁用'].includes(parts[2])) throw new Error(`Boss“${bossName}”状态只能填写“启用”或“禁用”`);
+    result[bossName] = { partyName: parts[0], strategyName: parts[1], enabled: parts[2] === '启用' };
+  }
+  settings.bossOverrides = result;
 }
 
 function applyProfileSettings(settings, rawSettings) {

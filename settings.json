@@ -950,6 +950,12 @@
     "default": ""
   },
   {
+    "name": "bossOverridesText",
+    "type": "input-text",
+    "label": "Boss 专属覆盖（可选）：为机制特殊的首领单独指定队伍、策略或禁用。格式“急冻树=队伍名称|策略名称|启用；无相之水=队伍名称||禁用”。留空时使用上方通用 Boss 队伍与高级设置中的通用策略。",
+    "default": ""
+  },
+  {
     "name": "artifactSection",
     "type": "separator",
     "label": "\n━━━━━━━━━━━━━━━━━ 圣遗物秘境填充 ━━━━━━━━━━━━━━━━━\n"

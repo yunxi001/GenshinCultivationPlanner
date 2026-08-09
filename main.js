@@ -12,7 +12,7 @@ import { parseTargetText } from './core/target-input.js';
 import { resolvePlanningWeekday } from './core/server-weekday.js';
 import { buildCompletionEstimate } from './core/estimate.js';
 import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from './core/route-executor.js';
-import { buildBossExecutionConfig } from './core/boss-executor.js';
+import { buildBossExecutionConfig, isBossTaskEnabled } from './core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from './core/artifact-executor.js';
 import { switchPartyWithRecovery } from './core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from './core/settings.js';
@@ -367,7 +367,7 @@ async function executeResinTask(task, settings, resinPolicy, inventory, partySwi
 
 /** 世界 Boss 机制与队伍需求差异大，必须由用户显式开启后才允许自动执行。 */
 function isTaskExecutionEnabled(task, scriptSettings) {
-  if (task.executionType === 'boss') return scriptSettings.bossExecutionEnabled === true;
+  if (task.executionType === 'boss') return isBossTaskEnabled(task, scriptSettings);
   return true;
 }
 
