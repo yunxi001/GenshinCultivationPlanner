@@ -21,6 +21,19 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
         materialName: execution.task.materialName,
         materials: execution.task.materials ?? [],
       } : null,
+      tasks: (execution.tasks ?? []).map((item) => ({
+        status: item.status,
+        reason: item.reason ?? null,
+        continueResinQueue: item.continueResinQueue,
+        evidence: item.evidence ?? {},
+        task: item.task ? {
+          executionType: item.task.executionType,
+          domainName: item.task.domainName ?? null,
+          bossName: item.task.bossName ?? null,
+          materialName: item.task.materialName,
+          materials: item.task.materials ?? [],
+        } : null,
+      })),
       trackedRewards: execution.trackedRewards ?? {},
       routes: execution.routes ?? [],
       appliedGains: execution.appliedGains === true,
@@ -49,6 +62,7 @@ function buildExecutionEvidence(execution) {
 function classifyExecutionResult(execution) {
   if (execution.status === 'failed') return 'failed';
   if (execution.status === 'skipped') return 'skipped';
+  if (execution.status === 'unconfirmed') return 'unconfirmed';
   if (execution.task?.executionType === 'artifactDomain') return 'completed-untracked';
   if (execution.inventoryChecked === true && execution.appliedGains === true) return 'completed-inventory-confirmed';
   return 'completed-unconfirmed';

@@ -18,6 +18,7 @@ import { switchPartyWithRecovery } from './core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from './core/settings.js';
 import { buildProfileSnapshot, formatProfileEntry } from './core/profile.js';
 import { loadAutomaticProfile } from './core/character-development.js';
+import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from './core/execution-result.js';
 
 async function main() {
   let scriptSettings;
@@ -131,7 +132,7 @@ async function main() {
     let execution;
     const partySwitchState = { initialized: false };
     try {
-      execution = await executeFirstResinTask(plan, scriptSettings, domainResinPolicy, materials, inventory, partySwitchState);
+      execution = await executeResinTasks(plan, scriptSettings, domainResinPolicy, inventory, partySwitchState);
     } catch (error) {
       execution = {
         status: 'failed',
@@ -164,6 +165,13 @@ async function main() {
       );
       execution.inventoryChecked = true;
       execution.appliedGains = Object.keys(execution.trackedRewards).length > 0;
+      const hasTrackedResinTask = (execution.tasks ?? []).some((item) => (
+        item.evidence?.taskInvoked === true && item.task?.executionType !== 'artifactDomain'
+      ));
+      if (execution.status !== EXECUTION_STATUS.FAILED && hasTrackedResinTask) {
+        execution.status = execution.appliedGains ? EXECUTION_STATUS.COMPLETED : EXECUTION_STATUS.UNCONFIRMED;
+        execution.reason = execution.appliedGains ? null : '全部任务结束后的背包复核未确认到目标材料增长';
+      }
       if (execution.routes?.length > 0) {
         execution.routes = applyFinalRouteInventoryGains(
           execution.routes,
@@ -300,18 +308,24 @@ async function loadTargets(scriptSettings, rulebook) {
   return { ...targetData, profileSnapshot: buildProfileSnapshot(targetData.targets ?? [], { source: 'target-file' }) };
 }
 
-async function executeFirstResinTask(plan, settings, resinPolicy, materials, inventory, partySwitchState) {
-  const task = plan.todayQueue.find((item) => (
-    item.status === 'supported' && isTaskExecutionEnabled(item, settings)
-  ));
-  if (!task) {
-    log.info('[执行] 今日没有已启用的树脂任务，本次不执行');
-    return { status: 'skipped', reason: '今日没有已启用的树脂任务', rewards: {}, appliedGains: false };
+async function executeResinTasks(plan, settings, resinPolicy, inventory, partySwitchState) {
+  const execution = await runResinTaskQueue({
+    tasks: plan.todayQueue,
+    isEnabled: (task) => isTaskExecutionEnabled(task, settings),
+    executeTask: (task) => executeResinTask(task, settings, resinPolicy, inventory, partySwitchState),
+  });
+  if (execution.tasks.length === 0) log.info('[执行] 今日没有可执行的树脂任务，本次不执行');
+  for (const result of execution.tasks.filter((item) => item.status === EXECUTION_STATUS.SKIPPED)) {
+    log.info('[执行] 已跳过“{name}”：{reason}', result.task?.bossName ?? result.task?.domainName ?? '树脂任务', result.reason);
   }
+  return execution;
+}
+
+async function executeResinTask(task, settings, resinPolicy, inventory, partySwitchState) {
   if (task.executionType === 'boss') return executeBossTask(task, settings, inventory, partySwitchState);
   if (task.executionType === 'artifactDomain') return executeArtifactDomainTask(task, settings, resinPolicy, inventory, partySwitchState);
   if (task.executionType !== 'domain') {
-    return { status: 'skipped', reason: `暂不支持执行任务类型：${task.executionType}`, rewards: {}, appliedGains: false };
+    return createTaskResult({ status: EXECUTION_STATUS.SKIPPED, task, reason: `暂不支持执行任务类型：${task.executionType}` });
   }
 
   const config = buildDomainExecutionConfig(task, settings, resinPolicy);
@@ -343,14 +357,12 @@ async function executeFirstResinTask(plan, settings, resinPolicy, materials, inv
 
   await dispatcher.RunAutoDomainTask(param);
   log.info('[执行] 秘境“{domain}”任务调用结束；收益将在全部任务结束后统一读取背包确认', config.domainName);
-  return {
-    status: 'completed',
-    task,
-    rewards: {},
-    trackedRewards: {},
-    appliedGains: false,
-    inventoryBefore: inventory,
-  };
+  return createTaskResult({
+    status: EXECUTION_STATUS.UNCONFIRMED, task,
+    reason: '等待全部任务结束后的统一背包复核',
+    evidence: { taskInvoked: true, inventoryChecked: false },
+    details: { inventoryBefore: inventory },
+  });
 }
 
 /** 世界 Boss 机制与队伍需求差异大，必须由用户显式开启后才允许自动执行。 */
@@ -378,11 +390,12 @@ async function executeArtifactDomainTask(task, scriptSettings, resinPolicy, inve
   param.RewardRecognitionEnabled = false;
   await dispatcher.RunAutoDomainTask(param);
   log.info('[圣遗物] 任务调用结束；圣遗物收益不纳入培养材料计数');
-  return {
-    status: 'completed', task, rewards: {}, trackedRewards: {},
-    appliedGains: false,
-    inventoryBefore: inventory,
-  };
+  return createTaskResult({
+    status: EXECUTION_STATUS.COMPLETED, task,
+    reason: '圣遗物收益不纳入培养材料计数',
+    evidence: { taskInvoked: true, materialTrackingApplicable: false },
+    details: { inventoryBefore: inventory },
+  });
 }
 
 async function executeBossTask(task, scriptSettings, inventory, partySwitchState) {
@@ -404,11 +417,12 @@ async function executeBossTask(task, scriptSettings, inventory, partySwitchState
   param.RewardRecognitionEnabled = false;
   await dispatcher.RunAutoBossTask(param);
   log.info('[Boss] 任务调用结束；收益将在全部任务结束后统一读取背包确认');
-  return {
-    status: 'completed', task, rewards: {}, trackedRewards: {},
-    appliedGains: false,
-    inventoryBefore: inventory,
-  };
+  return createTaskResult({
+    status: EXECUTION_STATUS.UNCONFIRMED, task,
+    reason: '等待全部任务结束后的统一背包复核',
+    evidence: { taskInvoked: true, inventoryChecked: false },
+    details: { inventoryBefore: inventory },
+  });
 }
 
 async function executeMatchedRoutes(routes, scriptSettings, materials, recipes, partySwitchState) {

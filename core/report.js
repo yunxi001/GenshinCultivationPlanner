@@ -125,16 +125,25 @@ function buildProfileSection(items) {
 }
 
 function formatTaskResult(execution) {
-  const task = execution?.task;
-  const tasks = task ? [formatTask(task)] : [];
-  if (!task || execution?.status !== 'completed') return { status: '任务未完成', tasks };
-  if (task.executionType === 'artifactDomain') {
+  const taskResults = execution?.tasks?.length > 0
+    ? execution.tasks.filter((item) => item.evidence?.taskInvoked === true)
+    : execution?.task ? [{ task: execution.task, status: execution.status }] : [];
+  const tasks = taskResults.map((item) => `${formatTask(item.task)}（${formatStatus(item.status)}）`);
+  if (taskResults.length === 0) return { status: '没有调用树脂任务', tasks };
+  if (execution?.status === 'failed') return { status: `任务失败：${execution.reason || '未知原因'}`, tasks };
+  if (execution?.status === 'unconfirmed') return { status: '任务调用结束；背包未确认材料增长', tasks };
+  if (taskResults.every((item) => item.task.executionType === 'artifactDomain')) {
     return { status: '圣遗物任务调用结束；收益不纳入培养材料统计', tasks };
   }
   if (execution.inventoryChecked === true && execution.appliedGains === true) {
     return { status: '已完成并由背包差值确认收益', tasks };
   }
   return { status: '任务调用结束；未确认是否成功领奖', tasks };
+}
+
+function formatStatus(status) {
+  const labels = { completed: '完成', skipped: '跳过', failed: '失败', unconfirmed: '收益未确认' };
+  return labels[status] ?? status ?? '未知';
 }
 
 function formatTask(task) {

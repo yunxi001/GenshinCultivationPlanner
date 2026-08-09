@@ -23,6 +23,7 @@ import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
 import { buildProfileSnapshot, formatProfileEntry } from '../core/profile.js';
 import { convertCharacterResult, detectCharacterDevelopmentCapability, loadAutomaticProfile } from '../core/character-development.js';
+import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from '../core/execution-result.js';
 
 const materials = {
   talentBook: {
@@ -882,6 +883,49 @@ test('存在可执行世界 Boss 时，秘境不得抢占执行顺序', () => {
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'weeklyBoss', status: 'supported' }]), false);
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'boss', status: 'supported' }]), true);
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'boss', status: 'manual' }, { executionType: 'domain', status: 'supported' }]), false);
+});
+
+test('多树脂调度按顺序执行，跳过可继续而安全失败会停止', async () => {
+  const tasks = [
+    { status: 'supported', executionType: 'boss', bossName: '关闭的 Boss' },
+    { status: 'supported', executionType: 'domain', domainName: '秘境甲' },
+    { status: 'supported', executionType: 'domain', domainName: '秘境乙' },
+    { status: 'supported', executionType: 'domain', domainName: '不会执行' },
+  ];
+  const called = [];
+  const execution = await runResinTaskQueue({
+    tasks,
+    isEnabled: (task) => task.executionType !== 'boss',
+    executeTask: async (task) => {
+      called.push(task.domainName);
+      if (task.domainName === '秘境乙') throw new Error('切换队伍失败');
+      return createTaskResult({
+        status: EXECUTION_STATUS.UNCONFIRMED, task,
+        reason: '等待背包复核', evidence: { taskInvoked: true },
+      });
+    },
+  });
+  assert.deepEqual(called, ['秘境甲', '秘境乙']);
+  assert.deepEqual(execution.tasks.map((item) => item.status), ['skipped', 'unconfirmed', 'failed']);
+  assert.equal(execution.status, 'failed');
+  assert.match(execution.reason, /切换队伍失败/);
+});
+
+test('多树脂调度允许多个调用完成后统一确认收益', async () => {
+  const tasks = [
+    { status: 'supported', executionType: 'boss', bossName: '急冻树' },
+    { status: 'supported', executionType: 'domain', domainName: '忘却之峡' },
+  ];
+  const execution = await runResinTaskQueue({
+    tasks,
+    executeTask: async (task) => createTaskResult({
+      status: EXECUTION_STATUS.UNCONFIRMED, task,
+      reason: '等待背包复核', evidence: { taskInvoked: true },
+    }),
+  });
+  assert.equal(execution.status, 'unconfirmed');
+  assert.equal(execution.tasks.length, 2);
+  assert.equal(execution.task.bossName, '急冻树');
 });
 
 test('周日秘境奖励序号按材料开放日自动推导', () => {
