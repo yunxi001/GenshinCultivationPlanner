@@ -1,0 +1,3465 @@
+[00:05:00.621] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.Instance.InstanceService
+实例 IPC v2 已启动：Primary，进程 11492，Session 1，根管道 "BetterGI.v2.user-<已脱敏的 Windows SID>.root"
+
+[00:05:00.699] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.View.MainWindow
+主窗体实例化
+
+[00:05:01.470] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[GpuAuto]修改进程PATH为:"[已脱敏：本机 PATH]"
+
+[00:05:01.470] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[GpuAuto]修改进程PATH为:"[已脱敏：本机 PATH]"
+
+[00:05:01.473] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]启用的provider:"Cpu",初始化参数: InferenceDevice=Cpu, OptimizedModel=False, CudaDeviceId=0, DmlDeviceId=0, EmbedTensorRtCache=True, EnableTensorRtCache=True, CpuOcr=True
+
+[00:05:01.477] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "PpOcrDetV4"
+
+[00:05:01.691] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "PpOcrRecV4"
+
+[00:05:01.824] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.ViewModel.Pages.HomePageViewModel
+已加载默认背景图片
+
+[00:05:02.135] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+创建了类型为 "Paddle" 的 OCR服务
+
+[00:05:03.235] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.ScriptRepoUpdater
+已禁用自动更新订阅脚本
+
+[00:05:33.404] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.View.MaskWindow
+更好的原神 "0.63.0"
+
+[00:05:33.405] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.View.MaskWindow
+遮罩窗口已启动，游戏大小1920x1080，素材缩放"1.00"，DPI缩放1.25
+
+[00:05:33.693] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.Common.TaskControl
+当前不在游戏主界面，等待进入主界面后执行任务...
+
+[00:05:33.693] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.Common.TaskControl
+如果你已经在游戏内的其他界面，请自行退出当前界面（ESC），或是30秒后将程序将自动尝试到入主界面，使当前任务能够继续运行！
+
+[00:06:40.412] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "角色等级bug测试" 加载完成，共1个脚本，开始执行
+
+[00:06:40.451] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务启动！"
+
+[00:06:40.902] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:06:40.913] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 开始执行JS脚本: "角色养成接口复现测试"
+
+[00:06:42.216] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色养成接口复现测试开始 ==========
+
+[00:06:42.220] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[说明] 本脚本只读取角色属性，用于收集不同等级样本；不读取背包、不刷取材料、不消耗树脂
+
+[00:06:42.223] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/8] 准备读取“凯亚”
+
+[00:06:43.581] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:06:43.839] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "凯亚"，元素筛选="冰"，武器筛选="单手剑"
+
+[00:06:43.859] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:06:43.956] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:06:45.707] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:06:45.935] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:06:46.486] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:06:46.723] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:06:47.411] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:06:47.815] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:06:47.995] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:06:48.695] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:06:50.805] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:06:51.129] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:06:52.606] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:06:52.837] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:06:53.688] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:06:53.906] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:06:53.988] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 15 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:06:54.039] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "丝柯克"，元素="冰"，score=0.984
+
+[00:06:54.052] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "神里绫华"，元素="冰"，score=0.982
+
+[00:06:54.079] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "七七"，元素="冰"，score=0.987
+
+[00:06:54.109] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "莱依拉"，元素="冰"，score=0.979
+
+[00:06:54.126] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "凯亚"，元素="冰"，score=0.968
+
+[00:06:54.645] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:06:54.892] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:06:55.262] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:06:55.487] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:06:57.114] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:06:57.339] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:06:57.658] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/80
+等级80"
+
+[00:06:58.120] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:06:59.034] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="0/80
+等级80"
+
+[00:06:59.378] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="0/80
+等级80"
+
+[00:07:00.187] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:00.904] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="0/80
+等级80"
+
+[00:07:01.422] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="0/80
+等级80"
+
+[00:07:02.652] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/8] “凯亚”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=0/80
+等级80
+
+[00:07:02.653] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/8] 准备读取“丽莎”
+
+[00:07:03.725] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:07:03.930] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "丽莎"，元素筛选="雷"，武器筛选="法器"
+
+[00:07:03.930] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:07:04.009] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:07:04.879] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:07:05.112] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:07:05.729] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:07:05.959] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:07:06.666] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:07:07.044] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:07:07.279] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:07:07.869] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:07:10.222] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:07:10.592] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:07:11.695] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:07:11.936] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:07:12.745] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:07:12.982] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:07:13.023] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 6 个，生成 2 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:07:13.054] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "瓦雷莎"，元素="雷"，score=0.988
+
+[00:07:13.087] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "丽莎"，元素="雷"，score=0.978
+
+[00:07:13.641] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:07:13.940] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:07:14.308] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:07:14.540] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:07:16.118] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:07:16.335] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:07:17.339] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:07:17.580] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:07:17.602] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:07:17.832] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:07:19.102] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:07:19.475] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:07:19.500] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/8] “丽莎”读取成功
+
+[00:07:19.574] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"丽莎","ElementType":"雷","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:07:19.574] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/8] 准备读取“诺艾尔”
+
+[00:07:20.717] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:07:21.050] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "诺艾尔"，元素筛选="岩"，武器筛选="双手剑"
+
+[00:07:21.051] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:07:21.135] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:07:21.984] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:07:22.218] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:07:22.795] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:07:23.029] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:07:23.656] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:07:23.947] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:07:24.120] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:07:24.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:07:26.878] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:07:27.171] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:07:28.263] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:07:28.513] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:07:29.545] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:07:29.786] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:07:29.812] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 4 个，生成 2 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:07:29.845] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "娜维娅"，元素="岩"，score=0.990
+
+[00:07:29.869] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "诺艾尔"，元素="岩"，score=0.981
+
+[00:07:30.382] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:07:30.622] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:07:31.006] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:07:31.240] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:07:32.424] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:07:32.698] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:07:33.671] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:07:33.908] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:07:33.930] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:07:34.166] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:07:35.480] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:07:35.828] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:07:35.858] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/8] “诺艾尔”读取成功
+
+[00:07:35.861] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"诺艾尔","ElementType":"岩","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:07:35.862] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/8] 准备读取“芭芭拉”
+
+[00:07:36.981] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:07:37.222] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "芭芭拉"，元素筛选="水"，武器筛选="法器"
+
+[00:07:37.223] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:07:37.332] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:07:38.309] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:07:38.563] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:07:39.076] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:07:39.304] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:07:39.972] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:07:40.330] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:07:40.546] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:07:40.956] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:07:43.018] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:07:43.353] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:07:44.679] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:07:44.902] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:07:45.721] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:07:45.957] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:07:46.004] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 10 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:07:46.016] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "哥伦比娅"，元素="水"，score=0.976
+
+[00:07:46.028] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "玛拉妮"，元素="水"，score=0.979
+
+[00:07:46.071] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "珊瑚宫心海"，元素="水"，score=0.979
+
+[00:07:46.090] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "莫娜"，元素="水"，score=0.984
+
+[00:07:46.104] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "芭芭拉"，元素="水"，score=0.984
+
+[00:07:46.832] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:07:47.059] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:07:47.429] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:07:47.653] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:07:49.197] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:07:49.435] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:07:49.942] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:50.327] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:50.713] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:51.171] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:51.644] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:52.054] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:52.485] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:53.103] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:53.537] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80"
+
+[00:07:54.809] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/8] “芭芭拉”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:07:54.810] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/8] 准备读取“香菱”
+
+[00:07:55.913] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:07:56.081] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "香菱"，元素筛选="火"，武器筛选="长柄武器"
+
+[00:07:56.081] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:07:56.169] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:07:57.182] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:07:57.420] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:07:57.947] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:07:58.190] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:07:58.844] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:07:59.170] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:07:59.394] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:07:59.909] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:08:01.932] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:08:02.261] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:08:03.456] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:08:03.702] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:08:04.519] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:08:04.765] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:08:04.822] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 6 个，生成 4 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:08:04.833] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "胡桃"，元素="火"，score=0.981
+
+[00:08:04.846] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "香菱"，元素="火"，score=0.979
+
+[00:08:05.572] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:08:05.799] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:08:06.172] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:08:06.410] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:08:07.757] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:08:07.999] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:08:09.052] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:08:09.291] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:08:09.313] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:08:09.541] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:08:10.817] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:08:11.179] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:08:11.218] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/8] “香菱”读取成功
+
+[00:08:11.220] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"香菱","ElementType":"火","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:08:11.220] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/8] 准备读取“伊安珊”
+
+[00:08:12.416] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:08:12.658] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "伊安珊"，元素筛选="雷"，武器筛选="长柄武器"
+
+[00:08:12.659] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:08:12.755] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:08:13.715] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:08:13.953] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:08:14.556] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:08:14.789] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:08:15.403] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:08:15.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:08:15.922] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:08:16.409] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:08:18.301] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:08:18.675] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:08:20.271] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:08:20.552] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:08:21.479] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:08:21.734] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:08:21.769] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 10 个，生成 4 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:08:21.821] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "诺艾尔"，元素="岩"，score=0.764
+
+[00:08:21.843] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "伊涅芙"，元素="雷"，score=0.978
+
+[00:08:21.897] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "雷电将军"，元素="雷"，score=0.978
+
+[00:08:21.917] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "伊安珊"，元素="雷"，score=0.982
+
+[00:08:22.466] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:08:22.805] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:08:23.186] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:08:23.412] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:08:25.039] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:08:25.277] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:08:25.483] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/80
+等级80"
+
+[00:08:26.338] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/80
+等级80"
+
+[00:08:27.708] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:08:27.928] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:08:27.964] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:08:28.190] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:08:29.489] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:08:29.827] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:08:29.838] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/8] “伊安珊”读取成功
+
+[00:08:29.840] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"伊安珊","ElementType":"雷","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:08:29.840] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/8] 准备读取“布伦妮”
+
+[00:08:30.967] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:08:31.266] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "布伦妮"，元素筛选="风"，武器筛选="法器"
+
+[00:08:31.266] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:08:31.341] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:08:32.360] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:08:32.585] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:08:33.117] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:08:33.352] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:08:33.781] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:08:34.110] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:08:34.309] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:08:34.856] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:08:36.899] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:08:37.232] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:08:38.499] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:08:38.734] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:08:39.619] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:08:39.985] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:08:40.022] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 16 个，生成 7 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:08:40.117] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "梦见月瑞希"，元素="风"，score=0.988
+
+[00:08:40.141] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "闲云"，元素="风"，score=0.981
+
+[00:08:40.198] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "布伦妮"，元素="风"，score=0.981
+
+[00:08:41.173] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:08:41.437] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:08:41.825] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:08:42.118] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:08:43.654] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:08:43.877] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:08:44.100] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:44.538] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:44.972] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/80
+等级80"
+
+[00:08:45.355] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:45.782] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:46.526] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="0/80
+等级80"
+
+[00:08:46.972] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:47.370] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:47.790] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80"
+
+[00:08:48.980] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/8] “布伦妮”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:08:48.981] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/8] 准备读取“坎蒂丝”
+
+[00:08:50.102] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:08:50.401] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "坎蒂丝"，元素筛选="水"，武器筛选="长柄武器"
+
+[00:08:50.401] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:08:50.588] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:08:51.530] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:08:51.776] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:08:52.307] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:08:52.552] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:08:52.978] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:08:53.276] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:08:53.395] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:08:53.913] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:08:55.960] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:08:56.298] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:08:57.646] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:08:57.880] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:08:58.701] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:08:58.934] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:08:58.957] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 2 个，生成 1 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:08:59.103] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "坎蒂丝"，元素="水"，score=0.982
+
+[00:08:59.642] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:08:59.945] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:09:00.316] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:09:00.542] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:09:02.298] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:09:02.532] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:09:02.735] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:03.940] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:04.407] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:04.858] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:05.287] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/.80"
+
+[00:09:05.789] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:06.260] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:06.664] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80"
+
+[00:09:07.959] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/8] “坎蒂丝”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=2，末次结果=等级80
+0/80
+
+[00:09:08.029] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 测试汇总 ==========
+
+[00:09:08.032] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 凯亚：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=0/80
+等级80
+
+[00:09:08.032] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 丽莎：成功
+
+[00:09:08.032] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 诺艾尔：成功
+
+[00:09:08.032] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 芭芭拉：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:09:08.032] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 香菱：成功
+
+[00:09:08.033] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 伊安珊：成功
+
+[00:09:08.033] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 布伦妮：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:09:08.033] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 坎蒂丝：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=2，末次结果=等级80
+0/80
+
+[00:09:08.033] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色养成接口复现测试结束 ==========
+
+[00:09:08.053] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 脚本执行结束: "角色养成接口复现测试", 耗时: 2分27.151秒
+
+[00:09:08.054] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:09:09.094] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务结束"
+
+[00:09:09.107] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "角色等级bug测试" 执行结束
+
+[00:10:53.550] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "武器bug测试" 加载完成，共1个脚本，开始执行
+
+[00:10:53.550] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务启动！"
+
+[00:10:54.496] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:10:54.496] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 开始执行JS脚本: "角色武器筛选复现测试"
+
+[00:10:54.555] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色武器筛选复现测试开始 ==========
+
+[00:10:54.555] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[说明] 五种武器类型各测试两名角色；最终读取失败不等于筛选失败，请结合状态机日志判断
+
+[00:10:54.556] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[说明] 不读取佩戴武器、不读取背包、不刷取材料、不消耗树脂
+
+[00:10:54.556] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/10] 准备读取“七七”，预期筛选：冰元素＋单手剑
+
+[00:10:55.735] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:10:56.030] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "七七"，元素筛选="冰"，武器筛选="单手剑"
+
+[00:10:56.031] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:10:56.144] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:10:57.125] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:10:57.376] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:10:57.891] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:10:58.134] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:10:58.871] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:10:59.201] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:10:59.373] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:10:59.872] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:11:01.947] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:11:02.308] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:11:03.526] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:11:03.782] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:11:04.657] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:11:04.873] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:11:04.894] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 15 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:11:04.904] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "丝柯克"，元素="冰"，score=0.984
+
+[00:11:04.910] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "神里绫华"，元素="冰"，score=0.982
+
+[00:11:05.008] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "七七"，元素="冰"，score=0.987
+
+[00:11:17.856] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:11:18.084] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:11:18.461] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:11:18.699] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:11:19.692] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:11:19.930] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:11:20.163] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:20.530] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:20.895] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:21.347] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:21.739] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:22.155] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:22.531] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:22.899] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:23.677] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:24.899] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/10] “七七”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:11:24.899] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/10] 准备读取“凯亚”，预期筛选：冰元素＋单手剑
+
+[00:11:26.009] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:11:26.264] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "凯亚"，元素筛选="冰"，武器筛选="单手剑"
+
+[00:11:26.264] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:11:26.355] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:11:27.241] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:11:27.474] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:11:28.009] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:11:28.232] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:11:28.939] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:11:29.348] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:11:29.549] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:11:29.963] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:11:31.858] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:11:32.145] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:11:33.557] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:11:33.815] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:11:34.562] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:11:34.797] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:11:34.826] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 15 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:11:34.837] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "丝柯克"，元素="冰"，score=0.984
+
+[00:11:34.959] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "神里绫华"，元素="冰"，score=0.983
+
+[00:11:34.971] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "七七"，元素="冰"，score=0.987
+
+[00:11:34.984] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "莱依拉"，元素="冰"，score=0.980
+
+[00:11:35.002] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "凯亚"，元素="冰"，score=0.968
+
+[00:11:35.513] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:11:35.754] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:11:36.108] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:11:36.343] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:11:37.373] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:11:37.595] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:11:37.806] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:38.236] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/8Q"
+
+[00:11:39.358] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:11:39.587] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:11:39.627] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:11:39.849] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:11:41.122] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:11:41.453] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:11:41.463] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/10] “凯亚”读取成功
+
+[00:11:41.466] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"凯亚","ElementType":"冰","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:11:41.467] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/10] 准备读取“桑多涅”，预期筛选：冰元素＋双手剑
+
+[00:11:42.563] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:11:42.649] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "桑多涅"，元素筛选="冰"，武器筛选="双手剑"
+
+[00:11:42.649] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:11:42.712] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:11:43.682] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:11:43.924] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:11:44.452] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:11:44.671] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:11:45.411] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:11:45.750] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:11:45.969] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:11:46.428] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:11:49.299] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:11:49.834] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:11:50.947] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:11:51.172] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:11:52.038] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:11:52.272] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:11:52.294] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 19 个，生成 3 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:11:52.305] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "桑多涅"，元素="冰"，score=0.970
+
+[00:11:52.874] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:11:53.094] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:11:54.136] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:11:54.386] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:11:55.726] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:11:55.950] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:11:56.300] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:56.728] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:57.199] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:57.533] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:57.958] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:58.419] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="等级80
+0/80"
+
+[00:11:58.789] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/80."
+
+[00:11:59.259] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="等级80
+0/80."
+
+[00:11:59.743] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:00.112] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80-"
+
+[00:12:01.323] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/10] “桑多涅”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=0，末次结果=等级80
+0/80-
+
+[00:12:01.324] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/10] 准备读取“诺艾尔”，预期筛选：岩元素＋双手剑
+
+[00:12:02.425] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:12:02.664] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "诺艾尔"，元素筛选="岩"，武器筛选="双手剑"
+
+[00:12:02.664] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:12:02.769] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:12:03.701] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:12:03.928] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:12:04.459] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:12:04.685] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:12:05.479] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:12:05.808] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:12:05.970] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:12:06.538] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:12:08.500] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:12:08.793] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:12:09.999] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:12:10.249] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:12:11.085] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:12:11.313] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:12:11.360] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 4 个，生成 2 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:12:11.371] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "娜维娅"，元素="岩"，score=0.990
+
+[00:12:11.378] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "诺艾尔"，元素="岩"，score=0.981
+
+[00:12:11.960] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:12:12.192] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:12:12.595] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:12:12.813] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:12:13.716] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:12:13.946] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:12:14.871] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:12:15.091] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:12:15.126] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:12:15.356] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:12:16.507] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:12:16.807] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:12:16.819] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/10] “诺艾尔”读取成功
+
+[00:12:16.822] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"诺艾尔","ElementType":"岩","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:12:16.822] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/10] 准备读取“申鹤”，预期筛选：冰元素＋长柄武器
+
+[00:12:17.918] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:12:17.997] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "申鹤"，元素筛选="冰"，武器筛选="长柄武器"
+
+[00:12:17.998] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:12:18.057] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:12:18.958] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:12:19.188] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:12:19.706] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:12:19.930] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:12:20.568] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:12:20.907] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:12:21.147] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:12:21.744] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:12:23.595] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:12:23.941] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:12:26.147] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:12:26.370] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:12:27.220] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:12:27.453] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:12:27.477] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 4 个，生成 3 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:12:27.485] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "申鹤"，元素="冰"，score=0.977
+
+[00:12:28.081] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:12:28.307] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:12:28.683] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:12:28.913] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:12:29.683] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:12:29.916] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:12:30.195] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:30.547] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:30.913] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:31.425] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="0/80
+等级80"
+
+[00:12:31.920] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:32.407] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="0/80
+等级80"
+
+[00:12:32.831] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="0/80
+等级80"
+
+[00:12:33.745] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:34.224] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="等级80
+0/80"
+
+[00:12:35.444] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/10] “申鹤”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:12:35.445] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/10] 准备读取“香菱”，预期筛选：火元素＋长柄武器
+
+[00:12:36.658] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:12:36.786] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "香菱"，元素筛选="火"，武器筛选="长柄武器"
+
+[00:12:36.787] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:12:36.886] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:12:37.810] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:12:38.036] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:12:38.545] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:12:38.834] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:12:39.220] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:12:39.540] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:12:39.693] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:12:40.209] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:12:42.001] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:12:42.372] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:12:43.928] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:12:44.164] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:12:45.056] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:12:45.271] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:12:45.292] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 6 个，生成 4 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:12:45.304] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "胡桃"，元素="火"，score=0.981
+
+[00:12:45.312] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "香菱"，元素="火"，score=0.978
+
+[00:12:45.909] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:12:46.146] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:12:46.508] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:12:46.738] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:12:47.752] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:12:47.997] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:12:48.544] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级90790"
+
+[00:12:48.925] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级90790"
+
+[00:12:50.051] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="0/90
+等级90"
+
+[00:12:51.171] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:12:51.423] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:12:51.499] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:12:51.717] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:12:52.886] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:12:53.164] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:12:53.173] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/10] “香菱”读取成功
+
+[00:12:53.174] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"香菱","ElementType":"火","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:12:53.175] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/10] 准备读取“莫娜”，预期筛选：水元素＋法器
+
+[00:12:54.249] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:12:54.363] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "莫娜"，元素筛选="水"，武器筛选="法器"
+
+[00:12:54.363] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:12:54.433] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:12:55.377] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:12:55.660] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:12:56.124] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:12:56.338] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:12:56.578] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:12:56.923] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:12:57.104] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:12:57.651] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:12:59.576] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:12:59.954] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:13:01.223] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:13:01.443] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:13:02.239] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:13:02.457] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:13:02.481] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 10 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:13:02.489] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "哥伦比娅"，元素="水"，score=0.975
+
+[00:13:02.499] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "玛拉妮"，元素="水"，score=0.977
+
+[00:13:02.524] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "珊瑚宫心海"，元素="水"，score=0.977
+
+[00:13:02.536] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "莫娜"，元素="水"，score=0.981
+
+[00:13:03.178] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:13:03.409] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:13:03.771] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:13:03.997] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:13:04.951] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:13:05.198] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:13:05.368] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:05.793] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级80
+0/80."
+
+[00:13:06.192] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:06.564] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:06.910] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80-"
+
+[00:13:07.258] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:07.585] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:08.637] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:13:08.869] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:13:08.923] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:13:09.180] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:13:10.376] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:13:10.672] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:13:10.682] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/10] “莫娜”读取成功
+
+[00:13:10.683] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"莫娜","ElementType":"水","Level":80,"LevelLimit":80,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:13:10.683] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/10] 准备读取“珊瑚宫心海”，预期筛选：水元素＋法器
+
+[00:13:11.764] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:13:11.863] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "珊瑚宫心海"，元素筛选="水"，武器筛选="法器"
+
+[00:13:11.863] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:13:11.938] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:13:12.832] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:13:13.062] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:13:13.558] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:13:13.785] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:13:14.412] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:13:14.783] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:13:14.923] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:13:15.371] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:13:17.405] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:13:17.749] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:13:19.356] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:13:19.605] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:13:20.504] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:13:20.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:13:20.756] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 10 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:13:20.765] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "哥伦比娅"，元素="水"，score=0.975
+
+[00:13:20.772] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "玛拉妮"，元素="水"，score=0.977
+
+[00:13:20.795] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "珊瑚宫心海"，元素="水"，score=0.978
+
+[00:13:21.366] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:13:21.600] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:13:21.986] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:13:22.229] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:13:23.054] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:13:23.326] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:13:23.563] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:23.887] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:24.259] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:24.677] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:25.052] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级80
+0/80"
+
+[00:13:25.429] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:25.849] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:26.259] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:26.590] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 9/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:26.955] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="0/80
+等级80"
+
+[00:13:28.155] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/10] “珊瑚宫心海”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=0，末次结果=0/80
+等级80
+
+[00:13:28.155] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 9/10] 准备读取“雅珂达”，预期筛选：风元素＋弓
+
+[00:13:29.256] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:13:29.341] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "雅珂达"，元素筛选="风"，武器筛选="弓"
+
+[00:13:29.341] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:13:29.388] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:13:30.281] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:13:30.495] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:13:30.966] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:13:31.198] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:13:31.792] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:13:32.133] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:13:32.339] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:13:32.841] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:13:34.746] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:13:35.088] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:13:35.717] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:35.718] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 1 次，已用 630/12000 ms）
+
+[00:13:36.373] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：SelectWeaponFilter
+
+[00:13:37.109] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:37.110] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 2 次，已用 2021/12000 ms）
+
+[00:13:37.768] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：SelectWeaponFilter
+
+[00:13:38.586] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:38.586] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 3 次，已用 3498/12000 ms）
+
+[00:13:39.072] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectWeaponFilter
+
+[00:13:39.608] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:39.608] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 4 次，已用 4520/12000 ms）
+
+[00:13:40.306] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SelectWeaponFilter
+
+[00:13:40.805] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:40.805] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 5 次，已用 5717/12000 ms）
+
+[00:13:41.383] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：SelectWeaponFilter
+
+[00:13:42.006] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:42.006] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 6 次，已用 6918/12000 ms）
+
+[00:13:42.697] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SelectWeaponFilter
+
+[00:13:43.449] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:43.449] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 7 次，已用 8361/12000 ms）
+
+[00:13:44.078] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：SelectWeaponFilter
+
+[00:13:44.672] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:44.672] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 8 次，已用 9584/12000 ms）
+
+[00:13:45.326] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 13，当前状态：SelectWeaponFilter
+
+[00:13:45.966] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:45.966] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 9 次，已用 10878/12000 ms）
+
+[00:13:46.707] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 14，当前状态：SelectWeaponFilter
+
+[00:13:47.391] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:47.391] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，重试超时达到上限 12000 ms，转为失败
+
+[00:13:50.673] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 9/10] “雅珂达”读取失败：状态 SelectWeaponFilter 重试超时达到上限 12000 ms
+
+[00:13:50.673] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 10/10] 准备读取“赛索斯”，预期筛选：雷元素＋弓
+
+[00:13:51.783] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:13:51.914] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "赛索斯"，元素筛选="雷"，武器筛选="弓"
+
+[00:13:51.915] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:13:52.012] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:13:52.917] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:13:53.148] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:13:53.651] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:13:53.877] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:13:54.476] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:13:54.802] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:13:54.984] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:13:55.584] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:13:57.553] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:13:57.941] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:13:58.605] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:13:58.605] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 1 次，已用 663/12000 ms）
+
+[00:13:59.215] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：SelectWeaponFilter
+
+[00:14:00.032] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:00.032] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 2 次，已用 2090/12000 ms）
+
+[00:14:00.566] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：SelectWeaponFilter
+
+[00:14:01.059] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:01.059] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 3 次，已用 3117/12000 ms）
+
+[00:14:01.701] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectWeaponFilter
+
+[00:14:02.453] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:02.453] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 4 次，已用 4511/12000 ms）
+
+[00:14:03.064] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SelectWeaponFilter
+
+[00:14:03.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:03.731] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 5 次，已用 5790/12000 ms）
+
+[00:14:04.351] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：SelectWeaponFilter
+
+[00:14:05.025] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:05.025] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 6 次，已用 7084/12000 ms）
+
+[00:14:05.670] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SelectWeaponFilter
+
+[00:14:06.381] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:06.381] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 7 次，已用 8439/12000 ms）
+
+[00:14:06.989] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：SelectWeaponFilter
+
+[00:14:07.559] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:07.560] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 8 次，已用 9618/12000 ms）
+
+[00:14:08.093] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 13，当前状态：SelectWeaponFilter
+
+[00:14:08.544] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:08.553] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 9 次，已用 10611/12000 ms）
+
+[00:14:09.180] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 14，当前状态：SelectWeaponFilter
+
+[00:14:09.858] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:09.858] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，将在重试超时窗口内继续重试（第 10 次，已用 11916/12000 ms）
+
+[00:14:10.425] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 15，当前状态：SelectWeaponFilter
+
+[00:14:11.122] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：未找到武器筛选项 "弓"
+
+[00:14:11.122] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态 SelectWeaponFilter "Handler 返回 Retry"，重试超时达到上限 12000 ms，转为失败
+
+[00:14:14.456] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 10/10] “赛索斯”读取失败：状态 SelectWeaponFilter 重试超时达到上限 12000 ms
+
+[00:14:14.509] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 测试汇总 ==========
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 七七（冰元素＋单手剑）：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 凯亚（冰元素＋单手剑）：成功
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 桑多涅（冰元素＋双手剑）：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=0，末次结果=等级80
+0/80-
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 诺艾尔（岩元素＋双手剑）：成功
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 申鹤（冰元素＋长柄武器）：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=1，末次结果=等级80
+0/80
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 香菱（火元素＋长柄武器）：成功
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 莫娜（水元素＋法器）：成功
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 珊瑚宫心海（水元素＋法器）：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=0，末次结果=0/80
+等级80
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 雅珂达（风元素＋弓）：失败｜状态 SelectWeaponFilter 重试超时达到上限 12000 ms
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 赛索斯（雷元素＋弓）：失败｜状态 SelectWeaponFilter 重试超时达到上限 12000 ms
+
+[00:14:14.510] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色武器筛选复现测试结束 ==========
+
+[00:14:14.514] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 脚本执行结束: "角色武器筛选复现测试", 耗时: 3分20.017秒
+
+[00:14:14.514] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:14:15.542] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务结束"
+
+[00:14:15.560] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "武器bug测试" 执行结束
+
+[00:15:05.728] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "角色等级bug测试" 加载完成，共1个脚本，开始执行
+
+[00:15:05.728] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务启动！"
+
+[00:15:05.803] [WRN] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskTriggerDispatcher
+截图失败!
+
+[00:15:06.376] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:15:06.377] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 开始执行JS脚本: "角色养成接口复现测试"
+
+[00:15:06.466] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色养成接口复现测试开始 ==========
+
+[00:15:06.466] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[说明] 本脚本只读取角色属性，用于收集不同等级样本；不读取背包、不刷取材料、不消耗树脂
+
+[00:15:06.467] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/9] 准备读取“尼可”
+
+[00:15:07.642] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:15:07.879] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "尼可"，元素筛选="火"，武器筛选="法器"
+
+[00:15:07.879] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:15:07.978] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:15:09.026] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:15:09.273] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:15:09.768] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:15:10.012] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:15:10.824] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:15:11.202] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:15:11.390] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:15:11.940] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:15:13.772] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:15:14.080] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:15:15.317] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:15:15.567] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:15:16.355] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:15:16.589] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:15:16.609] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 6 个，生成 3 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:15:16.636] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "尼可"，元素="火"，score=0.989
+
+[00:15:17.257] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:15:17.500] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:15:17.889] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:15:18.136] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:15:19.074] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:15:19.321] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:15:20.347] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:15:20.587] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:15:20.628] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:15:20.884] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:15:22.090] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:15:22.407] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:15:22.416] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 1/9] “尼可”读取成功
+
+[00:15:22.418] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"尼可","ElementType":"火","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:15:22.419] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/9] 准备读取“丝柯克”
+
+[00:15:23.509] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:15:23.680] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "丝柯克"，元素筛选="冰"，武器筛选="单手剑"
+
+[00:15:23.680] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:15:23.789] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:15:24.710] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:15:24.940] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:15:25.410] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:15:25.636] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:15:26.213] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:15:26.627] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:15:26.751] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:15:27.310] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:15:29.548] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:15:29.956] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:15:31.174] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:15:31.402] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:15:32.285] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:15:32.514] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:15:32.562] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 15 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:15:32.570] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "丝柯克"，元素="冰"，score=0.984
+
+[00:15:33.164] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:15:33.421] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:15:33.827] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:15:34.081] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:15:35.777] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:15:36.017] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:15:38.074] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级90
+0/90"
+
+[00:15:38.539] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 6/10 次解析失败，结果="0/90
+等级90"
+
+[00:15:38.973] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 7/10 次解析失败，结果="0/90
+等级90"
+
+[00:15:39.346] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 8/10 次解析失败，结果="0/90
+等级90"
+
+[00:15:40.234] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 10/10 次解析失败，结果="0/90
+等级90"
+
+[00:15:41.474] [ERR] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 2/9] “丝柯克”读取失败：角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=2，末次结果=0/90
+等级90
+
+[00:15:41.475] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/9] 准备读取“瓦雷莎”
+
+[00:15:42.576] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:15:42.728] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "瓦雷莎"，元素筛选="雷"，武器筛选="法器"
+
+[00:15:42.728] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:15:42.816] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:15:43.763] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:15:43.991] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:15:44.503] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:15:44.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:15:45.383] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:15:45.730] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:15:45.918] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:15:46.561] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:15:48.751] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:15:49.191] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:15:50.434] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:15:50.667] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:15:51.487] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:15:51.738] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:15:51.794] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 6 个，生成 2 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:15:51.817] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "瓦雷莎"，元素="雷"，score=0.989
+
+[00:15:52.324] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:15:52.562] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:15:52.973] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:15:53.206] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:15:54.308] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:15:54.539] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:15:55.390] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:15:55.626] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:15:55.646] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:15:55.907] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:15:57.173] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:15:57.512] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:15:57.521] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 3/9] “瓦雷莎”读取成功
+
+[00:15:57.524] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"瓦雷莎","ElementType":"雷","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:15:57.525] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/9] 准备读取“玛拉妮”
+
+[00:15:58.614] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:15:58.731] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "玛拉妮"，元素筛选="水"，武器筛选="法器"
+
+[00:15:58.731] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:15:58.826] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:15:59.729] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:15:59.959] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:16:00.478] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:16:00.710] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:16:01.331] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:16:01.731] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:16:01.964] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:16:02.429] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:16:04.253] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:16:04.711] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:16:05.892] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:16:06.146] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:16:07.052] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:16:07.270] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:16:07.296] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 10 个，生成 5 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:16:07.306] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "哥伦比娅"，元素="水"，score=0.976
+
+[00:16:07.316] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "玛拉妮"，元素="水"，score=0.979
+
+[00:16:07.813] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:16:08.029] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:16:08.395] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:08.654] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:16:10.045] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:16:10.311] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:16:10.580] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/90
+等级90"
+
+[00:16:11.916] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:12.135] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:16:12.153] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:16:12.380] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:16:13.675] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:16:13.981] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:16:13.992] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 4/9] “玛拉妮”读取成功
+
+[00:16:13.994] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"玛拉妮","ElementType":"水","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:16:13.994] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/9] 准备读取“千织”
+
+[00:16:15.089] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:16:15.230] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "千织"，元素筛选="岩"，武器筛选="单手剑"
+
+[00:16:15.231] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:16:15.336] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:16:16.253] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:16:16.480] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:16:16.983] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:16:17.200] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:16:17.781] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:16:18.109] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:16:18.271] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:16:18.816] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:16:20.729] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:16:21.138] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:16:22.504] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:16:22.729] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:16:23.511] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:16:23.728] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:16:23.766] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 4 个，生成 1 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:16:23.786] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "千织"，元素="岩"，score=0.984
+
+[00:16:25.798] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:16:26.036] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:16:26.422] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:26.649] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:16:27.822] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:16:28.047] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:16:29.103] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:29.334] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:16:29.355] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:16:29.579] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:16:30.739] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:16:31.060] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:16:31.071] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 5/9] “千织”读取成功
+
+[00:16:31.072] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"千织","ElementType":"岩","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:16:31.072] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/9] 准备读取“纳西妲”
+
+[00:16:32.189] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:16:32.297] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "纳西妲"，元素筛选="草"，武器筛选="法器"
+
+[00:16:32.297] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:16:32.380] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:16:33.284] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:16:33.512] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:16:34.011] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:16:34.237] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:16:34.874] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:16:35.303] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:16:35.497] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:16:35.962] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:16:38.122] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:16:38.429] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:16:39.595] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:16:39.825] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:16:40.562] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:16:40.783] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:16:40.804] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 3 个，生成 1 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:16:40.811] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "纳西妲"，元素="草"，score=0.990
+
+[00:16:41.321] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:16:41.548] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:16:41.894] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:42.108] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:16:43.575] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:16:43.799] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:16:44.813] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/90
+等级90"
+
+[00:16:46.070] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:46.303] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:16:46.339] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:16:46.570] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:16:47.861] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:16:48.185] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:16:48.195] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 6/9] “纳西妲”读取成功
+
+[00:16:48.196] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"纳西妲","ElementType":"草","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:16:48.197] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/9] 准备读取“娜维娅”
+
+[00:16:49.290] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:16:49.455] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "娜维娅"，元素筛选="岩"，武器筛选="双手剑"
+
+[00:16:49.455] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:16:49.528] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:16:50.475] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:16:50.701] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:16:51.188] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:16:51.405] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:16:51.981] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:16:52.378] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:16:52.564] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:16:52.981] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:16:54.839] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:16:55.157] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:16:56.688] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:16:56.928] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:16:57.760] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:16:57.999] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:16:58.038] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 4 个，生成 2 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:16:58.048] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "娜维娅"，元素="岩"，score=0.989
+
+[00:16:58.622] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:16:58.874] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:16:59.303] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:16:59.551] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:17:00.904] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:17:01.144] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:17:02.362] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:17:02.586] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:17:02.609] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:17:02.835] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:17:04.098] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:17:04.404] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:17:04.413] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 7/9] “娜维娅”读取成功
+
+[00:17:04.413] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"娜维娅","ElementType":"岩","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:17:04.414] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/9] 准备读取“芙宁娜”
+
+[00:17:05.504] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:17:05.631] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "芙宁娜"，元素筛选="水"，武器筛选="单手剑"
+
+[00:17:05.631] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:17:05.762] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:17:06.735] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:17:06.965] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:17:07.511] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:17:07.738] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:17:08.336] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:17:08.669] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:17:08.847] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:17:09.294] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:17:11.302] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:17:11.664] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:17:12.804] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:17:13.046] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:17:13.907] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:17:14.149] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:17:14.171] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 5 个，生成 3 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:17:14.179] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "芙宁娜"，元素="水"，score=0.989
+
+[00:17:14.756] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:17:14.985] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:17:15.386] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:17:15.629] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:17:16.486] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:17:16.797] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:17:17.017] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/90
+等级90"
+
+[00:17:17.335] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="0/90
+等级90"
+
+[00:17:17.737] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/90
+等级90"
+
+[00:17:18.152] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级90
+0/90"
+
+[00:17:19.429] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:17:19.683] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:17:19.745] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:17:19.995] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:17:21.278] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:17:21.592] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:17:21.599] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 8/9] “芙宁娜”读取成功
+
+[00:17:21.600] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"芙宁娜","ElementType":"水","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:17:21.600] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 9/9] 准备读取“妮露”
+
+[00:17:22.677] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Recognition.ONNX.BgiOnnxFactory
+[ONNX]创建推理会话，模型: "AvatarGridIcon"
+
+[00:17:22.810] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：准备角色 "妮露"，元素筛选="水"，武器筛选="单手剑"
+
+[00:17:22.811] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机启动，目标状态："Completed" ==========
+
+[00:17:22.876] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 0，当前状态：MainUi
+
+[00:17:23.821] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenCharacterList
+
+[00:17:24.049] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 1，当前状态：OpenCharacterList
+
+[00:17:24.540] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：OpenFilterPanel
+
+[00:17:24.770] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 2，当前状态：OpenFilterPanel
+
+[00:17:25.302] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FilterPanel
+
+[00:17:25.555] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 3，当前状态：FilterPanel
+
+[00:17:25.810] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectElementFilter
+
+[00:17:26.347] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 4，当前状态：SelectElementFilter
+
+[00:17:28.063] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectWeaponFilter
+
+[00:17:28.377] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 5，当前状态：SelectWeaponFilter
+
+[00:17:29.596] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ConfirmFilterPanel
+
+[00:17:29.827] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 6，当前状态：ConfirmFilterPanel
+
+[00:17:30.642] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：FindAndClickAvatar
+
+[00:17:30.865] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 7，当前状态：FindAndClickAvatar
+
+[00:17:30.886] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：白色底栏连通域 5 个，生成 3 个合法卡片，边界丢弃 0 个（第 1/3 次）
+
+[00:17:30.894] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "芙宁娜"，元素="水"，score=0.988
+
+[00:17:30.902] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别：识别头像 "妮露"，元素="水"，score=0.986
+
+[00:17:31.422] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SelectedCharacter
+
+[00:17:31.652] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 8，当前状态：SelectedCharacter
+
+[00:17:32.044] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:17:32.278] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 9，当前状态：SwitchCategory
+
+[00:17:33.037] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReadCategory
+
+[00:17:33.295] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 10，当前状态：ReadCategory
+
+[00:17:33.474] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 1/10 次解析失败，结果="0/90
+等级90"
+
+[00:17:33.943] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 2/10 次解析失败，结果="等级90
+0/90"
+
+[00:17:34.375] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 3/10 次解析失败，结果="0/90-
+等级90"
+
+[00:17:34.710] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 4/10 次解析失败，结果="等级90
+0/90"
+
+[00:17:35.128] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+角色养成识别："角色等级" OCR 第 5/10 次解析失败，结果="等级90
+0/90"
+
+[00:17:36.382] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：SwitchCategory
+
+[00:17:36.615] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 11，当前状态：SwitchCategory
+
+[00:17:36.633] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：ReturnMainUi
+
+[00:17:36.860] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态机迭代 12，当前状态：ReturnMainUi
+
+[00:17:38.126] [DBG] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+状态转换成功：Completed
+
+[00:17:38.412] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.CharacterDevelopment.CharacterDevelopmentStateMachineTask
+========== 状态机完成，到达目标状态：Completed ==========
+
+[00:17:38.420] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[测试 9/9] “妮露”读取成功
+
+[00:17:38.421] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[结果] {"CharacterName":"妮露","ElementType":"水","Level":90,"LevelLimit":90,"WeaponName":null,"WeaponLevel":null,"WeaponLevelLimit":null,"AttackLevel":null,"AttackHasBonus":null,"SkillLevel":null,"SkillHasBonus":null,"BurstLevel":null,"BurstHasBonus":null}
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 测试汇总 ==========
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 尼可：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 丝柯克：失败｜角色等级 OCR 在 10 次内未达到连续 3 次一致，最大连续次数=2，末次结果=0/90
+等级90
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 瓦雷莎：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 玛拉妮：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 千织：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 纳西妲：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 娜维娅：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 芙宁娜：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+[汇总] 妮露：成功
+
+[00:17:38.488] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Core.Script.Dependence.Log
+========== 角色养成接口复现测试结束 ==========
+
+[00:17:38.490] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+→ 脚本执行结束: "角色养成接口复现测试", 耗时: 2分32.113秒
+
+[00:17:38.490] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+------------------------------
+
+[00:17:39.516] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.GameTask.TaskRunner
+→ "任务结束"
+
+[00:17:39.517] [INF] [Primary:S1:P11492:T1786550700071] BetterGenshinImpact.Service.ScriptService
+配置组 "角色等级bug测试" 执行结束
+
