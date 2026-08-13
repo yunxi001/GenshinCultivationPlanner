@@ -22,6 +22,12 @@ import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '
 import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
 
+test('所有树脂任务默认启用 BetterGI 奖励识别', () => {
+  const source = readFileSync(new URL('../main.js', import.meta.url), 'utf8');
+  assert.equal((source.match(/RewardRecognitionEnabled = true;/g) ?? []).length, 3);
+  assert.doesNotMatch(source, /RewardRecognitionEnabled = false;/);
+});
+
 const materials = {
   talentBook: {
     status: 'supported',
