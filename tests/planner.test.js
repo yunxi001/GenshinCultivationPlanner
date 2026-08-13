@@ -441,7 +441,7 @@ test('范围外材料即使未读取库存也不会被标记为库存未知', ()
   assert.equal(plan.shortages[0].reason, '不在自动刷取范围内');
 });
 
-test('背包读取按页分组，未返回按零计而 OCR 失败保留未确认', () => {
+test('背包读取首次未找到按零计，结束复核未找到则保留原值并标记未知', () => {
   const scanMaterials = {
     104301: { name: '天赋书', status: 'manual' },
     112001: { name: '怪物材料', status: 'manual' },
@@ -462,6 +462,22 @@ test('背包读取按页分组，未返回按零计而 OCR 失败保留未确认
   const omitted = applyInventoryScanResult({}, [{ materialId: '112001', name: '怪物材料' }], {});
   assert.equal(omitted.inventory['112001'], 0);
   assert.deepEqual(omitted.failedNames, []);
+  const finalMissing = applyInventoryScanResult(
+    { '112001': 7 },
+    [{ materialId: '112001', name: '怪物材料' }],
+    { 怪物材料: -1 },
+    { notFoundAsUnknown: true },
+  );
+  assert.equal(finalMissing.inventory['112001'], 7);
+  assert.deepEqual(finalMissing.unrecognizedNames, ['怪物材料']);
+  const finalOmitted = applyInventoryScanResult(
+    { '112001': 7 },
+    [{ materialId: '112001', name: '怪物材料' }],
+    {},
+    { notFoundAsUnknown: true },
+  );
+  assert.equal(finalOmitted.inventory['112001'], 7);
+  assert.deepEqual(finalOmitted.unrecognizedNames, ['怪物材料']);
   const failed = applyInventoryScanResult({}, [{ materialId: '112001', name: '怪物材料' }], { 怪物材料: -2 });
   assert.equal(failed.inventory['112001'], undefined);
   assert.deepEqual(failed.failedNames, ['怪物材料']);
@@ -569,7 +585,7 @@ test('运行摘要把周本缺口明确列为手动获取', () => {
   assert.match(summary, /东风的吐息×2/);
 });
 
-test('运行摘要区分任务调用、背包确认收益和圣遗物非材料统计', () => {
+test('运行摘要区分任务调用、背包识别失败、确认收益和圣遗物非材料统计', () => {
   const unconfirmed = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
     executionEnabled: true,
     execution: {
@@ -579,8 +595,21 @@ test('运行摘要区分任务调用、背包确认收益和圣遗物非材料�
     },
   });
   assert.match(unconfirmed, /世界 Boss：守望者·堕天/);
-  assert.match(unconfirmed, /任务调用结束；未确认是否成功领奖/);
+  assert.match(unconfirmed, /任务调用结束；背包复核未发现目标材料增长/);
   assert.doesNotMatch(unconfirmed, /已执行完成/);
+
+  const recognitionFailed = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    executionEnabled: true,
+    execution: {
+      status: 'completed',
+      task: { executionType: 'boss', bossName: '守望者·堕天' },
+      trackedRewards: {}, appliedGains: false, inventoryChecked: true,
+      inventoryRecognitionFailed: true,
+      inventoryUnrecognizedNames: ['堕天的落羽'],
+    },
+  });
+  assert.match(recognitionFailed, /奖励结果未知（背包未识别：堕天的落羽）/);
+  assert.doesNotMatch(recognitionFailed, /确认收益.*堕天的落羽×/);
 
   const artifact = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
     executionEnabled: true,
@@ -778,6 +807,26 @@ test('运行记录保存执行结果、库存前后值和剩余缺口，并限�
   const history = appendRunHistory(Array.from({ length: 100 }, (_, index) => ({ index })), record);
   assert.equal(history.length, 100);
   assert.equal(history.at(-1), record);
+});
+
+test('运行记录把结束背包漏识别保存为未知结果', () => {
+  const record = buildRunRecord({
+    executionEnabled: true,
+    plan: { displayShortages: [] },
+    inventoryBefore: { boss: 0 },
+    inventoryAfter: { boss: 0 },
+    execution: {
+      status: 'completed',
+      task: { executionType: 'boss', bossName: '测试首领', materialName: '测试首领' },
+      inventoryChecked: true,
+      inventoryRecognitionFailed: true,
+      inventoryUnrecognizedNames: ['测试材料'],
+    },
+    domainResinPolicy: {},
+  });
+  assert.equal(record.execution.result, 'completed-inventory-unrecognized');
+  assert.equal(record.execution.evidence.inventoryRecognitionFailed, true);
+  assert.deepEqual(record.execution.evidence.inventoryUnrecognizedNames, ['测试材料']);
 });
 
 test('存在可执行世界 Boss 时，秘境不得抢占执行顺序', () => {
