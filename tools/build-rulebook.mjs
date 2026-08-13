@@ -3,7 +3,6 @@ import path from 'node:path';
 import genshinDbModule from 'genshin-db';
 import { inferSundaySelectedValue } from '../core/sunday-selection.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
-import { validateDomainVerificationLedger } from '../core/domain-validation.js';
 
 const db = genshinDbModule.default ?? genshinDbModule;
 db.setOptions({
@@ -21,7 +20,6 @@ const sourceExecutionMapPath = path.join(root, 'data', 'source-execution-map.jso
 const domainCatalogPath = path.join(root, 'data', 'bettergi-domain-catalog.json');
 const weeklyDomainCatalogPath = path.join(root, 'data', 'bettergi-weekly-domain-catalog.json');
 const bossCatalogPath = path.join(root, 'data', 'bettergi-boss-catalog.json');
-const domainValidationLedgerPath = path.join(root, 'data', 'domain-validation-ledger.json');
 
 const characters = buildCharacters();
 const weapons = buildWeapons();
@@ -40,9 +38,7 @@ const sourceExecutionMap = JSON.parse(await fs.readFile(sourceExecutionMapPath, 
 const domainCatalog = JSON.parse(await fs.readFile(domainCatalogPath, 'utf8'));
 const weeklyDomainCatalog = JSON.parse(await fs.readFile(weeklyDomainCatalogPath, 'utf8'));
 const bossCatalog = JSON.parse(await fs.readFile(bossCatalogPath, 'utf8'));
-const domainValidationLedger = JSON.parse(await fs.readFile(domainValidationLedgerPath, 'utf8'));
 validateDomainExecutionMap(sourceExecutionMap, domainCatalog);
-validateDomainVerificationLedger(sourceExecutionMap, domainValidationLedger);
 const materials = buildMaterials(rulebook, executionMap, sourceExecutionMap, weeklyDomainCatalog, bossCatalog, recipes);
 const sourceCandidates = buildSourceCandidates(materials);
 await fs.writeFile(materialsPath, `${JSON.stringify(materials, null, 2)}\n`, 'utf8');
@@ -75,7 +71,6 @@ function buildWeapons() {
     if (weapon?.name && weapon.costs) {
       result[weapon.name] = {
         id: weapon.id,
-        rarity: weapon.rarity,
         ascensionCosts: weapon.costs,
       };
     }

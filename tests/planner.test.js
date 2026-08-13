@@ -16,20 +16,11 @@ import { parseTargetText } from '../core/target-input.js';
 import { resolvePlanningWeekday } from '../core/server-weekday.js';
 import { buildCompletionEstimate } from '../core/estimate.js';
 import { validateDomainExecutionMap } from '../core/domain-catalog.js';
-import { validateDomainVerificationLedger } from '../core/domain-validation.js';
 import { applyFinalRouteInventoryGains, buildRouteExecutionPlan, runSubscribedRouteFile } from '../core/route-executor.js';
 import { buildBossExecutionConfig, isBossTaskEnabled } from '../core/boss-executor.js';
 import { appendArtifactFallbackTask, buildArtifactDomainExecutionConfig } from '../core/artifact-executor.js';
 import { switchPartyWithRecovery } from '../core/party-switch.js';
 import { assertExecutionConfirmed, normalizeScriptSettings } from '../core/settings.js';
-import { buildProfileSnapshot, formatProfileEntry } from '../core/profile.js';
-import { convertCharacterResult, detectCharacterDevelopmentCapability, loadAutomaticProfile } from '../core/character-development.js';
-import { createTaskResult, EXECUTION_STATUS, runResinTaskQueue } from '../core/execution-result.js';
-import { buildRouteSignature, buildRouteYieldEstimate } from '../core/route-estimate.js';
-import {
-  applyExecutionPolicyToTasks, buildExecutionPolicy, createOriginalResinBudget,
-  limitBossRunCount, limitDomainResinPolicy,
-} from '../core/execution-policy.js';
 
 const materials = {
   talentBook: {
@@ -185,128 +176,6 @@ test('设置页目标文本会拒绝未知名称、重复项、倒退等级和�
   assert.throws(() => parseTargetText('测试武器:70>90,1/1/1>2/2/2', rulebook), /不能填写天赋/);
 });
 
-test('手动目标生成统一档案快照，未填写天赋时不会伪造等级', () => {
-  const targets = parseTargetText('测试角色:80>90；测试武器:70>90', rulebook);
-  const snapshot = buildProfileSnapshot(targets, { capturedAt: '2026-08-09T00:00:00.000Z' });
-  assert.equal(snapshot.source, 'manual-settings');
-  assert.equal(snapshot.entries[0].talents, null);
-  assert.equal(formatProfileEntry(snapshot.entries[0]), '测试角色 Lv.80→90｜天赋未提供（本次不计算）');
-  assert.equal(formatProfileEntry(snapshot.entries[1]), '测试武器 Lv.70→90');
-});
-
-test('BetterGI 能力检测以接口存在性为准，不仅依赖版本号', () => {
-  assert.equal(detectCharacterDevelopmentCapability(null).available, false);
-  assert.equal(detectCharacterDevelopmentCapability({ GetCharacter() {} }).available, false);
-  assert.equal(detectCharacterDevelopmentCapability({ GetCharacter() {}, GetMultiCharacters() {} }).available, true);
-});
-
-test('BetterGI 0.63 档案会换算命座加成并生成角色与佩戴武器目标', async () => {
-  const automaticRulebook = {
-    characters: { 测试角色: {} },
-    weapons: { 测试武器: { rarity: 5 } },
-  };
-  const api = {
-    async GetCharacter(name, categories) {
-      assert.equal(name, '测试角色');
-      assert.equal(categories, '属性;武器;天赋');
-      return {
-        CharacterName: name, Level: 80, LevelLimit: 90,
-        WeaponName: '测试武器', WeaponLevel: 70, WeaponLevelLimit: 80,
-        AttackLevel: 6, AttackHasBonus: false,
-        SkillLevel: 11, SkillHasBonus: true,
-        BurstLevel: 9, BurstHasBonus: false,
-      };
-    },
-    async GetMultiCharacters() { return []; },
-  };
-  const result = await loadAutomaticProfile({
-    api,
-    selections: {
-      characterNames: ['测试角色'], characterTargetLevel: 90,
-      talentTargets: { normal: 9, skill: 10, burst: null }, weaponTargetLevel: 90,
-    },
-    rulebook: automaticRulebook,
-    capturedAt: '2026-08-09T00:00:00.000Z',
-  });
-  assert.deepEqual(result.targets[0].talents.skill, {
-    current: 8, target: 10, requestedTarget: 10, displayedCurrent: 11, hasBonus: true,
-  });
-  assert.equal(result.targets[1].name, '测试武器');
-  assert.equal(result.targets[1].equippedBy, '测试角色');
-  assert.match(formatProfileEntry(result.profileSnapshot.entries[0]), /战技含命座\+3/);
-});
-
-test('自动档案忽略一星初始武器，并拒绝未知武器、空字段和接口异常', async () => {
-  const automaticRulebook = { characters: { 测试角色: {} }, weapons: { 无锋剑: { rarity: 1 } } };
-  const base = {
-    CharacterName: '测试角色', Level: 90,
-    WeaponName: '无锋剑', WeaponLevel: 1,
-    AttackLevel: 1, SkillLevel: 1, BurstLevel: 1,
-  };
-  const selections = {
-    characterNames: ['测试角色'], characterTargetLevel: 90,
-    talentTargets: { normal: null, skill: null, burst: null }, weaponTargetLevel: 90,
-  };
-  const converted = convertCharacterResult(base, '测试角色', selections, automaticRulebook);
-  assert.equal(converted.weaponTarget, null);
-  assert.equal(converted.weaponEntry.ignored, true);
-  await assert.rejects(() => loadAutomaticProfile({ api: null, selections, rulebook: automaticRulebook }), /请改用手动档案/);
-  await assert.rejects(() => loadAutomaticProfile({
-    api: { async GetCharacter() { throw new Error('识别失败'); }, async GetMultiCharacters() {} },
-    selections, rulebook: automaticRulebook,
-  }), /读取角色养成档案失败/);
-  assert.throws(() => convertCharacterResult({ ...base, WeaponName: '未知武器' }, '测试角色', selections, automaticRulebook), /不在当前规则库/);
-  assert.throws(() => convertCharacterResult({ ...base, SkillLevel: null }, '测试角色', selections, automaticRulebook), /识别结果无效/);
-});
-
-test('自动档案支持多角色、旅行者和已经超过目标的满级状态', async () => {
-  const automaticRulebook = {
-    characters: { 甲: {}, '奇偶·男性': {} },
-    weapons: { 甲剑: { rarity: 4 }, 旅剑: { rarity: 4 } },
-  };
-  const results = [
-    { CharacterName: '甲', Level: 90, WeaponName: '甲剑', WeaponLevel: 90, AttackLevel: 10, SkillLevel: 10, BurstLevel: 10 },
-    { CharacterName: '旅行者', Level: 80, WeaponName: '旅剑', WeaponLevel: 70, AttackLevel: 6, SkillLevel: 9, SkillHasBonus: true, BurstLevel: 6 },
-  ];
-  const api = {
-    async GetCharacter() { return null; },
-    async GetMultiCharacters(names, categories) {
-      assert.deepEqual(names, ['甲', '奇偶·男性']);
-      assert.equal(categories, '属性;武器;天赋');
-      return results;
-    },
-  };
-  const result = await loadAutomaticProfile({
-    api,
-    selections: {
-      characterNames: ['甲', '奇偶·男性'], characterTargetLevel: 80,
-      talentTargets: { normal: 9, skill: 9, burst: 9 }, weaponTargetLevel: 80,
-    },
-    rulebook: automaticRulebook,
-  });
-  assert.equal(result.targets.length, 4);
-  assert.deepEqual(result.targets[0].level, { current: 90, target: 90 });
-  assert.equal(result.targets[2].name, '奇偶·男性');
-  assert.equal(result.targets[2].talents.skill.current, 6);
-  assert.equal(result.profileSnapshot.entries[2].recognizedName, '旅行者');
-});
-
-test('自动档案配置只使用目标等级，手动档案继续兼容旧输入', () => {
-  const automatic = normalizeScriptSettings({
-    profileMode: '自动档案', selectedCharacter: '测试角色',
-    autoCharacterTargetLevel: '90', autoNormalTalentTarget: '9',
-    autoSkillTalentTarget: '不培养元素战技', autoBurstTalentTarget: '10',
-    autoWeaponTargetLevel: '80',
-  });
-  assert.deepEqual(automatic.automaticProfileSelections, {
-    characterNames: ['测试角色'], characterTargetLevel: 90,
-    talentTargets: { normal: 9, skill: null, burst: 10 }, weaponTargetLevel: 80,
-  });
-  assert.equal(automatic.targetsText, '');
-  assert.throws(() => normalizeScriptSettings({ profileMode: '自动档案', selectedCharacter: '不选择角色' }), /必须选择角色/);
-  assert.equal(normalizeScriptSettings({ profileMode: '手动档案', targetsText: '测试角色:80>90' }).profileMode, '手动档案');
-});
-
 test('角色和武器下拉选择会组合三个独立天赋区间，并兼容旧目标文本', () => {
   const selected = normalizeScriptSettings({
     selectedCharacter: '测试角色',
@@ -398,16 +267,47 @@ test('紧凑设置不存在时保留旧配置兼容行为', () => {
   assert.equal(legacyRoutes.monsterRouteExecutionEnabled, true);
 });
 
-test('高级战斗策略文本兼容中英文分隔符并拒绝错误输入', () => {
+test('三类战斗策略使用独立字段，不再解析带任务类型的自由文本', () => {
   const normalized = normalizeScriptSettings({
-    combatStrategiesText: '秘境=秘境策略；Boss：首领策略\n圣遗物=圣遗物策略',
+    domainCombatStrategyName: '秘境策略',
+    bossCombatStrategyName: '首领策略',
+    artifactCombatStrategyName: '圣遗物策略',
   });
   assert.equal(normalized.domainCombatStrategyName, '秘境策略');
   assert.equal(normalized.bossCombatStrategyName, '首领策略');
   assert.equal(normalized.artifactCombatStrategyName, '圣遗物策略');
-  assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '未知=策略' }), /未知的战斗策略类型/);
-  assert.throws(() => normalizeScriptSettings({ combatStrategiesText: '秘境策略' }), /格式错误/);
   assert.throws(() => normalizeScriptSettings({ bossRunMode: '随便刷' }), /未知的世界 Boss 模式/);
+});
+
+test('Boss 专属覆盖使用三个结构化槽并拒绝重复或残缺配置', () => {
+  const normalized = normalizeScriptSettings({
+    bossOverride1Name: '急冻树',
+    bossOverride1Action: '继承通用配置',
+    bossOverride1TeamName: '冰抗队',
+    bossOverride1StrategyName: '急冻树策略',
+    bossOverride2Name: '无相之水',
+    bossOverride2Action: '禁用',
+    bossOverride2TeamName: '',
+    bossOverride2StrategyName: '',
+    bossOverride3Name: '爆炎树',
+    bossOverride3Action: '启用',
+    bossOverride3TeamName: '',
+    bossOverride3StrategyName: '',
+  });
+  assert.deepEqual(normalized.bossOverrides, {
+    急冻树: { partyName: '冰抗队', strategyName: '急冻树策略' },
+    无相之水: { enabled: false },
+    爆炎树: { enabled: true },
+  });
+  assert.throws(() => normalizeScriptSettings({
+    bossOverride1Name: '急冻树', bossOverride2Name: '急冻树',
+  }), /Boss 专属配置重复/);
+  assert.throws(() => normalizeScriptSettings({
+    bossOverride1Name: '不配置专属 Boss', bossOverride1TeamName: '错误队伍',
+  }), /没有选择 Boss/);
+  assert.throws(() => normalizeScriptSettings({
+    bossOverride1Name: '急冻树', bossOverride1Action: '随便处理',
+  }), /处理方式无效/);
 });
 
 test('未确认实际执行风险时必须在任何任务开始前拒绝运行', () => {
@@ -420,6 +320,7 @@ test('未确认实际执行风险时必须在任何任务开始前拒绝运行',
 test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
   const items = JSON.parse(readFileSync(new URL('../settings.json', import.meta.url), 'utf8'));
   const generatedRulebook = JSON.parse(readFileSync(new URL('../data/rulebook.json', import.meta.url), 'utf8'));
+  const bossCatalog = JSON.parse(readFileSync(new URL('../data/bettergi-boss-catalog.json', import.meta.url), 'utf8'));
   const editableItems = items.filter((item) => item.type !== 'separator');
   const legacyNames = new Set([
     'planOnly', 'weeklyRunMode', 'weeklyBossTeamName',
@@ -427,13 +328,17 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
     'weeklyBossExecutionEnabled', 'artifactDomainEnabled', 'artifactDomainName',
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
+    'bossOverridesText', 'combatStrategiesText',
   ]);
-  assert.equal(editableItems.length, 39);
+  assert.equal(editableItems.length, 38);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
     assert.equal(values.includes(item.default), true, `${item.name} 的默认值必须存在于二级选项中`);
     assert.equal(new Set(values).size, values.length, `${item.name} 的二级选项不能重复`);
+  }
+  for (const item of items.filter((candidate) => candidate.type === 'select')) {
+    assert.equal(item.options.includes(item.default), true, `${item.name} 的默认值必须存在于选项中`);
   }
   const characterNames = Object.values(items.find((item) => item.name === 'selectedCharacter').cascadeOptions)
     .flat().filter((name) => name !== '不选择角色');
@@ -443,13 +348,22 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
   assert.deepEqual(new Set(weaponNames), new Set(Object.keys(generatedRulebook.weapons)));
   const names = items.map((item) => item.name);
   assert.ok(names.indexOf('selectedCharacter') < names.indexOf('domainRunMode'));
-  assert.equal(names.indexOf('executionConfirmed'), names.indexOf('basicSection') + 1);
-  assert.ok(names.indexOf('executionConfirmed') < names.indexOf('selectedCharacter'));
+  assert.ok(names.indexOf('executionConfirmed') < names.indexOf('domainRunMode'));
   assert.equal(items.find((item) => item.name === 'executionConfirmed').default, false);
+  assert.equal(names.indexOf('executionConfirmed'), 1);
   assert.ok(names.indexOf('customTargetsEnabled') < names.indexOf('targetsText'));
   assert.ok(names.indexOf('gatheringRouteExecutionEnabled') < names.indexOf('monsterRouteExecutionEnabled'));
   assert.ok(names.indexOf('monsterRouteExecutionEnabled') < names.indexOf('bossRunMode'));
   assert.ok(names.indexOf('bossRunMode') < names.indexOf('advancedSection'));
+  for (let index = 1; index <= 3; index += 1) {
+    const nameSetting = items.find((item) => item.name === `bossOverride${index}Name`);
+    assert.equal(nameSetting.type, 'cascade-select');
+    assert.equal(nameSetting.default, '不配置专属 Boss');
+    const bossNames = Object.values(nameSetting.cascadeOptions).flat().filter((name) => name !== '不配置专属 Boss');
+    assert.equal(bossNames.length, 41);
+    assert.equal(new Set(bossNames).size, bossNames.length);
+    assert.deepEqual(new Set(bossNames), new Set(bossCatalog.bosses));
+  }
   assert.equal(names.at(-1), 'sendRunSummary');
   const sectionLabels = {
     domainSection: '培养材料秘境',
@@ -695,25 +609,6 @@ test('运行摘要会明确显示未确认增长的路线', () => {
   assert.match(summary, /月莲：未确认增长/);
 });
 
-test('运行摘要优先显示完整档案条目，并始终保持在 500 字符内', () => {
-  const profileTargets = Array.from({ length: 12 }, (_, index) => ({
-    kind: 'character', name: `超长测试角色${index}`,
-    level: { current: 80, target: 90 },
-    talents: {
-      normal: { current: 6, target: 10 }, skill: { current: 8, target: 10 }, burst: { current: 8, target: 10 },
-    },
-  }));
-  const summary = buildRunSummary({
-    todayQueue: [], displayShortages: [], manualItems: [], weeklyStrategy: [],
-    profileSnapshot: buildProfileSnapshot(profileTargets),
-  }, {}, { executionEnabled: true, execution: { status: 'skipped', reason: '无任务' } });
-  assert.ok(summary.length <= 500);
-  assert.match(summary, /当前养成状态/);
-  assert.match(summary, /另 \d+ 项见运行记录/);
-  assert.equal((summary.match(/<b>/g) ?? []).length, (summary.match(/<\/b>/g) ?? []).length);
-  assert.equal(summary.includes('超长测试角<br>'), false);
-});
-
 test('完成预估按最高难度培养秘境期望和开放日推算', () => {
   const estimateMaterials = {
     book: { name: '测试书', status: 'supported', executionType: 'domain', domainName: '测试秘境', openDays: [1, 4, 0] },
@@ -766,67 +661,19 @@ test('完成预估不为周本和圣遗物输出预计天数', () => {
   assert.match(weekly.reason, /周本/);
 });
 
-test('路线样本不足时不虚构预计轮次或自然日', () => {
+test('已匹配路线显示为自动路线来源，但预估未接入时不虚构预计天数', () => {
   const estimate = buildCompletionEstimate({
     plan: {
       displayShortages: [{
         materialId: 'route', shortage: 10,
         material: { name: '测试特产', status: 'supported', executionType: 'route' },
       }],
-      routes: { matched: [{ materialId: 'route', name: '测试特产', type: 'localSpecialty', paths: ['地区/材料/路线.json'] }] },
     },
     materials: { route: { name: '测试特产', status: 'manual', executionType: 'none' } },
     today: 1,
   });
   assert.equal(estimate.days, null);
-  assert.match(estimate.reason, /有效收益样本/);
-});
-
-test('路线按相同 JSON 集合的历史背包差值估算剩余轮次', () => {
-  const route = { materialId: 'route', name: '测试特产', type: 'localSpecialty', paths: ['地区/A.json', '地区/B.json'] };
-  const history = [5, 7].map((gained) => ({
-    execution: { routes: [{
-      name: '测试特产', type: 'localSpecialty', status: 'completed',
-      paths: [{ path: '地区/B.json' }, { path: '地区/A.json' }],
-      materials: [{ materialId: 'route', gained }],
-    }] },
-  }));
-  const direct = buildRouteYieldEstimate({ route, materialId: 'route', shortage: 13, history });
-  assert.equal(direct.averageYield, 6);
-  assert.equal(direct.estimatedRuns, 3);
-  assert.equal(buildRouteSignature(route), 'localSpecialty:地区\\a.json|地区\\b.json');
-  const estimate = buildCompletionEstimate({
-    plan: {
-      displayShortages: [{
-        materialId: 'route', shortage: 13,
-        material: { name: '测试特产', status: 'supported', executionType: 'route' },
-      }],
-      routes: { matched: [route] },
-    },
-    materials: { route: { name: '测试特产' } }, history, today: 1,
-  });
-  assert.equal(estimate.days, null);
-  assert.equal(estimate.routeDetails[0].estimatedRuns, 3);
-  assert.match(estimate.reason, /约 3 轮/);
-});
-
-test('路线文件集合变化或零收益记录不会沿用旧估算', () => {
-  const history = [{ execution: { routes: [{
-    type: 'monster', status: 'completed', paths: [{ path: '旧路线.json' }],
-    materials: [{ materialId: 'drop', gained: 8 }],
-  }] } }];
-  const changed = buildRouteYieldEstimate({
-    route: { type: 'monster', paths: ['新路线.json'] }, materialId: 'drop', shortage: 10, history,
-  });
-  assert.equal(changed.available, false);
-  assert.equal(changed.sampleCount, 0);
-  const zero = buildRouteYieldEstimate({
-    route: { type: 'monster', paths: ['旧路线.json'] }, materialId: 'drop', shortage: 10,
-    history: [{ execution: { routes: [{
-      type: 'monster', status: 'unconfirmed', paths: ['旧路线.json'], materials: [{ materialId: 'drop', gained: 0 }],
-    }] } }],
-  });
-  assert.equal(zero.available, false);
+  assert.match(estimate.reason, /路线材料完成时间预估尚未接入/);
 });
 
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {
@@ -890,57 +737,6 @@ test('秘境树脂策略默认先使用浓缩树脂，再使用原粹树脂', ()
   assert.equal(policy.fragileResinUseCount, 0);
 });
 
-test('执行规则区分任务顺序、树脂顺序、保留量和每类上限', () => {
-  const policy = buildExecutionPolicy(normalizeScriptSettings({
-    resinStrategy: '浓缩→原粹', transientResinAuthorized: true, fragileResinAuthorized: false,
-    taskPriorityText: '限时培养秘境>世界 Boss>普通培养秘境>圣遗物填充',
-    taskLimitsText: '世界 Boss=2；限时培养秘境=3；普通培养秘境=4；圣遗物填充=0',
-    originalResinBudget: '180', originalResinReserve: '40',
-    routeTiming: '树脂任务前', artifactFillCondition: '始终放在队列末尾',
-  }));
-  assert.deepEqual(policy.taskPriority, ['limitedDomain', 'boss', 'domain', 'artifactDomain']);
-  assert.deepEqual(policy.resinPriority, ['浓缩树脂', '原粹树脂', '须臾树脂']);
-  assert.equal(policy.usableOriginalResin, 140);
-  assert.equal(policy.taskLimits.artifactDomain, 0);
-  assert.match(policy.previewLines.join('\n'), /保留 40/);
-
-  const ordered = applyExecutionPolicyToTasks([
-    { executionType: 'domain', limited: false, priority: 100 },
-    { executionType: 'boss', priority: 100 },
-    { executionType: 'domain', limited: true, priority: 100 },
-  ], policy);
-  assert.deepEqual(ordered.map((item) => item.executionType === 'domain' ? (item.limited ? 'limited' : 'domain') : 'boss'), ['limited', 'boss', 'domain']);
-});
-
-test('执行规则拒绝重复类型、遗漏类型、负数和保留量冲突', () => {
-  assert.throws(() => buildExecutionPolicy({
-    taskPriorityText: '世界 Boss>世界 Boss>普通培养秘境>圣遗物填充',
-  }), /重复/);
-  assert.throws(() => buildExecutionPolicy({ taskPriorityText: '世界 Boss>普通培养秘境' }), /完整包含/);
-  assert.throws(() => buildExecutionPolicy({ taskLimitsText: '世界 Boss=-1' }), /格式错误/);
-  assert.throws(() => buildExecutionPolicy({ originalResinBudget: 20, originalResinReserve: 40 }), /不能大于/);
-  assert.throws(() => buildExecutionPolicy({ domainUseOriginalResin: false, domainUseCondensedResin: false }), /至少需要/);
-});
-
-test('原粹树脂预算按任务保守预留且不会越过保留线', () => {
-  const policy = buildExecutionPolicy({
-    taskLimitsText: '世界 Boss=2；限时培养秘境=3；普通培养秘境=4；圣遗物填充=1',
-    originalResinBudget: 180, originalResinReserve: 40,
-  });
-  const budget = createOriginalResinBudget(policy);
-  const bossRuns = limitBossRunCount({ executionType: 'boss' }, policy, budget, 9999);
-  assert.equal(bossRuns, 2);
-  assert.equal(budget.remaining, 60);
-  const domainPolicy = limitDomainResinPolicy({
-    priority: ['浓缩树脂', '原粹树脂'],
-    originalResinUseCount: 9999, condensedResinUseCount: 9999,
-    transientResinUseCount: 0, fragileResinUseCount: 0,
-  }, { executionType: 'domain', limited: false }, policy, budget);
-  assert.equal(domainPolicy.originalResinUseCount, 3);
-  assert.equal(domainPolicy.condensedResinUseCount, 4);
-  assert.equal(budget.remaining, 0);
-});
-
 test('培养秘境单次测试不受正式树脂开关关闭影响', () => {
   const warnings = collectExecutionWarnings({
     todayQueue: [{ executionType: 'domain' }],
@@ -990,49 +786,6 @@ test('存在可执行世界 Boss 时，秘境不得抢占执行顺序', () => {
   assert.equal(hasPendingOriginalResinTask([{ executionType: 'boss', status: 'manual' }, { executionType: 'domain', status: 'supported' }]), false);
 });
 
-test('多树脂调度按顺序执行，跳过可继续而安全失败会停止', async () => {
-  const tasks = [
-    { status: 'supported', executionType: 'boss', bossName: '关闭的 Boss' },
-    { status: 'supported', executionType: 'domain', domainName: '秘境甲' },
-    { status: 'supported', executionType: 'domain', domainName: '秘境乙' },
-    { status: 'supported', executionType: 'domain', domainName: '不会执行' },
-  ];
-  const called = [];
-  const execution = await runResinTaskQueue({
-    tasks,
-    isEnabled: (task) => task.executionType !== 'boss',
-    executeTask: async (task) => {
-      called.push(task.domainName);
-      if (task.domainName === '秘境乙') throw new Error('切换队伍失败');
-      return createTaskResult({
-        status: EXECUTION_STATUS.UNCONFIRMED, task,
-        reason: '等待背包复核', evidence: { taskInvoked: true },
-      });
-    },
-  });
-  assert.deepEqual(called, ['秘境甲', '秘境乙']);
-  assert.deepEqual(execution.tasks.map((item) => item.status), ['skipped', 'unconfirmed', 'failed']);
-  assert.equal(execution.status, 'failed');
-  assert.match(execution.reason, /切换队伍失败/);
-});
-
-test('多树脂调度允许多个调用完成后统一确认收益', async () => {
-  const tasks = [
-    { status: 'supported', executionType: 'boss', bossName: '急冻树' },
-    { status: 'supported', executionType: 'domain', domainName: '忘却之峡' },
-  ];
-  const execution = await runResinTaskQueue({
-    tasks,
-    executeTask: async (task) => createTaskResult({
-      status: EXECUTION_STATUS.UNCONFIRMED, task,
-      reason: '等待背包复核', evidence: { taskInvoked: true },
-    }),
-  });
-  assert.equal(execution.status, 'unconfirmed');
-  assert.equal(execution.tasks.length, 2);
-  assert.equal(execution.task.bossName, '急冻树');
-});
-
 test('周日秘境奖励序号按材料开放日自动推导', () => {
   assert.equal(inferSundaySelectedValue([1, 4, 0]), '1');
   assert.equal(inferSundaySelectedValue([2, 5, 0]), '2');
@@ -1051,72 +804,12 @@ test('来源映射只能使用 BetterGI 培养材料秘境目录中的名称', (
   ), /未知秘境/);
 });
 
-test('每条秘境映射都有版本、开放日、周日序号和验证状态档案', () => {
-  const sourceMap = JSON.parse(readFileSync(new URL('../data/source-execution-map.json', import.meta.url), 'utf8'));
-  const ledger = JSON.parse(readFileSync(new URL('../data/domain-validation-ledger.json', import.meta.url), 'utf8'));
-  const result = validateDomainVerificationLedger(sourceMap, ledger);
-  assert.equal(result.total, 42);
-  assert.equal(result.statuses.pending, 40);
-  assert.equal(result.statuses['historical-pass'], 1);
-  assert.equal(result.statuses['catalog-checked'], 1);
-  const broken = structuredClone(ledger);
-  broken.entries['精通秘境：霜凝祭坛'].sundaySelectedValue = 3;
-  assert.throws(() => validateDomainVerificationLedger(sourceMap, broken), /周日奖励序号应为/);
-});
-
 test('路线执行默认关闭，开启后要求对应队伍与有效路径', () => {
   const routes = { matched: [{ materialId: 'localSpecialty', name: '测试特产', type: 'localSpecialty', paths: ['地方特产/测试/测试特产/a.json'] }] };
   assert.deepEqual(buildRouteExecutionPlan(routes, {}), []);
   assert.throws(() => buildRouteExecutionPlan(routes, { routeExecutionEnabled: true }), /采集队伍/);
   const plan = buildRouteExecutionPlan(routes, { routeExecutionEnabled: true, gatheringTeamName: '采集队' });
   assert.equal(plan[0].partyName, '采集队');
-});
-
-test('路线覆盖可递归展开目录、校验类型并使用专属队伍', () => {
-  const folders = new Set(['自定义/月莲', '自定义/月莲/作者']);
-  const files = new Set(['自定义/月莲/a.json', '自定义/月莲/作者/b.json', '自定义/月莲/readme.txt']);
-  const children = {
-    '自定义/月莲': ['自定义/月莲/a.json', '自定义/月莲/作者', '自定义/月莲/readme.txt'],
-    '自定义/月莲/作者': ['自定义/月莲/作者/b.json'],
-  };
-  const pathing = {
-    readPaths: (path) => children[path] ?? [],
-    isFolder: (path) => folders.has(path),
-    isFile: (path) => files.has(path),
-  };
-  const result = discoverAutoPathingRoutes({
-    shortages: [{ materialId: 'local', shortage: 10 }],
-    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
-    routeOverrides: {
-      local: {
-        paths: ['自定义/月莲'], type: 'localSpecialty', partyName: '纳西妲采集队', requiredCharacters: ['纳西妲'],
-      },
-    },
-    pathing,
-  });
-  assert.deepEqual(result.matched[0].paths, ['自定义/月莲/a.json', '自定义/月莲/作者/b.json']);
-  const plan = buildRouteExecutionPlan(result, { gatheringRouteExecutionEnabled: true });
-  assert.equal(plan[0].partyName, '纳西妲采集队');
-  assert.deepEqual(plan[0].requiredCharacters, ['纳西妲']);
-  const wrongType = discoverAutoPathingRoutes({
-    shortages: [{ materialId: 'local', shortage: 10 }],
-    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
-    routeOverrides: { local: { paths: ['自定义/月莲'], type: 'monster' } },
-    pathing,
-  });
-  assert.match(wrongType.missing[0].reason, /类型/);
-});
-
-test('路线覆盖可以单独禁用材料且不存在路径会明确报错', () => {
-  const base = {
-    shortages: [{ materialId: 'local', shortage: 10 }],
-    sourceCandidates: { local: { name: '月莲', type: 'localSpecialty', routeNames: ['月莲'] } },
-    pathing: { readPaths: () => [], isFolder: () => false, isFile: () => false },
-  };
-  const disabled = discoverAutoPathingRoutes({ ...base, routeOverrides: { local: { enabled: false } } });
-  assert.match(disabled.missing[0].reason, /单独禁用/);
-  const missing = discoverAutoPathingRoutes({ ...base, routeOverrides: { local: '不存在.json' } });
-  assert.match(missing.missing[0].reason, /不存在或不是 JSON/);
 });
 
 test('地方特产和怪物材料路线可以独立开启', () => {
@@ -1266,22 +959,23 @@ test('世界 Boss 执行器只允许原粹树脂并要求独立队伍', () => {
   assert.equal(singleRunConfig.specifyRunCount, true);
   assert.equal(singleRunConfig.runCount, 1);
   assert.equal(singleRunConfig.strategyName, '');
+  const overrideConfig = buildBossExecutionConfig({
+    executionType: 'boss', bossName: '急冻树', materials: [],
+  }, {
+    bossTeamName: '通用队伍', bossCombatStrategyName: '通用策略',
+    bossOverrides: { 急冻树: { partyName: '专属队伍', strategyName: '专属策略' } },
+  });
+  assert.equal(overrideConfig.partyName, '专属队伍');
+  assert.equal(overrideConfig.strategyName, '专属策略');
+  assert.equal(isBossTaskEnabled({ bossName: '急冻树' }, { bossExecutionEnabled: true }), true);
+  assert.equal(isBossTaskEnabled({ bossName: '急冻树' }, {
+    bossExecutionEnabled: true, bossOverrides: { 急冻树: { enabled: false } },
+  }), false);
+  assert.equal(isBossTaskEnabled({ bossName: '急冻树' }, { bossExecutionEnabled: false }), false);
+  assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {
+    bossTeamName: '通用队伍', bossOverrides: { 急冻树: { enabled: false } },
+  }), /已被单独禁用/);
   assert.throws(() => buildBossExecutionConfig({ executionType: 'boss', bossName: '急冻树' }, {}), /未配置 Boss 队伍/);
-});
-
-test('Boss 专属配置覆盖通用队伍和策略，并可单独禁用', () => {
-  const normalized = normalizeScriptSettings({
-    bossOverridesText: '急冻树=冰抗队|急冻树策略|启用；无相之水=水免队||禁用',
-  });
-  const task = { executionType: 'boss', bossName: '急冻树', materials: [] };
-  const config = buildBossExecutionConfig(task, {
-    ...normalized, bossExecutionEnabled: true, bossTeamName: '通用队', bossCombatStrategyName: '通用策略',
-  });
-  assert.equal(config.partyName, '冰抗队');
-  assert.equal(config.strategyName, '急冻树策略');
-  assert.equal(isBossTaskEnabled(task, { ...normalized, bossExecutionEnabled: true }), true);
-  assert.equal(isBossTaskEnabled({ ...task, bossName: '无相之水' }, { ...normalized, bossExecutionEnabled: true }), false);
-  assert.throws(() => normalizeScriptSettings({ bossOverridesText: '急冻树=队伍|策略|随便' }), /只能填写/);
 });
 
 test('运行摘要显示世界 Boss 名称，不显示未定义的秘境名称', () => {
@@ -1350,6 +1044,20 @@ test('执行前检查只提示默认关闭的 Boss 自动执行', () => {
   }, {});
   assert.equal(warnings.length, 1);
   assert.match(warnings[0], /Boss 自动执行默认关闭/);
+  const overrideWarnings = collectExecutionWarnings({
+    todayQueue: [{ executionType: 'boss', bossName: '急冻树', status: 'supported' }],
+  }, {
+    bossExecutionEnabled: true,
+    bossOverrides: { 急冻树: { partyName: '专属队伍' } },
+  });
+  assert.deepEqual(overrideWarnings, []);
+  const disabledWarnings = collectExecutionWarnings({
+    todayQueue: [{ executionType: 'boss', bossName: '无相之水', status: 'supported' }],
+  }, {
+    bossExecutionEnabled: true,
+    bossOverrides: { 无相之水: { enabled: false } },
+  });
+  assert.deepEqual(disabledWarnings, []);
 });
 
 test('路线开关开启但材料已满足时不误报，存在未匹配缺口时才警告', () => {
@@ -1383,6 +1091,19 @@ test('圣遗物秘境仅在当天没有培养树脂任务时作为可选填充',
   const withMaterial = { todayQueue: [{ executionType: 'domain', status: 'supported' }] };
   appendArtifactFallbackTask(withMaterial, { artifactDomainEnabled: true, artifactDomainName: '芬德尼尔之顶' });
   assert.equal(withMaterial.todayQueue.length, 1);
+  const withDisabledBoss = { todayQueue: [{ executionType: 'boss', bossName: '无相之水', status: 'supported' }] };
+  appendArtifactFallbackTask(withDisabledBoss, {
+    artifactDomainEnabled: true,
+    artifactDomainName: '芬德尼尔之顶',
+    bossExecutionEnabled: true,
+    bossOverrides: { 无相之水: { enabled: false } },
+  });
+  assert.equal(withDisabledBoss.todayQueue.at(-1).executionType, 'artifactDomain');
+  const withEnabledBoss = { todayQueue: [{ executionType: 'boss', bossName: '急冻树', status: 'supported' }] };
+  appendArtifactFallbackTask(withEnabledBoss, {
+    artifactDomainEnabled: true, artifactDomainName: '芬德尼尔之顶', bossExecutionEnabled: true,
+  });
+  assert.equal(withEnabledBoss.todayQueue.length, 1);
   const config = buildArtifactDomainExecutionConfig(plan.todayQueue[0], { artifactDomainEnabled: true, artifactTeamName: '圣遗物队伍' }, buildDomainResinPolicy({}));
   assert.equal(config.domainName, '芬德尼尔之顶');
   assert.equal(config.autoArtifactSalvage, false);
