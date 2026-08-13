@@ -1,7 +1,7 @@
 import { createPlan } from './core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups } from './core/inventory.js';
 import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from './core/routes.js';
-import { buildRunSummary } from './core/report.js';
+import { buildFailureRunSummary, buildRunSummary } from './core/report.js';
 import { collectExecutionWarnings } from './core/preflight.js';
 import { buildDomainResinPolicy } from './core/resin.js';
 import { buildDomainExecutionConfig } from './core/domain-executor.js';
@@ -33,9 +33,21 @@ async function main() {
     log.error('[配置] {message}', error?.message ?? String(error));
     throw error;
   }
+
+  const runState = { stage: '初始化', executionStarted: false };
+  try {
+    await runConfirmed(scriptSettings, runState);
+  } catch (error) {
+    sendFailureSummarySafely(scriptSettings, runState, error);
+    throw error;
+  }
+}
+
+async function runConfirmed(scriptSettings, runState) {
   const executionEnabled = true;
   log.info('[模式] 已确认配置，进入实际执行模式');
 
+  runState.stage = '读取培养目标与自动档案';
   const materials = JSON.parse(file.readTextSync('data/materials.json'));
   const recipes = JSON.parse(file.readTextSync('data/crafting-recipes.json'));
   const rulebook = JSON.parse(file.readTextSync('data/rulebook.json'));
@@ -70,6 +82,7 @@ async function main() {
 
   // 兼容 BetterGI 已保存的旧设置：字段不存在时也默认开启读取。
   if (scriptSettings.scanInventory !== false) {
+    runState.stage = '执行前读取背包';
     inventory = await scanInventoryMaterials(plan, inventory, materials, '执行前');
 
     plan = createPlan({
@@ -138,6 +151,8 @@ async function main() {
   const trackedMaterialIds = [...plan.crafting.scanMaterialIds];
 
   {
+    runState.stage = '执行刷取任务';
+    runState.executionStarted = true;
     let execution;
     const partySwitchState = { initialized: false };
     const resinBudget = createOriginalResinBudget(executionPolicy);
@@ -264,6 +279,7 @@ async function main() {
   log.info('[预估] {message}', Number.isFinite(estimate.days)
     ? `约 ${estimate.days} 天；${estimate.reason}`
     : `暂无法估算；${estimate.reason}`);
+  runState.stage = '保存计划与历史记录';
   await file.writeText('record/latest-plan.json', JSON.stringify(plan, null, 2), false);
   const runRecord = buildRunRecord({
     executionEnabled,
@@ -278,6 +294,7 @@ async function main() {
   await file.writeText('record/history.json', JSON.stringify(updatedHistory, null, 2), false);
   log.info('[记录] 已保存本次运行记录；历史保留 {count} 条', updatedHistory.length);
   if (scriptSettings.sendRunSummary === true) {
+    runState.stage = '发送运行摘要';
     const summary = buildRunSummary(plan, materials, {
       executionEnabled,
       execution: plan.execution,
@@ -303,9 +320,29 @@ async function main() {
   log.info('[完成] 已保存计划记录：record/latest-plan.json；{result}', finalResult);
 }
 
+/** 失败通知自身不得覆盖 BetterGI 需要记录的原始异常。 */
+function sendFailureSummarySafely(scriptSettings, runState, error) {
+  if (scriptSettings.sendRunSummary !== true) return;
+  try {
+    const summary = buildFailureRunSummary({
+      stage: runState.stage,
+      targets: scriptSettings.automaticProfileSelections?.characterNames
+        ?? (scriptSettings.targetsText ? [scriptSettings.targetsText] : []),
+      reason: error?.message ?? String(error),
+      executionStarted: runState.executionStarted,
+    });
+    notification.Send(summary);
+    log.info('[通知] 已请求 BetterGI 发送失败摘要；原始错误仍将继续抛出并标记本次执行失败');
+  } catch (notificationError) {
+    log.error('[通知] 发送失败摘要时再次出错：{error}', notificationError?.message ?? String(notificationError));
+  }
+}
+
 async function loadTargets(scriptSettings, rulebook) {
   if (scriptSettings.profileMode === '自动档案') {
-    log.info('[档案] 使用 BetterGI 角色养成接口读取当前等级、天赋与佩戴武器');
+    const weaponModeLabels = { equipped: '自动读取佩戴武器', none: '不培养武器', manual: '手动指定武器' };
+    log.info('[档案] 使用 BetterGI 角色养成接口读取当前角色等级与天赋；武器处理：{mode}',
+      weaponModeLabels[scriptSettings.automaticProfileSelections?.weaponMode] ?? '自动读取佩戴武器');
     return loadAutomaticProfile({
       api: typeof characterDevelopmentTask === 'undefined' ? null : characterDevelopmentTask,
       selections: scriptSettings.automaticProfileSelections,

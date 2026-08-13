@@ -1,8 +1,15 @@
+import { parseLevelRange, parseLevelToken } from './level-state.js';
+
 const ARTIFACT_TEST_PREFIX = '单次｜';
 const ARTIFACT_FORMAL_PREFIX = '正式｜';
 const NO_CHARACTER_SELECTION = '不选择角色';
 const NO_TALENT_SELECTION = '不计算天赋材料';
 const NO_WEAPON_SELECTION = '不选择武器';
+const AUTO_WEAPON_MODES = {
+  '自动读取佩戴武器': 'equipped',
+  '不培养武器': 'none',
+  '手动指定武器': 'manual',
+};
 const SPLIT_TALENT_FIELDS = [
   ['characterNormalAttackRange', '不培养普通攻击', '普通攻击'],
   ['characterElementalSkillRange', '不培养元素战技', '元素战技'],
@@ -61,20 +68,40 @@ function applyProfileSettings(settings, rawSettings) {
     if (!hasValue(rawSettings.selectedCharacter) || rawSettings.selectedCharacter === NO_CHARACTER_SELECTION) {
       throw new Error('自动档案模式必须选择角色');
     }
+    const characterTarget = parseLevelToken(rawSettings.autoCharacterTargetLevel, '角色目标等级', 90, true);
+    const weaponModeLabel = rawSettings.autoWeaponMode || '自动读取佩戴武器';
+    const weaponMode = AUTO_WEAPON_MODES[weaponModeLabel];
+    if (!weaponMode) throw new Error(`未知的自动档案武器模式：“${weaponModeLabel}”`);
     settings.automaticProfileSelections = {
       characterNames: [String(rawSettings.selectedCharacter).trim()],
-      characterTargetLevel: parseTargetLevel(rawSettings.autoCharacterTargetLevel, '角色目标等级', 90),
+      characterTargetLevel: characterTarget.level,
+      characterTargetAscended: characterTarget.ascended,
       talentTargets: {
         normal: parseOptionalTargetLevel(rawSettings.autoNormalTalentTarget, '普通攻击目标等级'),
         skill: parseOptionalTargetLevel(rawSettings.autoSkillTalentTarget, '元素战技目标等级'),
         burst: parseOptionalTargetLevel(rawSettings.autoBurstTalentTarget, '元素爆发目标等级'),
       },
-      weaponTargetLevel: parseTargetLevel(rawSettings.autoWeaponTargetLevel, '自动武器目标等级', 90),
+      weaponMode,
     };
+    if (weaponMode === 'equipped') {
+      const weaponTarget = parseLevelToken(rawSettings.autoWeaponTargetLevel, '自动武器目标等级', 90, true);
+      settings.automaticProfileSelections.weaponTargetLevel = weaponTarget.level;
+      settings.automaticProfileSelections.weaponTargetAscended = weaponTarget.ascended;
+    } else if (weaponMode === 'manual') {
+      settings.automaticProfileSelections.manualWeapon = parseManualWeaponTarget(rawSettings.autoManualWeaponTarget);
+    }
     settings.targetsText = '';
     return;
   }
   applyTargetSelections(settings, rawSettings);
+}
+
+function parseManualWeaponTarget(value) {
+  if (!hasValue(value)) throw new Error('手动指定武器不能为空；请填写“武器名:当前等级>目标等级”');
+  const text = String(value).trim();
+  const match = text.match(/^([^:：]+?)\s*[:：]\s*(.+)$/);
+  if (!match) throw new Error(`手动指定武器格式错误：“${text}”；应填写“武器名:当前等级>目标等级”`);
+  return { name: match[1].trim(), level: parseLevelRange(match[2], '手动指定武器等级', 90) };
 }
 
 /** 发布版只支持实际执行；未显式确认时必须在任何读写或游戏操作前终止。 */

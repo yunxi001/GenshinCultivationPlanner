@@ -1,3 +1,5 @@
+import { formatLevelState } from './level-state.js';
+
 /** 将培养目标转换为可写入计划、历史和邮件的统一档案快照。 */
 export function buildProfileSnapshot(targets, {
   source = 'manual-settings',
@@ -15,7 +17,7 @@ export function buildProfileSnapshot(targets, {
 /** 邮件、日志共用的单行档案文案。 */
 export function formatProfileEntry(entry) {
   if (entry.kind === 'character') {
-    const level = `Lv.${entry.level.current}→${entry.level.target}`;
+    const level = `${formatLevelState(entry.level.current, entry.level.currentAscended)}→${formatLevelState(entry.level.target, entry.level.targetAscended)}`;
     const talentText = entry.talents
       ? `天赋 ${formatTalentValues(entry.talents, 'current')}→${formatTalentValues(entry.talents, 'target')}${formatTalentBonus(entry.talents)}`
       : '天赋未提供（本次不计算）';
@@ -23,7 +25,7 @@ export function formatProfileEntry(entry) {
   }
   const owner = entry.equippedBy ? `（${entry.equippedBy}佩戴）` : '';
   const ignored = entry.ignored ? `｜${entry.ignoreReason || '已忽略培养'}` : '';
-  return `${entry.name}${owner} Lv.${entry.level.current}→${entry.level.target}${ignored}`;
+  return `${entry.name}${owner} ${formatLevelState(entry.level.current, entry.level.currentAscended)}→${formatLevelState(entry.level.target, entry.level.targetAscended)}${ignored}`;
 }
 
 function targetToProfileEntry(target) {

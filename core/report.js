@@ -3,6 +3,27 @@ import { formatProfileEntry } from './profile.js';
 const MAX_SUMMARY_LENGTH = 500;
 
 /**
+ * 生成未处理异常的失败摘要。该摘要只在用户已经允许实际执行后发送。
+ */
+export function buildFailureRunSummary({
+  stage = '运行过程中', targets = [], reason = '未知错误', executionStarted = false,
+} = {}) {
+  const safeStage = fitEscapedText(stage, 40);
+  const targetText = Array.isArray(targets) && targets.length > 0 ? targets.join('、') : '未确认';
+  const safeTargets = fitEscapedText(targetText, 80);
+  const prefix = '<b>角色一键养成运行失败</b>'
+    + `<br><br><b>培养目标</b>：${safeTargets}`
+    + `<br><b>失败阶段</b>：${safeStage}`
+    + '<br><b>失败原因</b>：';
+  const suffix = executionStarted
+    ? '<br><br>运行未正常完成，且可能已执行部分任务；请以 BetterGI 日志和运行记录为准。'
+    : '<br><br>本次尚未进入刷取阶段；请结合 BetterGI 日志排查。';
+  const reasonLimit = Math.max(1, MAX_SUMMARY_LENGTH - prefix.length - suffix.length);
+  const safeReason = fitEscapedText(reason, reasonLimit);
+  return `${prefix}${safeReason}${suffix}`;
+}
+
+/**
  * 生成 BetterGI 通知摘要。通知接口限制为 500 字符，详细数据仍写入 latest-plan.json。
  */
 export function buildRunSummary(plan, materials, {
@@ -171,4 +192,28 @@ function formatEstimate(days, reason, details) {
 function formatItems(items, emptyText) {
   if (!items.length) return `<br>• ${emptyText}`;
   return items.map((item) => `<br>• ${item}`).join('');
+}
+
+/** 转义通知中的动态文本，并按完整字符/HTML 实体安全截断。 */
+function fitEscapedText(value, maxLength) {
+  const text = String(value ?? '').trim() || '未提供';
+  const segments = [];
+  let outputLength = 0;
+  for (const character of text) {
+    const escaped = escapeHtmlCharacter(character);
+    if (outputLength + escaped.length > maxLength) {
+      while (segments.length > 0 && outputLength + 1 > maxLength) {
+        outputLength -= segments.pop().length;
+      }
+      return maxLength > 0 ? `${segments.join('')}…` : '';
+    }
+    segments.push(escaped);
+    outputLength += escaped.length;
+  }
+  return segments.join('');
+}
+
+function escapeHtmlCharacter(character) {
+  const replacements = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  return replacements[character] ?? character;
 }

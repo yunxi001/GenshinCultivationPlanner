@@ -1,10 +1,10 @@
-const ASCENSION_LEVELS = [20, 40, 50, 60, 70, 80];
+import { ASCENSION_LEVELS } from './level-state.js';
+
 const TALENT_LEVELS = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 /**
  * 将角色和武器目标展开为逐项材料需求。
- * 当前等级按游戏中显示的等级解释；若正好位于突破等级，默认尚未完成该档突破。
- * 例如 70 → 90 会计入 70、80 级突破，达到 90 本身不再需要额外突破。
+ * 临界等级通过 currentAscended/targetAscended 区分突破前后；未提供状态时，当前按突破前、目标按突破后解释。
  */
 export function expandTargets(targets, rulebook) {
   return targets.map((target) => {
@@ -20,7 +20,7 @@ function expandCharacterTarget(target, characters) {
   if (!character) throw new Error(`规则库中没有角色：${target.name}`);
   validateLevels(target.level?.current, target.level?.target, `角色 ${target.name} 等级`);
   const costs = [];
-  appendAscensionCosts(costs, character.ascensionCosts, target.level.current, target.level.target);
+  appendAscensionCosts(costs, character.ascensionCosts, target.level);
   for (const talentName of ['normal', 'skill', 'burst']) {
     const talent = target.talents?.[talentName];
     if (!talent) continue;
@@ -35,13 +35,20 @@ function expandWeaponTarget(target, weapons) {
   if (!weapon) throw new Error(`规则库中没有武器：${target.name}`);
   validateLevels(target.level?.current, target.level?.target, `武器 ${target.name} 等级`);
   const costs = [];
-  appendAscensionCosts(costs, weapon.ascensionCosts, target.level.current, target.level.target);
+  appendAscensionCosts(costs, weapon.ascensionCosts, target.level);
   return { id: target.id ?? `weapon:${target.name}`, requirements: mergeCostItems(costs) };
 }
 
-function appendAscensionCosts(output, costs, currentLevel, targetLevel) {
+function appendAscensionCosts(output, costs, levelRange) {
+  const { current: currentLevel, target: targetLevel } = levelRange;
+  const currentAscended = levelRange.currentAscended === true;
+  const targetAscended = levelRange.targetAscended === undefined
+    ? ASCENSION_LEVELS.includes(targetLevel)
+    : levelRange.targetAscended === true;
   ASCENSION_LEVELS.forEach((level, index) => {
-    if (level >= currentLevel && level < targetLevel) output.push(...(costs[`ascend${index + 1}`] ?? []));
+    const afterCurrent = level > currentLevel || (level === currentLevel && !currentAscended);
+    const beforeTarget = level < targetLevel || (level === targetLevel && targetAscended);
+    if (afterCurrent && beforeTarget) output.push(...(costs[`ascend${index + 1}`] ?? []));
   });
 }
 

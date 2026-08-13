@@ -1,6 +1,8 @@
 import { buildProfileSnapshot } from './profile.js';
+import { isAscensionLevel, resolveRecognizedAscension } from './level-state.js';
 
 export const CHARACTER_DEVELOPMENT_CATEGORIES = '属性;武器;天赋';
+const CHARACTER_ONLY_CATEGORIES = '属性;天赋';
 const ONE_STAR_WEAPONS = new Set(['无锋剑', '训练大剑', '新手长枪', '学徒笔记', '猎弓']);
 
 /** 以实际接口存在性判断能力，避免仅凭 BetterGI 版本号误判。 */
@@ -22,12 +24,17 @@ export async function loadAutomaticProfile({ api, selections, rulebook, captured
   if (!capability.available) throw new Error(`${capability.reason}；请改用手动档案模式`);
   const names = normalizeCharacterNames(selections?.characterNames);
   if (names.length === 0) throw new Error('自动档案模式至少需要选择一名角色');
+  const weaponMode = normalizeWeaponMode(selections?.weaponMode);
+  const categories = weaponMode === 'equipped' ? CHARACTER_DEVELOPMENT_CATEGORIES : CHARACTER_ONLY_CATEGORIES;
+  const manualWeaponTarget = weaponMode === 'manual'
+    ? buildManualWeaponTarget(selections?.manualWeapon, rulebook)
+    : null;
 
   let rawResults;
   try {
     rawResults = names.length === 1
-      ? [await api.GetCharacter(names[0], CHARACTER_DEVELOPMENT_CATEGORIES)]
-      : Array.from(await api.GetMultiCharacters(names, CHARACTER_DEVELOPMENT_CATEGORIES));
+      ? [await api.GetCharacter(names[0], categories)]
+      : Array.from(await api.GetMultiCharacters(names, categories));
   } catch (error) {
     throw new Error(`BetterGI 读取角色养成档案失败：${error?.message ?? String(error)}`);
   }
@@ -41,8 +48,13 @@ export async function loadAutomaticProfile({ api, selections, rulebook, captured
     const converted = convertCharacterResult(raw, names[index], selections, rulebook);
     targets.push(converted.characterTarget);
     if (converted.weaponTarget) targets.push(converted.weaponTarget);
-    entries.push(converted.characterEntry, converted.weaponEntry);
+    entries.push(converted.characterEntry);
+    if (converted.weaponEntry) entries.push(converted.weaponEntry);
   });
+  if (manualWeaponTarget) {
+    targets.push(manualWeaponTarget);
+    entries.push({ ...manualWeaponTarget, equippedBy: null, ignored: false, ignoreReason: null });
+  }
   return {
     targets,
     profileSnapshot: buildProfileSnapshot(targets, {
@@ -58,7 +70,14 @@ export function convertCharacterResult(raw, requestedName, selections, rulebook)
   if (!rulebook.characters?.[requestedName]) throw new Error(`角色“${requestedName}”不在当前规则库中`);
   const recognizedName = readText(raw, 'CharacterName', 'characterName') || requestedName;
   const currentLevel = readLevel(raw, ['Level', 'level'], `${requestedName}当前等级`, 90);
+  const levelLimit = readOptionalLevel(raw, 'LevelLimit', 'levelLimit');
+  const currentAscended = resolveRecognizedAscension(currentLevel, levelLimit, `角色“${requestedName}”`);
   const targetLevel = normalizeTarget(selections.characterTargetLevel, currentLevel, 90, '角色目标等级');
+  const targetAscended = resolveTargetAscended({
+    currentLevel, currentAscended, targetLevel,
+    requestedLevel: selections.characterTargetLevel,
+    requestedAscended: selections.characterTargetAscended,
+  });
   const talentSpecs = [
     ['normal', 'AttackLevel', 'AttackHasBonus', '普通攻击'],
     ['skill', 'SkillLevel', 'SkillHasBonus', '元素战技'],
@@ -82,26 +101,45 @@ export function convertCharacterResult(raw, requestedName, selections, rulebook)
   }
   const characterTarget = {
     kind: 'character', name: requestedName,
-    level: { current: currentLevel, target: targetLevel },
+    level: { current: currentLevel, target: targetLevel, currentAscended, targetAscended },
     ...(Object.keys(talents).length > 0 ? { talents } : {}),
   };
   const characterEntry = {
     ...characterTarget,
     recognizedName,
-    levelLimit: readOptionalLevel(raw, 'LevelLimit', 'levelLimit'),
+    levelLimit,
     talents: Object.keys(talents).length > 0 ? talents : null,
   };
+
+  const weaponMode = normalizeWeaponMode(selections.weaponMode);
+  if (weaponMode !== 'equipped') {
+    return { characterTarget, weaponTarget: null, characterEntry, weaponEntry: null };
+  }
 
   const weaponName = readText(raw, 'WeaponName', 'weaponName');
   if (!weaponName) throw new Error(`角色“${requestedName}”的佩戴武器名称为空，已拒绝调度`);
   const weaponLevel = readLevel(raw, ['WeaponLevel', 'weaponLevel'], `${weaponName}当前等级`, 90);
+  const weaponLevelLimit = readOptionalLevel(raw, 'WeaponLevelLimit', 'weaponLevelLimit');
+  const weaponCurrentAscended = resolveRecognizedAscension(weaponLevel, weaponLevelLimit, `武器“${weaponName}”`);
   const weaponTargetLevel = normalizeTarget(selections.weaponTargetLevel, weaponLevel, 90, '武器目标等级');
+  const weaponTargetAscended = resolveTargetAscended({
+    currentLevel: weaponLevel,
+    currentAscended: weaponCurrentAscended,
+    targetLevel: weaponTargetLevel,
+    requestedLevel: selections.weaponTargetLevel,
+    requestedAscended: selections.weaponTargetAscended,
+  });
   const isOneStar = rulebook.weapons?.[weaponName]?.rarity === 1 || ONE_STAR_WEAPONS.has(weaponName);
   const weaponEntry = {
     kind: 'weapon', name: weaponName,
-    level: { current: weaponLevel, target: isOneStar ? weaponLevel : weaponTargetLevel },
+    level: {
+      current: weaponLevel,
+      target: isOneStar ? weaponLevel : weaponTargetLevel,
+      currentAscended: weaponCurrentAscended,
+      targetAscended: isOneStar ? weaponCurrentAscended : weaponTargetAscended,
+    },
     equippedBy: requestedName,
-    levelLimit: readOptionalLevel(raw, 'WeaponLevelLimit', 'weaponLevelLimit'),
+    levelLimit: weaponLevelLimit,
     ignored: isOneStar,
     ignoreReason: isOneStar ? '一星初始武器，已忽略培养' : null,
   };
@@ -110,10 +148,41 @@ export function convertCharacterResult(raw, requestedName, selections, rulebook)
   }
   const weaponTarget = isOneStar ? null : {
     kind: 'weapon', name: weaponName,
-    level: { current: weaponLevel, target: weaponTargetLevel },
+    level: {
+      current: weaponLevel, target: weaponTargetLevel,
+      currentAscended: weaponCurrentAscended, targetAscended: weaponTargetAscended,
+    },
     equippedBy: requestedName,
   };
   return { characterTarget, weaponTarget, characterEntry, weaponEntry };
+}
+
+function resolveTargetAscended({ currentLevel, currentAscended, targetLevel, requestedLevel, requestedAscended }) {
+  if (!isAscensionLevel(targetLevel)) return false;
+  if (targetLevel === currentLevel) {
+    return currentAscended || (Number(requestedLevel) === currentLevel && requestedAscended === true);
+  }
+  return requestedAscended === true;
+}
+
+function normalizeWeaponMode(value) {
+  const mode = value || 'equipped';
+  if (!['equipped', 'none', 'manual'].includes(mode)) throw new Error(`未知的自动档案武器模式：“${mode}”`);
+  return mode;
+}
+
+function buildManualWeaponTarget(value, rulebook) {
+  if (!value || typeof value !== 'object') throw new Error('自动档案缺少手动指定的武器');
+  const name = String(value.name ?? '').trim();
+  if (!name) throw new Error('手动指定的武器名称不能为空');
+  if (!rulebook.weapons?.[name]) throw new Error(`手动指定的武器“${name}”不在当前规则库中`);
+  const current = readLevel(value.level ?? {}, ['current'], `${name}当前等级`, 90);
+  const target = normalizeTarget(value.level?.target, current, 90, '武器目标等级');
+  const currentAscended = value.level?.currentAscended === true;
+  const targetAscended = target === current
+    ? currentAscended || value.level?.targetAscended === true
+    : value.level?.targetAscended === true;
+  return { kind: 'weapon', name, level: { current, target, currentAscended, targetAscended } };
 }
 
 function normalizeCharacterNames(value) {

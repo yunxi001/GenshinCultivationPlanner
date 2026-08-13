@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createPlan } from '../core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups, getInventoryTab } from '../core/inventory.js';
 import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from '../core/routes.js';
-import { buildRunSummary } from '../core/report.js';
+import { buildFailureRunSummary, buildRunSummary } from '../core/report.js';
 import { collectExecutionWarnings } from '../core/preflight.js';
 import { buildDomainResinPolicy } from '../core/resin.js';
 import { buildDomainExecutionConfig } from '../core/domain-executor.js';
@@ -165,17 +165,64 @@ test('角色与武器位于突破等级时会计入当前突破档', () => {
   assert.equal(plan.requirements[1003], 15);
 });
 
+test('突破前后状态会改变临界等级的角色与武器材料需求', () => {
+  const beforeToAfter = createPlan({
+    targets: [
+      {
+        kind: 'character', name: '测试角色',
+        level: { current: 70, target: 80, currentAscended: false },
+      },
+      {
+        kind: 'weapon', name: '测试武器',
+        level: { current: 70, target: 80, currentAscended: false },
+      },
+    ],
+    inventory: { 1001: 0, 1003: 0 },
+    materials: { 1001: { status: 'manual' }, 1003: { status: 'manual' } },
+    rulebook, today: 1,
+  });
+  assert.equal(beforeToAfter.requirements[1001], 32);
+  assert.equal(beforeToAfter.requirements[1003], 15);
+
+  const afterToBefore = createPlan({
+    targets: [{
+      kind: 'character', name: '测试角色',
+      level: { current: 70, target: 80, currentAscended: true, targetAscended: false },
+    }],
+    inventory: { 1001: 0 }, materials: { 1001: { status: 'manual' } }, rulebook, today: 1,
+  });
+  assert.equal(afterToBefore.requirements[1001] ?? 0, 0);
+});
+
 test('设置页目标文本兼容中文英文标点并区分角色和武器', () => {
   const targets = parseTargetText('测试角色：７０＞９０，６／８／８→９／９／９；测试武器:70>90', rulebook);
   assert.deepEqual(targets, [
     {
-      kind: 'character', name: '测试角色', level: { current: 70, target: 90 },
+      kind: 'character', name: '测试角色',
+      level: { current: 70, target: 90, currentAscended: false, targetAscended: false },
       talents: {
         normal: { current: 6, target: 9 }, skill: { current: 8, target: 9 }, burst: { current: 8, target: 9 },
       },
     },
-    { kind: 'weapon', name: '测试武器', level: { current: 70, target: 90 } },
+    {
+      kind: 'weapon', name: '测试武器',
+      level: { current: 70, target: 90, currentAscended: false, targetAscended: false },
+    },
   ]);
+});
+
+test('自定义目标明确解析突破前后并拒绝状态倒退', () => {
+  const targets = parseTargetText('测试角色:70级（突破后）>80级（突破后）；测试武器:70前>80后', rulebook);
+  assert.deepEqual(targets[0].level, {
+    current: 70, target: 80, currentAscended: true, targetAscended: true,
+  });
+  assert.deepEqual(targets[1].level, {
+    current: 70, target: 80, currentAscended: false, targetAscended: true,
+  });
+  assert.deepEqual(parseTargetText('测试武器:70>80', rulebook)[0].level, {
+    current: 70, target: 80, currentAscended: false, targetAscended: true,
+  });
+  assert.throws(() => parseTargetText('测试角色:80后>80前', rulebook), /不能倒退/);
 });
 
 test('设置页目标文本会拒绝未知名称、重复项、倒退等级和错误武器天赋', () => {
@@ -190,8 +237,8 @@ test('手动目标生成统一档案快照，未填写天赋时不会伪造等�
   const snapshot = buildProfileSnapshot(targets, { capturedAt: '2026-08-09T00:00:00.000Z' });
   assert.equal(snapshot.source, 'manual-settings');
   assert.equal(snapshot.entries[0].talents, null);
-  assert.equal(formatProfileEntry(snapshot.entries[0]), '测试角色 Lv.80→90｜天赋未提供（本次不计算）');
-  assert.equal(formatProfileEntry(snapshot.entries[1]), '测试武器 Lv.70→90');
+  assert.equal(formatProfileEntry(snapshot.entries[0]), '测试角色 80级（突破前）→90级｜天赋未提供（本次不计算）');
+  assert.equal(formatProfileEntry(snapshot.entries[1]), '测试武器 70级（突破前）→90级');
 });
 
 test('BetterGI 能力检测以接口存在性为准，不仅依赖版本号', () => {
@@ -233,6 +280,8 @@ test('BetterGI 0.63 档案会换算命座加成并生成角色与佩戴武器目
   });
   assert.equal(result.targets[1].name, '测试武器');
   assert.equal(result.targets[1].equippedBy, '测试角色');
+  assert.equal(result.targets[0].level.currentAscended, true);
+  assert.equal(result.targets[1].level.currentAscended, true);
   assert.match(formatProfileEntry(result.profileSnapshot.entries[0]), /战技含命座\+3/);
 });
 
@@ -250,6 +299,10 @@ test('自动档案忽略一星初始武器，并拒绝未知武器、空字段�
   const converted = convertCharacterResult(base, '测试角色', selections, automaticRulebook);
   assert.equal(converted.weaponTarget, null);
   assert.equal(converted.weaponEntry.ignored, true);
+  assert.throws(
+    () => convertCharacterResult({ ...base, Level: 80 }, '测试角色', selections, automaticRulebook),
+    /等级上限识别结果无效/,
+  );
   await assert.rejects(() => loadAutomaticProfile({ api: null, selections, rulebook: automaticRulebook }), /请改用手动档案/);
   await assert.rejects(() => loadAutomaticProfile({
     api: { async GetCharacter() { throw new Error('识别失败'); }, async GetMultiCharacters() {} },
@@ -266,7 +319,7 @@ test('自动档案支持多角色、旅行者和已经超过目标的满级状�
   };
   const results = [
     { CharacterName: '甲', Level: 90, WeaponName: '甲剑', WeaponLevel: 90, AttackLevel: 10, SkillLevel: 10, BurstLevel: 10 },
-    { CharacterName: '旅行者', Level: 80, WeaponName: '旅剑', WeaponLevel: 70, AttackLevel: 6, SkillLevel: 9, SkillHasBonus: true, BurstLevel: 6 },
+    { CharacterName: '旅行者', Level: 80, LevelLimit: 90, WeaponName: '旅剑', WeaponLevel: 70, WeaponLevelLimit: 80, AttackLevel: 6, SkillLevel: 9, SkillHasBonus: true, BurstLevel: 6 },
   ];
   const api = {
     async GetCharacter() { return null; },
@@ -285,7 +338,9 @@ test('自动档案支持多角色、旅行者和已经超过目标的满级状�
     rulebook: automaticRulebook,
   });
   assert.equal(result.targets.length, 4);
-  assert.deepEqual(result.targets[0].level, { current: 90, target: 90 });
+  assert.deepEqual(result.targets[0].level, {
+    current: 90, target: 90, currentAscended: false, targetAscended: false,
+  });
   assert.equal(result.targets[2].name, '奇偶·男性');
   assert.equal(result.targets[2].talents.skill.current, 6);
   assert.equal(result.profileSnapshot.entries[2].recognizedName, '旅行者');
@@ -294,17 +349,103 @@ test('自动档案支持多角色、旅行者和已经超过目标的满级状�
 test('自动档案配置只使用目标等级，手动档案继续兼容旧输入', () => {
   const automatic = normalizeScriptSettings({
     profileMode: '自动档案', selectedCharacter: '测试角色',
-    autoCharacterTargetLevel: '90', autoNormalTalentTarget: '9',
+    autoCharacterTargetLevel: '80', autoNormalTalentTarget: '9',
     autoSkillTalentTarget: '不培养元素战技', autoBurstTalentTarget: '10',
-    autoWeaponTargetLevel: '80',
+    autoWeaponTargetLevel: '80级（突破后）',
   });
   assert.deepEqual(automatic.automaticProfileSelections, {
-    characterNames: ['测试角色'], characterTargetLevel: 90,
-    talentTargets: { normal: 9, skill: null, burst: 10 }, weaponTargetLevel: 80,
+    characterNames: ['测试角色'], characterTargetLevel: 80, characterTargetAscended: true,
+    talentTargets: { normal: 9, skill: null, burst: 10 },
+    weaponMode: 'equipped', weaponTargetLevel: 80, weaponTargetAscended: true,
   });
   assert.equal(automatic.targetsText, '');
   assert.throws(() => normalizeScriptSettings({ profileMode: '自动档案', selectedCharacter: '不选择角色' }), /必须选择角色/);
   assert.equal(normalizeScriptSettings({ profileMode: '手动档案', targetsText: '测试角色:80>90' }).profileMode, '手动档案');
+});
+
+test('自动档案可以不培养武器，或手动指定与当前佩戴无关的武器', async () => {
+  const automaticRulebook = {
+    characters: { 测试角色: {} },
+    weapons: { 目标武器: { rarity: 5 } },
+  };
+  const rawCharacter = {
+    CharacterName: '测试角色', Level: 80, LevelLimit: 90,
+    AttackLevel: 6, SkillLevel: 8, BurstLevel: 9,
+  };
+  const requestedCategories = [];
+  const api = {
+    async GetCharacter(name, categories) {
+      assert.equal(name, '测试角色');
+      requestedCategories.push(categories);
+      return rawCharacter;
+    },
+    async GetMultiCharacters() { return []; },
+  };
+  const common = {
+    characterNames: ['测试角色'], characterTargetLevel: 90,
+    talentTargets: { normal: 9, skill: 9, burst: 10 },
+  };
+
+  const withoutWeapon = await loadAutomaticProfile({
+    api, selections: { ...common, weaponMode: 'none' }, rulebook: automaticRulebook,
+  });
+  assert.equal(withoutWeapon.targets.length, 1);
+  assert.equal(withoutWeapon.profileSnapshot.entries.length, 1);
+
+  const manualWeapon = await loadAutomaticProfile({
+    api,
+    selections: {
+      ...common,
+      weaponMode: 'manual',
+      manualWeapon: { name: '目标武器', level: { current: 70, target: 90 } },
+    },
+    rulebook: automaticRulebook,
+  });
+  assert.deepEqual(requestedCategories, ['属性;天赋', '属性;天赋']);
+  assert.deepEqual(manualWeapon.targets[1], {
+    kind: 'weapon', name: '目标武器',
+    level: { current: 70, target: 90, currentAscended: false, targetAscended: false },
+  });
+  assert.equal(manualWeapon.profileSnapshot.entries[1].equippedBy, null);
+  assert.equal(formatProfileEntry(manualWeapon.profileSnapshot.entries[1]), '目标武器 70级（突破前）→90级');
+});
+
+test('自动档案手动武器配置兼容中文符号并拒绝遗漏和错误名称', async () => {
+  const manual = normalizeScriptSettings({
+    profileMode: '自动档案', selectedCharacter: '测试角色',
+    autoCharacterTargetLevel: '90', autoWeaponMode: '手动指定武器',
+    autoManualWeaponTarget: '目标武器：70＞90',
+  });
+  assert.deepEqual(manual.automaticProfileSelections.manualWeapon, {
+    name: '目标武器',
+    level: { current: 70, target: 90, currentAscended: false, targetAscended: false },
+  });
+  assert.equal(manual.automaticProfileSelections.weaponMode, 'manual');
+
+  const none = normalizeScriptSettings({
+    profileMode: '自动档案', selectedCharacter: '测试角色',
+    autoCharacterTargetLevel: '90', autoWeaponMode: '不培养武器',
+  });
+  assert.equal(none.automaticProfileSelections.weaponMode, 'none');
+  assert.equal('weaponTargetLevel' in none.automaticProfileSelections, false);
+  assert.throws(() => normalizeScriptSettings({
+    profileMode: '自动档案', selectedCharacter: '测试角色',
+    autoCharacterTargetLevel: '90', autoWeaponMode: '手动指定武器', autoManualWeaponTarget: '',
+  }), /手动指定武器不能为空/);
+  assert.throws(() => normalizeScriptSettings({
+    profileMode: '自动档案', selectedCharacter: '测试角色',
+    autoCharacterTargetLevel: '90', autoWeaponMode: '手动指定武器', autoManualWeaponTarget: '目标武器:90>70',
+  }), /不能倒退/);
+
+  await assert.rejects(() => loadAutomaticProfile({
+    api: { async GetCharacter() { return {}; }, async GetMultiCharacters() { return []; } },
+    selections: {
+      characterNames: ['测试角色'], characterTargetLevel: 90,
+      talentTargets: {}, weaponMode: 'manual',
+      manualWeapon: { name: '未知武器', level: { current: 70, target: 90 } },
+    },
+    rulebook: { characters: { 测试角色: {} }, weapons: {} },
+  }), /不在当前规则库/);
 });
 
 test('角色和武器下拉选择会组合三个独立天赋区间，并兼容旧目标文本', () => {
@@ -428,7 +569,7 @@ test('精简设置页的级联默认值有效且不再暴露旧开关', () => {
     'artifactTestSingleRun', 'domainUseCondensedResin', 'domainUseOriginalResin',
     'domainUseTransientResin', 'domainUseFragileResin',
   ]);
-  assert.equal(editableItems.length, 39);
+  assert.equal(editableItems.length, 41);
   assert.equal(editableItems.some((item) => legacyNames.has(item.name)), false);
   for (const item of items.filter((candidate) => candidate.type === 'cascade-select')) {
     const values = Object.values(item.cascadeOptions).flat();
@@ -712,6 +853,26 @@ test('运行摘要优先显示完整档案条目，并始终保持在 500 字符
   assert.match(summary, /另 \d+ 项见运行记录/);
   assert.equal((summary.match(/<b>/g) ?? []).length, (summary.match(/<\/b>/g) ?? []).length);
   assert.equal(summary.includes('超长测试角<br>'), false);
+});
+
+test('自动档案等初始化异常会生成清晰且不超过 500 字符的失败摘要', () => {
+  const summary = buildFailureRunSummary({
+    stage: '读取培养目标与自动档案',
+    targets: ['桑多涅'],
+    reason: `角色等级 OCR 识别失败：${'<0/80>&'.repeat(100)}`,
+  });
+  assert.match(summary, /角色一键养成运行失败/);
+  assert.match(summary, /培养目标<\/b>：桑多涅/);
+  assert.match(summary, /失败阶段<\/b>：读取培养目标与自动档案/);
+  assert.match(summary, /本次尚未进入刷取阶段/);
+  assert.doesNotMatch(summary, /<0\/80>/);
+  assert.ok(summary.length <= 500);
+  assert.equal((summary.match(/<b>/g) ?? []).length, (summary.match(/<\/b>/g) ?? []).length);
+
+  const partialSummary = buildFailureRunSummary({
+    stage: '保存计划与历史记录', reason: '磁盘写入失败', executionStarted: true,
+  });
+  assert.match(partialSummary, /可能已执行部分任务/);
 });
 
 test('完成预估按最高难度培养秘境期望和开放日推算', () => {
