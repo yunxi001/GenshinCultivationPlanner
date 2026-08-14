@@ -26,6 +26,7 @@ test('所有树脂任务默认启用 BetterGI 奖励识别', () => {
   const source = readFileSync(new URL('../main.js', import.meta.url), 'utf8');
   assert.equal((source.match(/RewardRecognitionEnabled = true;/g) ?? []).length, 3);
   assert.doesNotMatch(source, /RewardRecognitionEnabled = false;/);
+  assert.match(source, /param\.IconRecognitionMode = ItemIconRecognitionMode\.Item;/);
 });
 
 const materials = {
@@ -601,7 +602,7 @@ test('运行摘要区分任务调用、背包识别失败、确认收益和圣�
     },
   });
   assert.match(unconfirmed, /世界 Boss：守望者·堕天/);
-  assert.match(unconfirmed, /任务调用结束；背包复核未发现目标材料增长/);
+  assert.match(unconfirmed, /未确认领取到目标材料，可能是树脂不足或奖励识别为空/);
   assert.doesNotMatch(unconfirmed, /已执行完成/);
 
   const recognitionFailed = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
@@ -616,6 +617,20 @@ test('运行摘要区分任务调用、背包识别失败、确认收益和圣�
   });
   assert.match(recognitionFailed, /奖励结果未知（背包未识别：堕天的落羽）/);
   assert.doesNotMatch(recognitionFailed, /确认收益.*堕天的落羽×/);
+
+  const taskFallback = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    executionEnabled: true,
+    execution: {
+      status: 'completed',
+      task: { executionType: 'boss', bossName: '守望者·堕天' },
+      trackedRewards: { 堕天的落羽: 12 }, appliedGains: true, inventoryChecked: true,
+      inventoryRecognitionFailed: true,
+      inventoryUnrecognizedNames: ['堕天的落羽'],
+      gainSources: { 堕天的落羽: 'task-recognition' },
+    },
+  });
+  assert.match(taskFallback, /已由 BetterGI 奖励识别确认收益/);
+  assert.match(taskFallback, /堕天的落羽×12/);
 
   const artifact = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
     executionEnabled: true,
@@ -684,6 +699,51 @@ test('完成预估按世界等级 9 Boss 的 3.1 个期望计算', () => {
   assert.equal(estimate.days, 0);
   assert.equal(estimate.details[0].expectedBaseYield, 3.1);
   assert.equal(estimate.details[0].estimatedClaims, 2);
+  const summary = buildRunSummary({ todayQueue: [], displayShortages: [], weeklyStrategy: [] }, {}, {
+    estimateDays: estimate.days,
+    estimateReason: estimate.reason,
+    estimateDetails: estimate.details,
+  });
+  assert.match(summary, /按每日树脂预算约1天/);
+  assert.doesNotMatch(summary, /开放日/);
+});
+
+test('周本材料不会遮挡可自动执行 Boss 的预计完成信息', () => {
+  const estimate = buildCompletionEstimate({
+    plan: { displayShortages: [
+      { materialId: 'boss', shortage: 8 },
+      { materialId: 'weekly', shortage: 6 },
+    ] },
+    materials: {
+      boss: { name: '堕天的落羽', status: 'supported', executionType: 'boss', bossName: '守望者·堕天', openDays: [0, 1, 2, 3, 4, 5, 6] },
+      weekly: { name: '狂人的约束', status: 'supported', executionType: 'weeklyBoss', domainName: '赝月的研究所' },
+    },
+    today: 4,
+  });
+  assert.equal(estimate.details[0].estimatedClaims, 3);
+  assert.match(estimate.reason, /周本材料不显示预计天数/);
+  const weeklyStrategy = Array.from({ length: 7 }, (_, index) => ({
+    label: `第${index + 1}天`,
+    tasks: [{ materialName: '守望者·堕天' }],
+  }));
+  const summary = buildRunSummary({
+    todayQueue: [{ executionType: 'boss', bossName: '守望者·堕天', materials: [{ materialName: '堕天的落羽', shortage: 8 }] }],
+    displayShortages: [
+      { materialId: 'boss', shortage: 8 },
+      { materialId: 'weekly', shortage: 6 },
+    ],
+    manualItems: [{ materialId: 'weekly', shortage: 6, material: { executionType: 'weeklyBoss' } }],
+    weeklyStrategy,
+  }, {
+    boss: { name: '堕天的落羽' },
+    weekly: { name: '狂人的约束' },
+  }, {
+    estimateDays: estimate.days,
+    estimateReason: estimate.reason,
+    estimateDetails: estimate.details,
+  });
+  assert.match(summary, /约3次领奖、120树脂/);
+  assert.ok(summary.length <= 500);
 });
 
 test('完成预估不为周本和圣遗物输出预计天数', () => {
@@ -833,6 +893,34 @@ test('运行记录把结束背包漏识别保存为未知结果', () => {
   assert.equal(record.execution.result, 'completed-inventory-unrecognized');
   assert.equal(record.execution.evidence.inventoryRecognitionFailed, true);
   assert.deepEqual(record.execution.evidence.inventoryUnrecognizedNames, ['测试材料']);
+});
+
+test('运行记录保存任务奖励兜底来源与证据差异', () => {
+  const record = buildRunRecord({
+    executionEnabled: true,
+    plan: { displayShortages: [{ materialId: 'boss', shortage: 8 }] },
+    inventoryBefore: { boss: 0 },
+    inventoryAfter: { boss: 12 },
+    execution: {
+      status: 'completed',
+      task: { executionType: 'boss', bossName: '守望者·堕天', materialName: '守望者·堕天' },
+      taskRecognizedRewards: { 堕天的落羽: 12, 摩拉: 32000 },
+      inventoryTrackedRewards: {},
+      taskTrackedRewards: { 堕天的落羽: 12 },
+      trackedRewards: { 堕天的落羽: 12 },
+      gainSources: { 堕天的落羽: 'task-recognition' },
+      rewardDiscrepancies: [],
+      inventoryChecked: true,
+      inventoryRecognitionFailed: true,
+      inventoryUnrecognizedNames: ['堕天的落羽'],
+      appliedGains: true,
+    },
+    domainResinPolicy: {},
+  });
+  assert.equal(record.execution.result, 'completed-task-recognition-confirmed');
+  assert.equal(record.execution.evidence.taskRecognitionGainConfirmed, true);
+  assert.equal(record.execution.taskRecognizedRewards.堕天的落羽, 12);
+  assert.equal(record.execution.gainSources.堕天的落羽, 'task-recognition');
 });
 
 test('存在可执行世界 Boss 时，秘境不得抢占执行顺序', () => {
