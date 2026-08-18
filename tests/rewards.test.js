@@ -9,12 +9,43 @@ const materials = {
   boss: { name: '堕天的落羽' },
 };
 
-test('奖励字典兼容普通对象和 ClearScript Keys 形式', () => {
+test('奖励字典兼容普通对象、ClearScript 索引器和枚举器', () => {
   assert.deepEqual(normalizeRewardMap({ 摩拉: 8000, 堕天的落羽: 12 }), { 摩拉: 8000, 堕天的落羽: 12 });
-  const dictionary = {};
-  Object.defineProperty(dictionary, 'Keys', { value: ['堕天的落羽'], enumerable: false });
-  Object.defineProperty(dictionary, '堕天的落羽', { value: 12, enumerable: false });
-  assert.deepEqual(normalizeRewardMap(dictionary), { 堕天的落羽: 12 });
+  const indexedDictionary = {
+    Keys: ['堕天的落羽'],
+    get_Item(key) {
+      return key === '堕天的落羽' ? 12 : 0;
+    },
+  };
+  assert.deepEqual(normalizeRewardMap(indexedDictionary), { 堕天的落羽: 12 });
+
+  const entries = [
+    { Key: '「浪迹」的教导', Value: 4 },
+    { Key: '「浪迹」的指引', Value: 2 },
+  ];
+  let index = -1;
+  let disposed = false;
+  const enumeratedDictionary = {
+    GetEnumerator() {
+      return {
+        MoveNext() {
+          index += 1;
+          return index < entries.length;
+        },
+        get Current() {
+          return entries[index];
+        },
+        Dispose() {
+          disposed = true;
+        },
+      };
+    },
+  };
+  assert.deepEqual(normalizeRewardMap(enumeratedDictionary), {
+    '「浪迹」的教导': 4,
+    '「浪迹」的指引': 2,
+  });
+  assert.equal(disposed, true);
 });
 
 test('背包结果可信时优先使用背包且不重复累计任务奖励', () => {

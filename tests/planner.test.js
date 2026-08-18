@@ -422,6 +422,29 @@ test('会先使用低阶库存合成，再只计算真正需要刷取的材料',
   assert.equal(plan.shortages.find((item) => item.materialId === 'low').shortage, 6);
 });
 
+test('合成折算只采用确定的 3:1 配方，不预估角色天赋的概率收益', () => {
+  const oneStepRecipes = {
+    mid: { resultCount: 1, inputs: [{ id: 'low', count: 3 }] },
+  };
+  const craftingMaterials = {
+    mid: { name: '中阶材料', status: 'manual' },
+    low: { name: '低阶材料', status: 'manual' },
+  };
+  const createCraftingPlan = (lowCount) => createPlan({
+    targets: [{ id: 'test', requirements: [{ materialId: 'mid', count: 1 }] }],
+    inventory: { mid: 0, low: lowCount },
+    materials: craftingMaterials,
+    recipes: oneStepRecipes,
+    rulebook,
+    today: 1,
+  });
+
+  const insufficient = createCraftingPlan(2);
+  const guaranteed = createCraftingPlan(3);
+  assert.equal(insufficient.shortages.find((item) => item.materialId === 'low').shortage, 1);
+  assert.equal(guaranteed.shortages.find((item) => item.materialId === 'low').shortage, 0);
+});
+
 test('库存可使用材料中文名输入并转换为规则库 ID', () => {
   const plan = createPlan({
     targets: [{ id: 'test', requirements: [{ materialId: '1001', count: 5 }] }],
