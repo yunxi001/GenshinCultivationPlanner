@@ -29,10 +29,10 @@ test('指南身份表排除数据库内部占位角色并覆盖正式角色', ()
   }
 });
 
-test('未实装 Boss 材料保持手动，不会进入自动执行队列', () => {
+test('当前未自动适配的 Boss 材料保持手动，不会进入自动执行队列', () => {
   for (const materialId of ['113090', '113092']) {
     assert.equal(materials[materialId]?.status, 'manual');
     assert.equal(materials[materialId]?.executionType, 'boss');
-    assert.match(materials[materialId]?.reason, /尚未确认.*BetterGI/);
+    assert.match(materials[materialId]?.reason, /BetterGI 0\.6[45]/);
   }
 });

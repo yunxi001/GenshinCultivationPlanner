@@ -20,6 +20,6 @@
     "validate:resin": "node tools/validate-resin-policy.mjs"
   },
   "devDependencies": {
-    "genshin-db": "5.2.13"
+    "genshin-db": "5.2.14"
   }
 }

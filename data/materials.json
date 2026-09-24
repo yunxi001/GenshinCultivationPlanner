@@ -4005,18 +4005,8 @@
     "name": "焰中不灭花枝",
     "status": "manual",
     "executionType": "boss",
-    "reason": "保留首领来源映射；尚未确认游戏实装与 BetterGI 自动执行支持，确认后再更新为 supported",
     "bossName": "不灭衍生造物",
-    "openDays": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6
-    ],
-    "limited": false
+    "reason": "当前兼容基线 BetterGI 0.64 不支持不灭衍生造物；0.65.0 已加入支持，待版本适配与实机验证"
   },
   "113091": {
     "name": "游空之物的断尾",
@@ -4028,18 +4018,8 @@
     "name": "游离者的裂甲",
     "status": "manual",
     "executionType": "boss",
-    "reason": "保留首领来源映射；尚未确认游戏实装与 BetterGI 自动执行支持，确认后再更新为 supported",
     "bossName": "游雪的护刃",
-    "openDays": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6
-    ],
-    "limited": false
+    "reason": "游雪的护刃尚未列入 BetterGI 0.65.0 自动首领支持列表，请手动获取"
   },
   "114001": {
     "name": "高塔孤王的破瓦",

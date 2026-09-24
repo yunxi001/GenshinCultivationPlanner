@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "source": {
     "repository": "https://github.com/theBowja/genshin-db",
-    "packageVersion": "5.2.13",
-    "gameDataVersion": "7.0",
+    "packageVersion": "5.2.14",
+    "gameDataVersion": "7.1",
     "locale": "ChineseSimplified",
     "license": "MIT",
     "licenseFile": "THIRD_PARTY_NOTICES.md"
@@ -927,6 +927,23 @@
         }
       ]
     },
+    "沃雅妮莎": {
+      "talentIdentity": "exact",
+      "combatSkills": [
+        {
+          "slot": "combat1",
+          "canonicalName": "水色咏叹"
+        },
+        {
+          "slot": "combat2",
+          "canonicalName": "宣叙·晨声纷流"
+        },
+        {
+          "slot": "combat3",
+          "canonicalName": "终奏·伴尔沉沦"
+        }
+      ]
+    },
     "法尔伽": {
       "talentIdentity": "exact",
       "combatSkills": [
@@ -1647,6 +1664,23 @@
         }
       ]
     },
+    "薇斯纳": {
+      "talentIdentity": "exact",
+      "combatSkills": [
+        {
+          "slot": "combat1",
+          "canonicalName": "巡风剑舞"
+        },
+        {
+          "slot": "combat2",
+          "canonicalName": "操典·制胜有道"
+        },
+        {
+          "slot": "combat3",
+          "canonicalName": "致礼·献予女皇陛下"
+        }
+      ]
+    },
     "行秋": {
       "talentIdentity": "exact",
       "combatSkills": [
@@ -2134,6 +2168,11 @@
         "id": 15432
       }
     ],
+    "凝雪沉心": [
+      {
+        "id": 14437
+      }
+    ],
     "勘探钻机": [
       {
         "id": 13427
@@ -2454,6 +2493,11 @@
         "id": 13101
       }
     ],
+    "新枝": [
+      {
+        "id": 11437
+      }
+    ],
     "旅行剑": [
       {
         "id": 11303
@@ -2544,6 +2588,11 @@
         "id": 13513
       }
     ],
+    "柔风游弦": [
+      {
+        "id": 15437
+      }
+    ],
     "桂木斩长正": [
       {
         "id": 12414
@@ -2607,6 +2656,11 @@
     "溢彩心念": [
       {
         "id": 14519
+      }
+    ],
+    "漩流颂歌": [
+      {
+        "id": 14524
       }
     ],
     "灰河渡手": [
@@ -2904,6 +2958,11 @@
         "id": 15434
       }
     ],
+    "蝶变": [
+      {
+        "id": 11522
+      }
+    ],
     "螭骨剑": [
       {
         "id": 12409
@@ -3092,6 +3151,11 @@
     "银剑": [
       {
         "id": 11201
+      }
+    ],
+    "银釭": [
+      {
+        "id": 11438
       }
     ],
     "镇山之钉": [
