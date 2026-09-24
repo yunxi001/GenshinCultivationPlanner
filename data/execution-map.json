@@ -1,1 +1,14 @@
-{}
+{
+  "113090": {
+    "status": "manual",
+    "executionType": "boss",
+    "bossName": "不灭衍生造物",
+    "reason": "当前兼容基线 BetterGI 0.64 不支持不灭衍生造物；0.65.0 已加入支持，待版本适配与实机验证"
+  },
+  "113092": {
+    "status": "manual",
+    "executionType": "boss",
+    "bossName": "游雪的护刃",
+    "reason": "游雪的护刃尚未列入 BetterGI 0.65.0 自动首领支持列表，请手动获取"
+  }
+}
