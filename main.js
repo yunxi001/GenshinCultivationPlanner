@@ -1,6 +1,7 @@
 import { createPlan } from './core/planner.js';
 import { applyInventoryScanResult, buildInventoryScanGroups } from './core/inventory.js';
 import { applyMatchedRouteSupport, discoverAutoPathingRoutes } from './core/routes.js';
+import { buildRouteSubscriptionPlan, formatRouteSubscriptionText } from './core/route-subscriptions.js';
 import {
   buildFailureRunSummary,
   buildPlanReadySummary,
@@ -380,6 +381,7 @@ async function main() {
   }
 
   plan.domainOpenings = limitedOpenings.openings;
+  let routeCatalog = null;
   if (suppressExecution) {
     plan.routes = { matched: [], missing: [] };
   } else if (scriptSettings.discoverRoutes !== false) {
@@ -407,6 +409,20 @@ async function main() {
     }
   } else {
     log.info('[路线] 已关闭已订阅路线检查');
+  }
+  if (!suppressExecution && scriptSettings.discoverRoutes !== false && !plan.routes?.error) {
+    try {
+      routeCatalog = JSON.parse(file.readTextSync('data/route-catalog.json'));
+      plan.routeSubscriptions = buildRouteSubscriptionPlan(plan.routes, routeCatalog);
+      log.info('[路线订阅] 官方目录 {revision}；已安装 {installed} 项、可订阅 {available} 项、暂无线索 {unavailable} 项',
+        plan.routeSubscriptions.sourceRevision?.slice(0, 8) ?? '未知',
+        plan.routeSubscriptions.installed.length,
+        plan.routeSubscriptions.available.length,
+        plan.routeSubscriptions.unavailable.length);
+    } catch (error) {
+      plan.routeSubscriptions = { error: error?.message ?? String(error) };
+      log.warn('[路线订阅] 目录读取失败，本次只使用已安装路线：{error}', plan.routeSubscriptions.error);
+    }
   }
 
   const domainResinPolicy = buildDomainResinPolicy(scriptSettings);
@@ -440,6 +456,7 @@ async function main() {
   const resinPolicyPreview = formatResinPolicyPreview(resinPolicyV2);
   plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
   const discoveredRoutes = plan.routes;
+  const discoveredSubscriptions = plan.routeSubscriptions;
   log.info('[树脂] 秘境策略：指定使用={specified}；BetterGI 实际顺序={priority}；原粹/浓缩/须臾/脆弱上限={original}/{condensed}/{transient}/{fragile}',
     domainResinPolicy.specifyResinUse,
     domainResinPolicy.priority.join('、') || '无',
@@ -636,6 +653,16 @@ async function main() {
       attachTargetContext(plan, profileRecord, targetSummary, guideRecord, targetOutcomes);
       plan.routes = discoveredRoutes;
       applyMatchedRouteSupport(plan, discoveredRoutes);
+      const remainingById = new Map((plan.displayShortages ?? [])
+        .map((item) => [String(item.materialId), item.shortage]));
+      plan.routeSubscriptions = routeCatalog
+        ? buildRouteSubscriptionPlan({
+          matched: discoveredRoutes.matched,
+          missing: (discoveredRoutes.missing ?? []).map((item) => ({
+            ...item, shortage: remainingById.get(String(item.materialId)) ?? 0,
+          })),
+        }, routeCatalog)
+        : discoveredSubscriptions;
       plan.weeklyStrategy = buildWeeklyStrategy(plan.weeklyPlan, today);
       plan.domainResinPolicy = domainResinPolicy;
       plan.resinPolicyV2 = resinPolicyV2;
@@ -677,12 +704,32 @@ async function main() {
     log.info('[周循环] {day}：{tasks}', day.label, day.tasks.map((task) => task.domainName ?? task.materialName).join('、'));
   }
   log.info('[调度] 人工待办：{manual}', JSON.stringify(plan.manualItems));
-  const estimate = buildCompletionEstimate({ plan, history, materials, recipes, today, dailyResinBudget: scriptSettings.estimateDailyResin });
+  const estimateHistory = plan.execution?.routes?.length > 0
+    ? [...history, {
+      timestamp: new Date().toISOString(),
+      execution: plan.execution,
+      inventoryBefore: inventoryBeforeExecution,
+      inventoryAfter: inventory,
+    }]
+    : history;
+  const estimate = buildCompletionEstimate({ plan, history: estimateHistory, materials, recipes, today,
+    dailyResinBudget: scriptSettings.estimateDailyResin,
+    routeExecutionEnabled: scriptSettings.routeExecutionEnabled === true,
+    gatheringRouteExecutionEnabled: scriptSettings.gatheringRouteExecutionEnabled,
+    monsterRouteExecutionEnabled: scriptSettings.monsterRouteExecutionEnabled });
   plan.estimate = estimate;
   log.info('[预估] {message}', Number.isFinite(estimate.days)
     ? `约 ${estimate.days} 天；${estimate.reason}`
     : `暂无法估算；${estimate.reason}`);
   await file.writeText('record/latest-plan.json', JSON.stringify(plan, null, 2), false);
+  if (plan.routeSubscriptions && !plan.routeSubscriptions.error) {
+    try {
+      await file.writeText('record/route-subscription.txt', formatRouteSubscriptionText(plan.routeSubscriptions), false);
+      log.info('[路线订阅] 已保存建议：record/route-subscription.txt');
+    } catch (error) {
+      log.warn('[路线订阅] 保存建议失败，不影响培养计划：{error}', error?.message ?? String(error));
+    }
+  }
   const runRecord = buildRunRecord({
     executionEnabled,
     plan,

@@ -91,6 +91,15 @@ export function buildRunRecord({ executionEnabled, plan, inventoryBefore, invent
     } : null,
     domainResinPolicy,
     resinPolicyV2: resinPolicyV2 ?? plan?.resinPolicyV2 ?? null,
+    routeSubscriptions: plan?.routeSubscriptions ? {
+      sourceRevision: plan.routeSubscriptions.sourceRevision ?? null,
+      available: (plan.routeSubscriptions.available ?? []).map((item) => ({
+        materialId: item.materialId, name: item.name, variantCount: item.packages.length,
+      })),
+      unavailable: (plan.routeSubscriptions.unavailable ?? []).map((item) => ({
+        materialId: item.materialId, name: item.name,
+      })),
+    } : null,
     inventoryBefore,
     inventoryAfter,
     remainingShortages: (plan.displayShortages ?? [])

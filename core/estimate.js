@@ -11,7 +11,9 @@ const DOMAIN_EXPECTED_BASE_YIELD = {
  * Boss 按 3 个保底加 10% 概率第 4 个，即 3.1 个/40 树脂；
  * 培养秘境按最高难度的公开统计均值；周本和圣遗物不显示预计天数。
  */
-export function buildCompletionEstimate({ plan, materials, recipes = {}, today, dailyResinBudget = DAILY_RESIN_BUDGET }) {
+export function buildCompletionEstimate({ plan, history = [], materials, recipes = {}, today,
+  dailyResinBudget = DAILY_RESIN_BUDGET, routeExecutionEnabled = true,
+  gatheringRouteExecutionEnabled, monsterRouteExecutionEnabled }) {
   const displayShortages = plan.displayShortages ?? [];
   if (displayShortages.some((item) => item.status === 'unknown')) {
     return { days: null, reason: '背包库存未确认，暂无法估算', details: [] };
@@ -20,10 +22,31 @@ export function buildCompletionEstimate({ plan, materials, recipes = {}, today, 
   if (shortages.length === 0) return { days: 0, reason: '材料已满足', details: [] };
 
   const groups = new Map();
+  const routeGroups = new Map();
   const unestimatedReasons = new Set();
   for (const shortage of shortages) {
     // 路线发现会为本次计划补充 executionType=route；优先使用计划内的动态来源信息。
     const material = shortage.material ?? materials[shortage.materialId];
+    if (material?.executionType === 'route' && material.status === 'supported') {
+      const route = plan.routes?.matched?.find((item) => String(item.materialId) === String(shortage.materialId));
+      const enabled = routeExecutionEnabled && (route?.type === 'localSpecialty'
+        ? gatheringRouteExecutionEnabled !== false : monsterRouteExecutionEnabled !== false);
+      if (!route || !enabled) {
+        unestimatedReasons.add(route ? '路线执行未启用，不估算路线完成时间' : '缺少已匹配路线，无法估算路线完成时间');
+        continue;
+      }
+      const baseMaterialId = getBaseMaterialId(shortage.materialId, recipes);
+      const pathSignature = routePathSignature(route.paths);
+      const key = `${route.type}:${pathSignature}:${baseMaterialId}`;
+      const group = routeGroups.get(key) ?? {
+        sourceType: 'route', sourceName: route.name, routeType: route.type,
+        pathSignature, baseMaterialId, baseShortage: 0, materialNames: [],
+      };
+      group.baseShortage += shortage.shortage * getBaseUnits(shortage.materialId, recipes);
+      group.materialNames.push(material.name);
+      routeGroups.set(key, group);
+      continue;
+    }
     const policy = resolvePolicy(shortage.materialId, material);
     if (!policy) {
       unestimatedReasons.add(buildUnsupportedReason(material));
@@ -42,13 +65,22 @@ export function buildCompletionEstimate({ plan, materials, recipes = {}, today, 
     groups.set(key, group);
   }
 
-  if (groups.size === 0) {
+  const resinBudget = normalizeDailyResinBudget(dailyResinBudget);
+  const details = [...groups.values()].map((group) => buildDetail(group, resinBudget, today));
+  for (const group of routeGroups.values()) {
+    const routeEstimate = buildRouteDetail(group, history, recipes);
+    if (routeEstimate.detail) details.push(routeEstimate.detail);
+    else unestimatedReasons.add(routeEstimate.reason);
+  }
+  if (details.length === 0) {
     return { days: null, reason: [...unestimatedReasons].join('；'), details: [], unestimatedReasons: [...unestimatedReasons] };
   }
 
-  const resinBudget = normalizeDailyResinBudget(dailyResinBudget);
-  const details = [...groups.values()].map((group) => buildDetail(group, resinBudget, today));
-  const baseReason = '按世界等级 9 与最高难度秘境掉落期望估算；不考虑双倍掉落';
+  const baseReason = [
+    groups.size > 0 ? '树脂任务按世界等级 9 与最高难度秘境掉落期望估算；不考虑双倍掉落' : null,
+    details.some((item) => item.sourceType === 'route')
+      ? '路线按已确认背包增量及历史执行间隔估算，仅供参考' : null,
+  ].filter(Boolean).join('；');
   return {
     days: Math.max(...details.map((item) => item.estimatedDays)),
     reason: unestimatedReasons.size > 0
@@ -80,8 +112,73 @@ function resolvePolicy(materialId, material) {
 function buildUnsupportedReason(material) {
   if (material?.executionType === 'weeklyBoss') return '周本材料不显示预计天数';
   if (material?.executionType === 'artifactDomain') return '圣遗物秘境不显示预计天数';
-  if (material?.executionType === 'route') return '路线材料完成时间预估尚未接入，暂不显示预计天数';
+  if (material?.executionType === 'route') return '路线材料尚无可靠执行记录，暂不显示预计天数';
   return '含未自动执行材料，无法估算全部完成时间';
+}
+
+function buildRouteDetail(group, history, recipes) {
+  const samples = [];
+  for (const record of history ?? []) {
+    const routes = record?.execution?.routes ?? [];
+    const observedAfter = record?.execution?.inventoryObservedAfter;
+    if (!observedAfter) continue;
+    const related = routes.filter((route) => route.materials?.some((item) => (
+      getBaseMaterialId(item.materialId, recipes) === group.baseMaterialId
+    )));
+    // 同次运行有多组路线产出相同材料时，整次背包差值无法归因于某一组路线。
+    if (related.length !== 1) continue;
+    const route = related[0];
+    if (route.status !== 'completed' || route.type !== group.routeType
+      || routePathSignature(route.paths?.map((item) => typeof item === 'string' ? item : item.path) ?? []) !== group.pathSignature) continue;
+    const timestamp = Date.parse(record.timestamp);
+    if (!Number.isFinite(timestamp)) continue;
+    let gainedBaseUnits = 0;
+    let reliable = true;
+    for (const item of route.materials ?? []) {
+      if (getBaseMaterialId(item.materialId, recipes) !== group.baseMaterialId) continue;
+      const before = record.inventoryBefore?.[item.materialId];
+      const after = observedAfter[item.materialId];
+      if (!Number.isInteger(before) || !Number.isInteger(after)
+        || after < before || item.gained !== after - before) {
+        reliable = false;
+        break;
+      }
+      gainedBaseUnits += item.gained * getBaseUnits(item.materialId, recipes);
+    }
+    if (reliable && gainedBaseUnits > 0) samples.push({ timestamp, gainedBaseUnits });
+  }
+  const recent = samples.sort((a, b) => a.timestamp - b.timestamp).slice(-5);
+  if (recent.length < 3) {
+    return { detail: null, reason: `${group.sourceName}路线已确认样本不足（${recent.length}/3 次）` };
+  }
+  const gaps = recent.slice(1).map((sample, index) => Math.max(1,
+    (sample.timestamp - recent[index].timestamp) / 86400000));
+  const cadenceDays = Math.max(1, Math.ceil(median(gaps)));
+  const averageBaseYield = recent.reduce((sum, sample) => sum + sample.gainedBaseUnits, 0) / recent.length;
+  const estimatedRuns = Math.ceil(group.baseShortage / averageBaseYield);
+  return {
+    detail: {
+      sourceType: 'route', sourceName: group.sourceName,
+      materialNames: [...new Set(group.materialNames)],
+      baseShortage: group.baseShortage,
+      sampleCount: recent.length,
+      averageBaseYield: Math.round(averageBaseYield * 100) / 100,
+      cadenceDays,
+      estimatedRuns,
+      estimatedDays: estimatedRuns * cadenceDays,
+    },
+  };
+}
+
+function routePathSignature(paths) {
+  return [...new Set((paths ?? []).map((value) => String(value).replaceAll('\\', '/').toLowerCase()))]
+    .sort().join('\u0000');
+}
+
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
 function buildDetail(group, dailyResinBudget, today) {

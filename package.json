@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build:guide-identities": "node tools/build-guide-identities.mjs",
+    "build:route-catalog": "node tools/build-route-catalog.mjs",
     "test": "node --test tests/*.test.js",
     "validate:resin": "node tools/validate-resin-policy.mjs"
   },

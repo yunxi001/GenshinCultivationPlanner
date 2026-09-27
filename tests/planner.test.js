@@ -1037,7 +1037,7 @@ test('完成预估不为周本和圣遗物输出预计天数', () => {
   assert.match(weekly.reason, /周本/);
 });
 
-test('已匹配路线显示为自动路线来源，但预估未接入时不虚构预计天数', () => {
+test('路线没有本次已匹配路径时不虚构预计天数', () => {
   const estimate = buildCompletionEstimate({
     plan: {
       displayShortages: [{
@@ -1049,7 +1049,7 @@ test('已匹配路线显示为自动路线来源，但预估未接入时不虚�
     today: 1,
   });
   assert.equal(estimate.days, null);
-  assert.match(estimate.reason, /路线材料完成时间预估尚未接入/);
+  assert.match(estimate.reason, /缺少已匹配路线/);
 });
 
 test('多阶材料按等价值计算后，实际缺口按高到低阶分别展示', () => {

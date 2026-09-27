@@ -107,6 +107,12 @@ export function buildRunSummary(plan, materials, {
     if (!routeGains && route.statuses.includes('unconfirmed')) return `${name}：未确认增长`;
     return `${name}：${routeGains || '已完成'}`;
   });
+  const routeAdvice = [
+    ...(plan.routeSubscriptions?.available ?? []).map((item) => (
+      `${item.name}（${item.requiresChoice ? '多版本待选择' : '可订阅'}）`
+    )),
+    ...(plan.routeSubscriptions?.unavailable ?? []).map((item) => `${item.name}（暂无可靠路线）`),
+  ];
   const hasRouteFailure = (execution?.routes ?? []).some((route) => route.status === 'failed');
   const hasUnconfirmedRoute = (execution?.routes ?? []).some((route) => route.status === 'unconfirmed');
   const hasRouteExecution = (execution?.routes ?? []).length > 0;
@@ -163,6 +169,9 @@ export function buildRunSummary(plan, materials, {
     `\n\n${estimate}`,
     `\n\n今日可执行任务${formatItems(planned, '无')}`,
     `\n\n本周循环策略${formatItems(weekly, '本周无可执行树脂任务')}`,
+    routeAdvice.length > 0
+      ? `\n\n待准备路线${formatItems(routeAdvice.slice(0, 3), '无')}${routeAdvice.length > 3 ? `\n• 另有${routeAdvice.length - 3}项，详见路线订阅建议文件` : ''}`
+      : '',
   ];
   let summary = '';
   for (const section of sections) {
@@ -237,6 +246,9 @@ function formatEstimate(days, reason, details) {
   if (!Number.isFinite(days)) return `预计完成：${reason || '等待累计实际掉落数据'}`;
   if (details.length === 1) {
     const detail = details[0];
+    if (detail.sourceType === 'route') {
+      return `预计完成：${detail.sourceName}约需${detail.estimatedRuns}次路线运行、约${days}天（依据近${detail.sampleCount}次背包增量；仅供参考）`;
+    }
     if (detail.sourceType === 'boss') {
       return `预计完成：约${detail.estimatedClaims}次领奖、${detail.estimatedResin}树脂；按每日树脂预算约${detail.requiredOpenDays}天（${reason || '按掉落期望估算'}）`;
     }
@@ -244,6 +256,9 @@ function formatEstimate(days, reason, details) {
       ? '当前开放日可刷；若本次树脂已用完则等待下一个开放日'
       : `从现在起最早约${days}个自然日`;
     return `预计完成：约${detail.estimatedClaims}次领奖、${detail.estimatedResin}树脂、${detail.requiredOpenDays}个开放日；${calendar}（${reason || '按掉落期望估算'}）`;
+  }
+  if (details.some((detail) => detail.sourceType === 'route')) {
+    return `预计完成：可估算部分约${days}天（${reason || '按历史收益估算'}）`;
   }
   return days === 0
     ? `预计完成：当前开放日可刷；实际完成时间取决于剩余树脂（${reason || '按掉落期望估算'}）`

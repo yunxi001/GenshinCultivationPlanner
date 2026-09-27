@@ -145,6 +145,8 @@
 - 仍缺材料和需要手动获取的周本材料。
 - 预计领奖次数、树脂和完成时间。
 
+路线材料只有在同一组路线累计至少 3 次可信的原始背包增量后，才按实际收益和运行间隔估算还需几次、约多少天。任务奖励兜底修正的库存不算路线收益；旧记录缺少原始背包数据、样本不足或路线变更时不显示天数。
+
 ## 地方特产与怪物路线
 
 脚本不附带路线，也不会自行联网下载。请先在 BetterGI 中订阅路线，常见目录为：
@@ -154,7 +156,9 @@
 敌人与魔物/怪物名/**/*.json
 ```
 
-脚本会按材料名称和常见别名自动查找；未匹配到时，可以在 `data/route-overrides.json` 中指定路径。刷取蕈兽孢子时请使用不包含火、雷攻击的队伍，否则掉落类型会改变。
+脚本会按材料名称和常见别名自动查找。缺少路线时，会根据已核对的官方仓库目录生成 `record/route-subscription.txt`，列出具体路线和 BetterGI 原生导入链接；先更新 BetterGI 脚本仓库，再检查作者、队伍要求，并在原生界面确认导入。多个路线版本不会自动替你选择。官方仓库没有可靠路线时，仍可在 `data/route-overrides.json` 中指定路径。脚本不会自行联网下载或订阅。
+
+刷取蕈兽孢子时请使用不包含火、雷攻击的队伍，否则掉落类型会改变。
 
 ## 当前边界
 
@@ -174,11 +178,14 @@
 pnpm install --frozen-lockfile
 pnpm exec node tools/build-rulebook.mjs
 pnpm run build:guide-identities
+pnpm run build:route-catalog -- <bettergi-scripts-list 仓库路径>
 ```
 
 `build-rulebook.mjs` 生成培养成本、材料、合成配方和来源候选，并调用 `update-target-selectors.mjs` 同步角色／武器下拉选项。
 
 `build-guide-identities.mjs` 生成提升指南读取所用的 `guide-reader/data/guide-identities.json`，只包含角色技能名称与槽位、武器身份及数据版本。同名武器保留全部候选，旅行者元素歧义保留为未确定；数据校验失败时不会覆盖已有文件。
+
+`build-route-catalog.mjs` 从指定仓库的 `origin/main` 读取已追踪路线文件，生成带提交版本号的 `data/route-catalog.json`。目录只证明路径存在，不证明路线适合所有账号或队伍；生成时必须核对新增和失效路径。
 
 新材料有来源数据不代表原生接口已支持自动执行。已核对的秘境使用精确名称、开放日及奖励序号；未实装或尚未确认 BetterGI 支持的世界 Boss 保持 `manual`，即使开启预刷也不调用。保留来源映射，待确认支持后再显式更新为 `supported`。周本仍手动获取，采集仍依赖已订阅路线。这些生成工具仅供开发使用，BetterGI 运行时不需要 Node.js。
 

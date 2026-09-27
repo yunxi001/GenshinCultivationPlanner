@@ -1,0 +1,4240 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "babalae/bettergi-scripts-list",
+  "sourceRevision": "718629faf0527f21e90cd076b1178c20ebd2f744",
+  "dataVersion": "5.2.14",
+  "materials": {
+    "100021": {
+      "name": "钩钩果",
+      "type": "localSpecialty",
+      "routeNames": [
+        "钩钩果"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@不瘦五十斤不改名",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/钩钩果/无草神@不瘦五十斤不改名"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6ZKp6ZKp5p6cL%2BaXoOiNieelnkDkuI3nmKbkupTljYHmlqTkuI3mlLnlkI0iXQ%3D%3D"
+        },
+        {
+          "variant": "有草神@不瘦五十斤不改名",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/钩钩果/有草神@不瘦五十斤不改名"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6ZKp6ZKp5p6cL%2BacieiNieelnkDkuI3nmKbkupTljYHmlqTkuI3mlLnlkI0iXQ%3D%3D"
+        }
+      ]
+    },
+    "100022": {
+      "name": "落落莓",
+      "type": "localSpecialty",
+      "routeNames": [
+        "落落莓"
+      ],
+      "packages": [
+        {
+          "variant": "落落莓@蜜柑魚",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/落落莓/落落莓@蜜柑魚"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6JC96JC96I6TL%2BiQveiQveiOk0DonJzmn5HprZoiXQ%3D%3D"
+        },
+        {
+          "variant": "无草神@yulalaa&Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/落落莓/无草神@yulalaa&Tool_tingsu"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6JC96JC96I6TL%2BaXoOiNieelnkB5dWxhbGFhJlRvb2xfdGluZ3N1Il0%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹丘丘人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/落落莓/有草神效率路线@彩虹丘丘人"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6JC96JC96I6TL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanombnkuJjkuJjkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "100023": {
+      "name": "塞西莉亚花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "塞西莉亚花"
+      ],
+      "packages": [
+        {
+          "variant": "塞西莉亚花@yulalaa",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/塞西莉亚花/塞西莉亚花@yulalaa"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5aGe6KW%2F6I6J5Lqa6IqxL%2BWhnuilv%2BiOieS6muiKsUB5dWxhbGFhIl0%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/塞西莉亚花/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5aGe6KW%2F6I6J5Lqa6IqxL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "100024": {
+      "name": "风车菊",
+      "type": "localSpecialty",
+      "routeNames": [
+        "风车菊"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@柠檬茶叶&Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/风车菊/无草神@柠檬茶叶&Tool_tingsu"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6aOO6L2m6I%2BKL%2BaXoOiNieelnkDmn6DmqqzojLblj7YmVG9vbF90aW5nc3UiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/风车菊/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6aOO6L2m6I%2BKL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "100025": {
+      "name": "慕风蘑菇",
+      "type": "localSpecialty",
+      "routeNames": [
+        "慕风蘑菇"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/慕风蘑菇/无草神@Tool_tingsu"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5oWV6aOO6JiR6I%2BHL%2BaXoOiNieelnkBUb29sX3RpbmdzdSJd"
+        },
+        {
+          "variant": "有草神@秋云&Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/慕风蘑菇/有草神@秋云&Tool_tingsu"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5oWV6aOO6JiR6I%2BHL%2BacieiNieelnkDnp4vkupEmVG9vbF90aW5nc3UiXQ%3D%3D"
+        }
+      ]
+    },
+    "100027": {
+      "name": "绝云椒椒",
+      "type": "localSpecialty",
+      "routeNames": [
+        "绝云椒椒"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/璃月/绝云椒椒"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv57ud5LqR5qSS5qSSIl0%3D"
+        }
+      ]
+    },
+    "100028": {
+      "name": "夜泊石",
+      "type": "localSpecialty",
+      "routeNames": [
+        "夜泊石"
+      ],
+      "packages": [
+        {
+          "variant": "夜泊石@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/璃月/夜泊石/夜泊石@起个名字好难的喵"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5aSc5rOK55%2BzL%2BWknOaziuefs0DotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        },
+        {
+          "variant": "夜泊石@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/璃月/夜泊石/夜泊石@Tool_tingsu"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5aSc5rOK55%2BzL%2BWknOaziuefs0BUb29sX3RpbmdzdSJd"
+        },
+        {
+          "variant": "夜泊石地下@烤鱼",
+          "repoPaths": [
+            "pathing/地方特产/璃月/夜泊石/夜泊石地下@烤鱼"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5aSc5rOK55%2BzL%2BWknOaziuefs%2BWcsOS4i0Dng6TpsbwiXQ%3D%3D"
+        }
+      ]
+    },
+    "100029": {
+      "name": "霓裳花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "霓裳花"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/璃月/霓裳花"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv6ZyT6KOz6IqxIl0%3D"
+        }
+      ]
+    },
+    "100030": {
+      "name": "琉璃百合",
+      "type": "localSpecialty",
+      "routeNames": [
+        "琉璃百合"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/璃月/琉璃百合"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55CJ55KD55m%2B5ZCIIl0%3D"
+        }
+      ]
+    },
+    "100031": {
+      "name": "清心",
+      "type": "localSpecialty",
+      "routeNames": [
+        "清心"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/璃月/清心"
+          ],
+          "fileCount": 15,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5riF5b%2BDIl0%3D"
+        }
+      ]
+    },
+    "100033": {
+      "name": "星螺",
+      "type": "localSpecialty",
+      "routeNames": [
+        "星螺"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/璃月/星螺"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5pif6J66Il0%3D"
+        }
+      ]
+    },
+    "100034": {
+      "name": "琉璃袋",
+      "type": "localSpecialty",
+      "routeNames": [
+        "琉璃袋"
+      ],
+      "packages": [
+        {
+          "variant": "琉璃袋@白白喵",
+          "repoPaths": [
+            "pathing/地方特产/璃月/琉璃袋/琉璃袋@白白喵"
+          ],
+          "fileCount": 21,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55CJ55KD6KKLL%2BeQieeSg%2Biii0Dnmb3nmb3llrUiXQ%3D%3D"
+        },
+        {
+          "variant": "琉璃袋@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/璃月/琉璃袋/琉璃袋@起个名字好难的喵"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55CJ55KD6KKLL%2BeQieeSg%2Biii0DotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        }
+      ]
+    },
+    "100055": {
+      "name": "小灯草",
+      "type": "localSpecialty",
+      "routeNames": [
+        "小灯草"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/小灯草/无草神@Tool_tingsu"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5bCP54Gv6I2JL%2BaXoOiNieelnkBUb29sX3RpbmdzdSJd"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/小灯草/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5bCP54Gv6I2JL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "100056": {
+      "name": "嘟嘟莲",
+      "type": "localSpecialty",
+      "routeNames": [
+        "嘟嘟莲"
+      ],
+      "packages": [
+        {
+          "variant": "草神收集@yulalaa&不瘦五十斤不改名&Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/嘟嘟莲/草神收集@yulalaa&不瘦五十斤不改名&Tool_tingsu"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5Zif5Zif6I6yL%2BiNieelnuaUtumbhkB5dWxhbGFhJuS4jeeYpuS6lOWNgeaWpOS4jeaUueWQjSZUb29sX3RpbmdzdSJd"
+        },
+        {
+          "variant": "草神收集效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/嘟嘟莲/草神收集效率路线@彩虹QQ人"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5Zif5Zif6I6yL%2BiNieelnuaUtumbhuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        },
+        {
+          "variant": "无草神@忆雪晴&Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/嘟嘟莲/无草神@忆雪晴&Tool_tingsu"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv5Zif5Zif6I6yL%2BaXoOiNieelnkDlv4bpm6rmmbQmVG9vbF90aW5nc3UiXQ%3D%3D"
+        }
+      ]
+    },
+    "100057": {
+      "name": "蒲公英籽",
+      "type": "localSpecialty",
+      "routeNames": [
+        "蒲公英籽"
+      ],
+      "packages": [
+        {
+          "variant": "蒲公英籽@秋云",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/蒲公英籽/蒲公英籽@秋云"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6JKy5YWs6Iux57G9L%2BiSsuWFrOiLseexvUDnp4vkupEiXQ%3D%3D"
+        },
+        {
+          "variant": "蒲公英籽效率路线@彩虹丘丘人",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/蒲公英籽/蒲公英籽效率路线@彩虹丘丘人"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv6JKy5YWs6Iux57G9L%2BiSsuWFrOiLseexveaViOeOh%2Bi3r%2Be6v0DlvanombnkuJjkuJjkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "100058": {
+      "name": "石珀",
+      "type": "localSpecialty",
+      "routeNames": [
+        "石珀"
+      ],
+      "packages": [
+        {
+          "variant": "石珀@爱凑热闹",
+          "repoPaths": [
+            "pathing/地方特产/璃月/石珀/石珀@爱凑热闹"
+          ],
+          "fileCount": 18,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55%2Bz54%2BAL%2Befs%2BePgEDniLHlh5Hng63pl7kiXQ%3D%3D"
+        },
+        {
+          "variant": "石珀@烤鱼",
+          "repoPaths": [
+            "pathing/地方特产/璃月/石珀/石珀@烤鱼"
+          ],
+          "fileCount": 22,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55%2Bz54%2BAL%2Befs%2BePgEDng6TpsbwiXQ%3D%3D"
+        },
+        {
+          "variant": "石珀地下@烤鱼",
+          "repoPaths": [
+            "pathing/地方特产/璃月/石珀/石珀地下@烤鱼"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv55%2Bz54%2BAL%2Befs%2BePgOWcsOS4i0Dng6TpsbwiXQ%3D%3D"
+        }
+      ]
+    },
+    "101201": {
+      "name": "鬼兜虫",
+      "type": "localSpecialty",
+      "routeNames": [
+        "鬼兜虫"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/鬼兜虫/无草神@起个名字好难的喵"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv6ay85YWc6JmrL%2BaXoOiNieelnkDotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/鬼兜虫/有草神@起个名字好难的喵"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv6ay85YWc6JmrL%2BacieiNieelnkDotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        }
+      ]
+    },
+    "101202": {
+      "name": "绯樱绣球",
+      "type": "localSpecialty",
+      "routeNames": [
+        "绯樱绣球"
+      ],
+      "packages": [
+        {
+          "variant": "绯樱绣球@蜜柑魚",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/绯樱绣球/绯樱绣球@蜜柑魚"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv57uv5qix57uj55CDL%2Be7r%2Baosee7o%2BeQg0DonJzmn5HprZoiXQ%3D%3D"
+        },
+        {
+          "variant": "绯樱绣球@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/绯樱绣球/绯樱绣球@起个名字好难的喵"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv57uv5qix57uj55CDL%2Be7r%2Baosee7o%2BeQg0DotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        }
+      ]
+    },
+    "101203": {
+      "name": "晶化骨髓",
+      "type": "localSpecialty",
+      "routeNames": [
+        "晶化骨髓"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/晶化骨髓"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5pm25YyW6aqo6auTIl0%3D"
+        }
+      ]
+    },
+    "101204": {
+      "name": "血斛",
+      "type": "localSpecialty",
+      "routeNames": [
+        "血斛"
+      ],
+      "packages": [
+        {
+          "variant": "血斛@起个名字好难的喵",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/血斛/血斛@起个名字好难的喵"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv6KGA5pabL%2BihgOaWm0DotbfkuKrlkI3lrZflpb3pmr7nmoTllrUiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/血斛/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv6KGA5pabL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "101205": {
+      "name": "鸣草",
+      "type": "localSpecialty",
+      "routeNames": [
+        "鸣草"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/鸣草"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv6bij6I2JIl0%3D"
+        }
+      ]
+    },
+    "101206": {
+      "name": "海灵芝",
+      "type": "localSpecialty",
+      "routeNames": [
+        "海灵芝"
+      ],
+      "packages": [
+        {
+          "variant": "海灵芝@tignioj",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/海灵芝/海灵芝@tignioj"
+          ],
+          "fileCount": 16,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5rW354G16IqdL%2Ba1t%2BeBteiKnUB0aWduaW9qIl0%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/海灵芝/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5rW354G16IqdL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "101207": {
+      "name": "珊瑚真珠",
+      "type": "localSpecialty",
+      "routeNames": [
+        "珊瑚真珠"
+      ],
+      "packages": [
+        {
+          "variant": "珊瑚真珠@黎歌",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/珊瑚真珠/珊瑚真珠@黎歌"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv54%2BK55Ga55yf54%2BgL%2BePiueRmuecn%2BePoEDpu47mrYwiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/珊瑚真珠/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv54%2BK55Ga55yf54%2BgL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        },
+        {
+          "variant": "渊下宫@D捣蛋",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/珊瑚真珠/渊下宫@D捣蛋"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv54%2BK55Ga55yf54%2BgL%2Ba4iuS4i%2BWuq0BE5o2j6JuLIl0%3D"
+        }
+      ]
+    },
+    "101208": {
+      "name": "天云草实",
+      "type": "localSpecialty",
+      "routeNames": [
+        "天云草实"
+      ],
+      "packages": [
+        {
+          "variant": "天云草实@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/天云草实/天云草实@彩虹QQ人"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5aSp5LqR6I2J5a6eL%2BWkqeS6keiNieWunkDlvanomblRUeS6uiJd"
+        },
+        {
+          "variant": "天云草实@曦",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/天云草实/天云草实@曦"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5aSp5LqR6I2J5a6eL%2BWkqeS6keiNieWunkDmm6YiXQ%3D%3D"
+        }
+      ]
+    },
+    "101209": {
+      "name": "幽灯蕈",
+      "type": "localSpecialty",
+      "routeNames": [
+        "幽灯蕈"
+      ],
+      "packages": [
+        {
+          "variant": "幽灯蕈@黎歌",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/幽灯蕈/幽灯蕈@黎歌"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5bm954Gv6JWIL%2BW5veeBr%2BiViEDpu47mrYwiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神效率路线@彩虹QQ人",
+          "repoPaths": [
+            "pathing/地方特产/稻妻/幽灯蕈/有草神效率路线@彩虹QQ人"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnqLvlprsv5bm954Gv6JWIL%2BacieiNieelnuaViOeOh%2Bi3r%2Be6v0DlvanomblRUeS6uiJd"
+        }
+      ]
+    },
+    "101213": {
+      "name": "树王圣体菇",
+      "type": "localSpecialty",
+      "routeNames": [
+        "树王圣体菇"
+      ],
+      "packages": [
+        {
+          "variant": "树王圣体菇@蜜柑魚",
+          "repoPaths": [
+            "pathing/地方特产/须弥/树王圣体菇/树王圣体菇@蜜柑魚"
+          ],
+          "fileCount": 21,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5qCR546L5Zyj5L2T6I%2BHL%2BagkeeOi%2BWco%2BS9k%2BiPh0DonJzmn5HprZoiXQ%3D%3D"
+        },
+        {
+          "variant": "无草神@白白喵",
+          "repoPaths": [
+            "pathing/地方特产/须弥/树王圣体菇/无草神@白白喵"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5qCR546L5Zyj5L2T6I%2BHL%2BaXoOiNieelnkDnmb3nmb3llrUiXQ%3D%3D"
+        },
+        {
+          "variant": "无草神@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/须弥/树王圣体菇/无草神@Tool_tingsu"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5qCR546L5Zyj5L2T6I%2BHL%2BaXoOiNieelnkBUb29sX3RpbmdzdSJd"
+        }
+      ]
+    },
+    "101214": {
+      "name": "帕蒂沙兰",
+      "type": "localSpecialty",
+      "routeNames": [
+        "帕蒂沙兰"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/帕蒂沙兰"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5biV6JKC5rKZ5YWwIl0%3D"
+        }
+      ]
+    },
+    "101215": {
+      "name": "月莲",
+      "type": "localSpecialty",
+      "routeNames": [
+        "月莲"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/月莲"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5pyI6I6yIl0%3D"
+        }
+      ]
+    },
+    "101217": {
+      "name": "劫波莲",
+      "type": "localSpecialty",
+      "routeNames": [
+        "劫波莲"
+      ],
+      "packages": [
+        {
+          "variant": "无草神@jbcaaa",
+          "repoPaths": [
+            "pathing/地方特产/须弥/劫波莲/无草神@jbcaaa"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5Yqr5rOi6I6yL%2BaXoOiNieelnkBqYmNhYWEiXQ%3D%3D"
+        },
+        {
+          "variant": "有草神@lifrom",
+          "repoPaths": [
+            "pathing/地方特产/须弥/劫波莲/有草神@lifrom"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5Yqr5rOi6I6yL%2BacieiNieelnkBsaWZyb20iXQ%3D%3D"
+        }
+      ]
+    },
+    "101220": {
+      "name": "赤念果",
+      "type": "localSpecialty",
+      "routeNames": [
+        "赤念果"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/赤念果"
+          ],
+          "fileCount": 15,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv6LWk5b%2B15p6cIl0%3D"
+        }
+      ]
+    },
+    "101222": {
+      "name": "沙脂蛹",
+      "type": "localSpecialty",
+      "routeNames": [
+        "沙脂蛹"
+      ],
+      "packages": [
+        {
+          "variant": "1. 高成功率路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/沙脂蛹/1. 高成功率路线"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5rKZ6ISC6Ju5LzEuIOmrmOaIkOWKn%2BeOh%2Bi3r%2Be6vyJd"
+        },
+        {
+          "variant": "2. 低成功率路线（路径识别易受沙暴干扰）",
+          "repoPaths": [
+            "pathing/地方特产/须弥/沙脂蛹/2. 低成功率路线（路径识别易受沙暴干扰）"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5rKZ6ISC6Ju5LzIuIOS9juaIkOWKn%2BeOh%2Bi3r%2Be6v%2B%2B8iOi3r%2BW%2BhOivhuWIq%2BaYk%2BWPl%2BaymeaatOW5suaJsO%2B8iSJd"
+        },
+        {
+          "variant": "地下线路@ddaodan",
+          "repoPaths": [
+            "pathing/地方特产/须弥/沙脂蛹/地下线路@ddaodan"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5rKZ6ISC6Ju5L%2BWcsOS4i%2Be6v%2Bi3r0BkZGFvZGFuIl0%3D"
+        }
+      ]
+    },
+    "101223": {
+      "name": "悼灵花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "悼灵花"
+      ],
+      "packages": [
+        {
+          "variant": "悼灵花@曦",
+          "repoPaths": [
+            "pathing/地方特产/须弥/悼灵花/悼灵花@曦"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5oK854G16IqxL%2BaCvOeBteiKsUDmm6YiXQ%3D%3D"
+        },
+        {
+          "variant": "悼灵花补充@ddaodan",
+          "repoPaths": [
+            "pathing/地方特产/须弥/悼灵花/悼灵花补充@ddaodan"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5oK854G16IqxL%2BaCvOeBteiKseihpeWFhUBkZGFvZGFuIl0%3D"
+        }
+      ]
+    },
+    "101224": {
+      "name": "万相石",
+      "type": "localSpecialty",
+      "routeNames": [
+        "万相石"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/万相石"
+          ],
+          "fileCount": 16,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5LiH55u455%2BzIl0%3D"
+        }
+      ]
+    },
+    "101225": {
+      "name": "圣金虫",
+      "type": "localSpecialty",
+      "routeNames": [
+        "圣金虫"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/须弥/圣金虫"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FpobvlvKUv5Zyj6YeR6JmrIl0%3D"
+        }
+      ]
+    },
+    "101232": {
+      "name": "苍晶螺",
+      "type": "localSpecialty",
+      "routeNames": [
+        "苍晶螺"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/苍晶螺"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv6IuN5pm26J66Il0%3D"
+        }
+      ]
+    },
+    "101233": {
+      "name": "海露花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "海露花"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/海露花"
+          ],
+          "fileCount": 28,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5rW36Zyy6IqxIl0%3D"
+        }
+      ]
+    },
+    "101235": {
+      "name": "柔灯铃",
+      "type": "localSpecialty",
+      "routeNames": [
+        "柔灯铃"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/柔灯铃"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5p%2BU54Gv6ZODIl0%3D"
+        }
+      ]
+    },
+    "101236": {
+      "name": "虹彩蔷薇",
+      "type": "localSpecialty",
+      "routeNames": [
+        "虹彩蔷薇"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/虹彩蔷薇"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv6Jm55b2p6JS36JaHIl0%3D"
+        }
+      ]
+    },
+    "101237": {
+      "name": "幽光星星",
+      "type": "localSpecialty",
+      "routeNames": [
+        "幽光星星"
+      ],
+      "packages": [
+        {
+          "variant": "幽光星星@柠檬茶叶",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/幽光星星/幽光星星@柠檬茶叶"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5bm95YWJ5pif5pifL%2BW5veWFieaYn%2BaYn0Dmn6DmqqzojLblj7YiXQ%3D%3D"
+        },
+        {
+          "variant": "幽光星星@jbcaaa",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/幽光星星/幽光星星@jbcaaa"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5bm95YWJ5pif5pifL%2BW5veWFieaYn%2BaYn0BqYmNhYWEiXQ%3D%3D"
+        }
+      ]
+    },
+    "101238": {
+      "name": "湖光铃兰",
+      "type": "localSpecialty",
+      "routeNames": [
+        "湖光铃兰"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/湖光铃兰"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5rmW5YWJ6ZOD5YWwIl0%3D"
+        }
+      ]
+    },
+    "101239": {
+      "name": "子探测单元",
+      "type": "localSpecialty",
+      "routeNames": [
+        "子探测单元"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/子探测单元"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5a2Q5o6i5rWL5Y2V5YWDIl0%3D"
+        }
+      ]
+    },
+    "101240": {
+      "name": "初露之源",
+      "type": "localSpecialty",
+      "routeNames": [
+        "初露之源"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/枫丹/初露之源"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmnqvkuLkv5Yid6Zyy5LmL5rqQIl0%3D"
+        }
+      ]
+    },
+    "101241": {
+      "name": "清水玉",
+      "type": "localSpecialty",
+      "routeNames": [
+        "清水玉"
+      ],
+      "packages": [
+        {
+          "variant": "清水玉@起个名字好难的喵/A组鼋背",
+          "repoPaths": [
+            "pathing/地方特产/璃月/清水玉/清水玉@起个名字好难的喵/A组鼋背"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5riF5rC0546JL%2Ba4heawtOeOiUDotbfkuKrlkI3lrZflpb3pmr7nmoTllrUvQee7hOm8i%2BiDjCJd"
+        },
+        {
+          "variant": "清水玉@起个名字好难的喵/B组静态",
+          "repoPaths": [
+            "pathing/地方特产/璃月/清水玉/清水玉@起个名字好难的喵/B组静态"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5riF5rC0546JL%2Ba4heawtOeOiUDotbfkuKrlkI3lrZflpb3pmr7nmoTllrUvQue7hOmdmeaAgSJd"
+        },
+        {
+          "variant": "清水玉@起个名字好难的喵/C组动态",
+          "repoPaths": [
+            "pathing/地方特产/璃月/清水玉/清水玉@起个名字好难的喵/C组动态"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5riF5rC0546JL%2Ba4heawtOeOiUDotbfkuKrlkI3lrZflpb3pmr7nmoTllrUvQ%2Be7hOWKqOaAgSJd"
+        },
+        {
+          "variant": "清水玉@MOMO",
+          "repoPaths": [
+            "pathing/地方特产/璃月/清水玉/清水玉@MOMO"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnkoPmnIgv5riF5rC0546JL%2Ba4heawtOeOiUBNT01PIl0%3D"
+        }
+      ]
+    },
+    "101247": {
+      "name": "浪沫羽鳃",
+      "type": "localSpecialty",
+      "routeNames": [
+        "浪沫羽鳃"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/浪沫羽鳃"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv5rWq5rKr57696bODIl0%3D"
+        }
+      ]
+    },
+    "101248": {
+      "name": "灼灼彩菊",
+      "type": "localSpecialty",
+      "routeNames": [
+        "灼灼彩菊"
+      ],
+      "packages": [
+        {
+          "variant": "灼灼彩菊@黎歌",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/灼灼彩菊/灼灼彩菊@黎歌"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv54G854G85b2p6I%2BKL%2BeBvOeBvOW9qeiPikDpu47mrYwiXQ%3D%3D"
+        },
+        {
+          "variant": "灼灼彩菊@柠檬茶叶",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/灼灼彩菊/灼灼彩菊@柠檬茶叶"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv54G854G85b2p6I%2BKL%2BeBvOeBvOW9qeiPikDmn6DmqqzojLblj7YiXQ%3D%3D"
+        }
+      ]
+    },
+    "101249": {
+      "name": "青蜜莓",
+      "type": "localSpecialty",
+      "routeNames": [
+        "青蜜莓"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/青蜜莓"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv6Z2S6Jyc6I6TIl0%3D"
+        }
+      ]
+    },
+    "101250": {
+      "name": "肉龙掌",
+      "type": "localSpecialty",
+      "routeNames": [
+        "肉龙掌"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/肉龙掌"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv6IKJ6b6Z5o6MIl0%3D"
+        }
+      ]
+    },
+    "101252": {
+      "name": "微光角菌",
+      "type": "localSpecialty",
+      "routeNames": [
+        "微光角菌"
+      ],
+      "packages": [
+        {
+          "variant": "微光角菌@幻想千岁",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/微光角菌/微光角菌@幻想千岁"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv5b6u5YWJ6KeS6I%2BML%2BW%2BruWFieinkuiPjEDlubvmg7PljYPlsoEiXQ%3D%3D"
+        },
+        {
+          "variant": "微光角菌@曦",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/微光角菌/微光角菌@曦"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv5b6u5YWJ6KeS6I%2BML%2BW%2BruWFieinkuiPjEDmm6YiXQ%3D%3D"
+        }
+      ]
+    },
+    "101253": {
+      "name": "枯叶紫英",
+      "type": "localSpecialty",
+      "routeNames": [
+        "枯叶紫英"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/枯叶紫英"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv5p6v5Y%2B257Sr6IuxIl0%3D"
+        }
+      ]
+    },
+    "101254": {
+      "name": "云岩裂叶",
+      "type": "localSpecialty",
+      "routeNames": [
+        "云岩裂叶"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/云岩裂叶"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv5LqR5bKp6KOC5Y%2B2Il0%3D"
+        }
+      ]
+    },
+    "101255": {
+      "name": "琉鳞石",
+      "type": "localSpecialty",
+      "routeNames": [
+        "琉鳞石"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/纳塔/琉鳞石"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FnurPloZQv55CJ6bOe55%2BzIl0%3D"
+        }
+      ]
+    },
+    "101257": {
+      "name": "便携轴承",
+      "type": "localSpecialty",
+      "routeNames": [
+        "便携轴承"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/便携轴承"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv5L6%2F5pC66L205om%2FIl0%3D"
+        }
+      ]
+    },
+    "101261": {
+      "name": "霜盏花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "霜盏花"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/霜盏花"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv6Zyc55uP6IqxIl0%3D"
+        }
+      ]
+    },
+    "101263": {
+      "name": "月落银",
+      "type": "localSpecialty",
+      "routeNames": [
+        "月落银"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/月落银"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv5pyI6JC96ZO2Il0%3D"
+        }
+      ]
+    },
+    "101268": {
+      "name": "冬凌草",
+      "type": "localSpecialty",
+      "routeNames": [
+        "冬凌草"
+      ],
+      "packages": [
+        {
+          "variant": "冬凌草@白白喵",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/冬凌草/冬凌草@白白喵"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv5Yas5YeM6I2JL%2BWGrOWHjOiNiUDnmb3nmb3llrUiXQ%3D%3D"
+        },
+        {
+          "variant": "冬凌草@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/冬凌草/冬凌草@Tool_tingsu"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv5Yas5YeM6I2JL%2BWGrOWHjOiNiUBUb29sX3RpbmdzdSJd"
+        }
+      ]
+    },
+    "101269": {
+      "name": "松珀香",
+      "type": "localSpecialty",
+      "routeNames": [
+        "松珀香"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/挪德卡莱/松珀香"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2FmjKrlvrfljaHojrEv5p2%2B54%2BA6aaZIl0%3D"
+        }
+      ]
+    },
+    "101272": {
+      "name": "空羽蛾",
+      "type": "localSpecialty",
+      "routeNames": [
+        "空羽蛾"
+      ],
+      "packages": [
+        {
+          "variant": "空羽蛾@ddaodan",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/空羽蛾/空羽蛾@ddaodan"
+          ],
+          "fileCount": 4,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv56m657696Ju%2BL%2Bepuue%2BveibvkBkZGFvZGFuIl0%3D"
+        },
+        {
+          "variant": "空羽蛾@Tool_tingsu",
+          "repoPaths": [
+            "pathing/地方特产/蒙德/空羽蛾/空羽蛾@Tool_tingsu"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Fokpnlvrcv56m657696Ju%2BL%2Bepuue%2BveibvkBUb29sX3RpbmdzdSJd"
+        }
+      ]
+    },
+    "101275": {
+      "name": "霜仙花",
+      "type": "localSpecialty",
+      "routeNames": [
+        "霜仙花"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/至冬/霜仙花"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Foh7Plhqwv6Zyc5LuZ6IqxIl0%3D"
+        }
+      ]
+    },
+    "101276": {
+      "name": "植绒草",
+      "type": "localSpecialty",
+      "routeNames": [
+        "植绒草"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/至冬/植绒草"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Foh7Plhqwv5qSN57uS6I2JIl0%3D"
+        }
+      ]
+    },
+    "101277": {
+      "name": "金蕨",
+      "type": "localSpecialty",
+      "routeNames": [
+        "金蕨"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/地方特产/至冬/金蕨"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BWcsOaWueeJueS6py%2Foh7Plhqwv6YeR6JWoIl0%3D"
+        }
+      ]
+    },
+    "112002": {
+      "name": "史莱姆凝液",
+      "type": "monster",
+      "routeNames": [
+        "史莱姆"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/史莱姆"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj7LojrHlp4YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112003": {
+      "name": "史莱姆清",
+      "type": "monster",
+      "routeNames": [
+        "史莱姆"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/史莱姆"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj7LojrHlp4YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112004": {
+      "name": "史莱姆原浆",
+      "type": "monster",
+      "routeNames": [
+        "史莱姆"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/史莱姆"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj7LojrHlp4YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112005": {
+      "name": "破损的面具",
+      "type": "monster",
+      "routeNames": [
+        "丘丘人",
+        "丘丘射手",
+        "丘丘萨满",
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112006": {
+      "name": "污秽的面具",
+      "type": "monster",
+      "routeNames": [
+        "丘丘人",
+        "丘丘射手",
+        "丘丘萨满",
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112007": {
+      "name": "不祥的面具",
+      "type": "monster",
+      "routeNames": [
+        "丘丘人",
+        "丘丘射手",
+        "丘丘萨满",
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112008": {
+      "name": "导能绘卷",
+      "type": "monster",
+      "routeNames": [
+        "丘丘萨满"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        }
+      ]
+    },
+    "112009": {
+      "name": "封魔绘卷",
+      "type": "monster",
+      "routeNames": [
+        "丘丘萨满"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        }
+      ]
+    },
+    "112010": {
+      "name": "禁咒绘卷",
+      "type": "monster",
+      "routeNames": [
+        "丘丘萨满"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘萨满"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjokKjmu6EiXQ%3D%3D"
+        }
+      ]
+    },
+    "112011": {
+      "name": "牢固的箭簇",
+      "type": "monster",
+      "routeNames": [
+        "丘丘射手"
+      ],
+      "packages": []
+    },
+    "112012": {
+      "name": "锐利的箭簇",
+      "type": "monster",
+      "routeNames": [
+        "丘丘射手"
+      ],
+      "packages": []
+    },
+    "112013": {
+      "name": "历战的箭簇",
+      "type": "monster",
+      "routeNames": [
+        "丘丘射手"
+      ],
+      "packages": []
+    },
+    "112014": {
+      "name": "沉重号角",
+      "type": "monster",
+      "routeNames": [
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112015": {
+      "name": "黑铜号角",
+      "type": "monster",
+      "routeNames": [
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112016": {
+      "name": "黑晶号角",
+      "type": "monster",
+      "routeNames": [
+        "丘丘暴徒",
+        "丘丘王"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘王"
+          ],
+          "fileCount": 17,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjnjosiXQ%3D%3D"
+        }
+      ]
+    },
+    "112017": {
+      "name": "晦暗刻像",
+      "type": "monster",
+      "routeNames": [
+        "黑蛇众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/黑蛇众"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpu5Hom4fkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112018": {
+      "name": "夤夜刻像",
+      "type": "monster",
+      "routeNames": [
+        "黑蛇众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/黑蛇众"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpu5Hom4fkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112019": {
+      "name": "幽邃刻像",
+      "type": "monster",
+      "routeNames": [
+        "黑蛇众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/黑蛇众"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpu5Hom4fkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112020": {
+      "name": "地脉的旧枝",
+      "type": "monster",
+      "routeNames": [
+        "深渊法师"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深渊法师"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HmuIrms5XluIgiXQ%3D%3D"
+        }
+      ]
+    },
+    "112021": {
+      "name": "地脉的枯叶",
+      "type": "monster",
+      "routeNames": [
+        "深渊法师"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深渊法师"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HmuIrms5XluIgiXQ%3D%3D"
+        }
+      ]
+    },
+    "112022": {
+      "name": "地脉的新芽",
+      "type": "monster",
+      "routeNames": [
+        "深渊法师"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深渊法师"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HmuIrms5XluIgiXQ%3D%3D"
+        }
+      ]
+    },
+    "112023": {
+      "name": "混沌装置",
+      "type": "monster",
+      "routeNames": [
+        "遗迹守卫",
+        "遗迹猎者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹守卫"
+          ],
+          "fileCount": 15,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nlrojljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112024": {
+      "name": "混沌回路",
+      "type": "monster",
+      "routeNames": [
+        "遗迹守卫",
+        "遗迹猎者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹守卫"
+          ],
+          "fileCount": 15,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nlrojljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112025": {
+      "name": "混沌炉心",
+      "type": "monster",
+      "routeNames": [
+        "遗迹守卫",
+        "遗迹猎者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹守卫"
+          ],
+          "fileCount": 15,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nlrojljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112026": {
+      "name": "雾虚花粉",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112027": {
+      "name": "雾虚草囊",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112028": {
+      "name": "雾虚灯芯",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112029": {
+      "name": "猎兵祭刀",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·债务处理人",
+        "债务处理人"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112030": {
+      "name": "特工祭刀",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·债务处理人",
+        "债务处理人"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112031": {
+      "name": "督察长祭刀",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·债务处理人",
+        "债务处理人"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112032": {
+      "name": "新兵的徽记",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·先遣队",
+        "先遣队",
+        "愚人众·债务处理人",
+        "债务处理人",
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112033": {
+      "name": "士官的徽记",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·先遣队",
+        "先遣队",
+        "愚人众·债务处理人",
+        "债务处理人",
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112034": {
+      "name": "尉官的徽记",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·先遣队",
+        "先遣队",
+        "愚人众·债务处理人",
+        "债务处理人",
+        "愚人众·萤术士",
+        "萤术士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/萤术士"
+          ],
+          "fileCount": 32,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FokKTmnK%2Flo6siXQ%3D%3D"
+        },
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/债务处理人"
+          ],
+          "fileCount": 24,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlgLrliqHlpITnkIbkuroiXQ%3D%3D"
+        }
+      ]
+    },
+    "112035": {
+      "name": "寻宝鸦印",
+      "type": "monster",
+      "routeNames": [
+        "盗宝团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/盗宝团"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fnm5flrp3lm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112036": {
+      "name": "藏银鸦印",
+      "type": "monster",
+      "routeNames": [
+        "盗宝团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/盗宝团"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fnm5flrp3lm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112037": {
+      "name": "攫金鸦印",
+      "type": "monster",
+      "routeNames": [
+        "盗宝团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/盗宝团"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fnm5flrp3lm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112038": {
+      "name": "骗骗花蜜",
+      "type": "monster",
+      "routeNames": [
+        "骗骗花"
+      ],
+      "packages": [
+        {
+          "variant": "骗骗花@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 76,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "骗骗花@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@san"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQHNhbiJd"
+        }
+      ]
+    },
+    "112039": {
+      "name": "微光花蜜",
+      "type": "monster",
+      "routeNames": [
+        "骗骗花"
+      ],
+      "packages": [
+        {
+          "variant": "骗骗花@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 76,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "骗骗花@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@san"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQHNhbiJd"
+        }
+      ]
+    },
+    "112040": {
+      "name": "原素花蜜",
+      "type": "monster",
+      "routeNames": [
+        "骗骗花"
+      ],
+      "packages": [
+        {
+          "variant": "骗骗花@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 76,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "骗骗花@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/骗骗花/骗骗花@san"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpqpfpqpfoirEv6aqX6aqX6IqxQHNhbiJd"
+        }
+      ]
+    },
+    "112041": {
+      "name": "脆弱的骨片",
+      "type": "monster",
+      "routeNames": [
+        "幼岩龙蜥",
+        "岩龙蜥",
+        "深海龙蜥"
+      ],
+      "packages": []
+    },
+    "112042": {
+      "name": "结实的骨片",
+      "type": "monster",
+      "routeNames": [
+        "幼岩龙蜥",
+        "岩龙蜥",
+        "深海龙蜥"
+      ],
+      "packages": []
+    },
+    "112043": {
+      "name": "石化的骨片",
+      "type": "monster",
+      "routeNames": [
+        "幼岩龙蜥",
+        "岩龙蜥",
+        "深海龙蜥"
+      ],
+      "packages": []
+    },
+    "112044": {
+      "name": "破旧的刀镡",
+      "type": "monster",
+      "routeNames": [
+        "野伏众"
+      ],
+      "packages": [
+        {
+          "variant": "野伏众@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 48,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "野伏众@XS",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@XS"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQFhTIl0%3D"
+        }
+      ]
+    },
+    "112045": {
+      "name": "影打刀镡",
+      "type": "monster",
+      "routeNames": [
+        "野伏众"
+      ],
+      "packages": [
+        {
+          "variant": "野伏众@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 48,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "野伏众@XS",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@XS"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQFhTIl0%3D"
+        }
+      ]
+    },
+    "112046": {
+      "name": "名刀镡",
+      "type": "monster",
+      "routeNames": [
+        "野伏众"
+      ],
+      "packages": [
+        {
+          "variant": "野伏众@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 48,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "野伏众@XS",
+          "repoPaths": [
+            "pathing/敌人与魔物/野伏众/野伏众@XS"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fph47kvI%2FkvJcv6YeO5LyP5LyXQFhTIl0%3D"
+        }
+      ]
+    },
+    "112047": {
+      "name": "混沌机关",
+      "type": "monster",
+      "routeNames": [
+        "遗迹机兵"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹机兵"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nmnLrlhbUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112048": {
+      "name": "混沌枢纽",
+      "type": "monster",
+      "routeNames": [
+        "遗迹机兵"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹机兵"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nmnLrlhbUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112049": {
+      "name": "混沌真眼",
+      "type": "monster",
+      "routeNames": [
+        "遗迹机兵"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹机兵"
+          ],
+          "fileCount": 5,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7nmnLrlhbUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112050": {
+      "name": "黯淡棱镜",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·冬国仕女",
+        "冬国仕女"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/冬国仕女"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhqzlm73ku5XlpbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112051": {
+      "name": "水晶棱镜",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·冬国仕女",
+        "冬国仕女"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/冬国仕女"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhqzlm73ku5XlpbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112052": {
+      "name": "偏光棱镜",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·冬国仕女",
+        "冬国仕女"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/冬国仕女"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhqzlm73ku5XlpbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112053": {
+      "name": "浮游干核",
+      "type": "monster",
+      "routeNames": [
+        "飘浮灵"
+      ],
+      "packages": [
+        {
+          "variant": "飘浮灵@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 26,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "飘浮灵@baixi",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@baixi"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QGJhaXhpIl0%3D"
+        },
+        {
+          "variant": "飘浮灵@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@san"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QHNhbiJd"
+        }
+      ]
+    },
+    "112054": {
+      "name": "浮游幽核",
+      "type": "monster",
+      "routeNames": [
+        "飘浮灵"
+      ],
+      "packages": [
+        {
+          "variant": "飘浮灵@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 26,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "飘浮灵@baixi",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@baixi"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QGJhaXhpIl0%3D"
+        },
+        {
+          "variant": "飘浮灵@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@san"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QHNhbiJd"
+        }
+      ]
+    },
+    "112055": {
+      "name": "浮游晶化核",
+      "type": "monster",
+      "routeNames": [
+        "飘浮灵"
+      ],
+      "packages": [
+        {
+          "variant": "飘浮灵@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 26,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "飘浮灵@baixi",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@baixi"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QGJhaXhpIl0%3D"
+        },
+        {
+          "variant": "飘浮灵@san",
+          "repoPaths": [
+            "pathing/敌人与魔物/飘浮灵/飘浮灵@san"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpo5jmta7ngbUv6aOY5rWu54G1QHNhbiJd"
+        }
+      ]
+    },
+    "112056": {
+      "name": "隐兽指爪",
+      "type": "monster",
+      "routeNames": [
+        "兽境之狼"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽境之狼"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3looPkuYvni7wiXQ%3D%3D"
+        }
+      ]
+    },
+    "112057": {
+      "name": "隐兽利爪",
+      "type": "monster",
+      "routeNames": [
+        "兽境之狼"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽境之狼"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3looPkuYvni7wiXQ%3D%3D"
+        }
+      ]
+    },
+    "112058": {
+      "name": "隐兽鬼爪",
+      "type": "monster",
+      "routeNames": [
+        "兽境之狼"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽境之狼"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3looPkuYvni7wiXQ%3D%3D"
+        }
+      ]
+    },
+    "112059": {
+      "name": "蕈兽孢子",
+      "type": "monster",
+      "routeNames": [
+        "蕈兽",
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": [
+        {
+          "variant": "蕈兽@翎镞",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@翎镞"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOe%2FjumVniJd"
+        },
+        {
+          "variant": "蕈兽@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "蕈兽@C-01-11011",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@C-01-11011"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QEMtMDEtMTEwMTEiXQ%3D%3D"
+        }
+      ]
+    },
+    "112060": {
+      "name": "荧光孢粉",
+      "type": "monster",
+      "routeNames": [
+        "蕈兽",
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": [
+        {
+          "variant": "蕈兽@翎镞",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@翎镞"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOe%2FjumVniJd"
+        },
+        {
+          "variant": "蕈兽@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "蕈兽@C-01-11011",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@C-01-11011"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QEMtMDEtMTEwMTEiXQ%3D%3D"
+        }
+      ]
+    },
+    "112061": {
+      "name": "孢囊晶尘",
+      "type": "monster",
+      "routeNames": [
+        "蕈兽",
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": [
+        {
+          "variant": "蕈兽@翎镞",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@翎镞"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOe%2FjumVniJd"
+        },
+        {
+          "variant": "蕈兽@提瓦特钓鱼玳师",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@提瓦特钓鱼玳师"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QOaPkOeTpueJuemSk%2BmxvOeOs%2BW4iCJd"
+        },
+        {
+          "variant": "蕈兽@C-01-11011",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕈兽/蕈兽@C-01-11011"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolYjlhb0v6JWI5YW9QEMtMDEtMTEwMTEiXQ%3D%3D"
+        }
+      ]
+    },
+    "112062": {
+      "name": "失活菌核",
+      "type": "monster",
+      "routeNames": [
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": []
+    },
+    "112063": {
+      "name": "休眠菌核",
+      "type": "monster",
+      "routeNames": [
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": []
+    },
+    "112064": {
+      "name": "茁壮菌核",
+      "type": "monster",
+      "routeNames": [
+        "活化状态下蕈兽",
+        "枯焦状态下蕈兽"
+      ],
+      "packages": []
+    },
+    "112065": {
+      "name": "褪色红绸",
+      "type": "monster",
+      "routeNames": [
+        "镀金旅团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/镀金旅团"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FplYDph5Hml4Xlm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112066": {
+      "name": "镶边红绸",
+      "type": "monster",
+      "routeNames": [
+        "镀金旅团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/镀金旅团"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FplYDph5Hml4Xlm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112067": {
+      "name": "织金红绸",
+      "type": "monster",
+      "routeNames": [
+        "镀金旅团"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/镀金旅团"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FplYDph5Hml4Xlm6IiXQ%3D%3D"
+        }
+      ]
+    },
+    "112068": {
+      "name": "混沌容器",
+      "type": "monster",
+      "routeNames": [
+        "遗迹龙兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹龙兽"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7npvpnlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112069": {
+      "name": "混沌模块",
+      "type": "monster",
+      "routeNames": [
+        "遗迹龙兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹龙兽"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7npvpnlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112070": {
+      "name": "混沌锚栓",
+      "type": "monster",
+      "routeNames": [
+        "遗迹龙兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/遗迹龙兽"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpgZfov7npvpnlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112071": {
+      "name": "破缺棱晶",
+      "type": "monster",
+      "routeNames": [
+        "元能构装体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/元能构装体"
+          ],
+          "fileCount": 21,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYPog73mnoToo4XkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112072": {
+      "name": "混浊棱晶",
+      "type": "monster",
+      "routeNames": [
+        "元能构装体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/元能构装体"
+          ],
+          "fileCount": 21,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYPog73mnoToo4XkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112073": {
+      "name": "辉光棱晶",
+      "type": "monster",
+      "routeNames": [
+        "元能构装体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/元能构装体"
+          ],
+          "fileCount": 21,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYPog73mnoToo4XkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112074": {
+      "name": "残毁的横脊",
+      "type": "monster",
+      "routeNames": [
+        "圣骸兽"
+      ],
+      "packages": [
+        {
+          "variant": "圣骸兽@呱呱z",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@呱呱z"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOWRseWRsXoiXQ%3D%3D"
+        },
+        {
+          "variant": "圣骸兽@下流山汉",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@下流山汉"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOS4i%2Ba1geWxseaxiSJd"
+        }
+      ]
+    },
+    "112075": {
+      "name": "密固的横脊",
+      "type": "monster",
+      "routeNames": [
+        "圣骸兽"
+      ],
+      "packages": [
+        {
+          "variant": "圣骸兽@呱呱z",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@呱呱z"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOWRseWRsXoiXQ%3D%3D"
+        },
+        {
+          "variant": "圣骸兽@下流山汉",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@下流山汉"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOS4i%2Ba1geWxseaxiSJd"
+        }
+      ]
+    },
+    "112076": {
+      "name": "锲纹的横脊",
+      "type": "monster",
+      "routeNames": [
+        "圣骸兽"
+      ],
+      "packages": [
+        {
+          "variant": "圣骸兽@呱呱z",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@呱呱z"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOWRseWRsXoiXQ%3D%3D"
+        },
+        {
+          "variant": "圣骸兽@下流山汉",
+          "repoPaths": [
+            "pathing/敌人与魔物/圣骸兽/圣骸兽@下流山汉"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlnKPpqrjlhb0v5Zyj6aq45YW9QOS4i%2Ba1geWxseaxiSJd"
+        }
+      ]
+    },
+    "112077": {
+      "name": "来自何处的待放之花",
+      "type": "monster",
+      "routeNames": [
+        "丘丘游侠"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘游侠"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjmuLjkvqAiXQ%3D%3D"
+        }
+      ]
+    },
+    "112078": {
+      "name": "何人所珍藏之花",
+      "type": "monster",
+      "routeNames": [
+        "丘丘游侠"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘游侠"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjmuLjkvqAiXQ%3D%3D"
+        }
+      ]
+    },
+    "112079": {
+      "name": "漫游者的盛放之花",
+      "type": "monster",
+      "routeNames": [
+        "丘丘游侠"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/丘丘游侠"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FkuJjkuJjmuLjkvqAiXQ%3D%3D"
+        }
+      ]
+    },
+    "112080": {
+      "name": "异海凝珠",
+      "type": "monster",
+      "routeNames": [
+        "原海异种"
+      ],
+      "packages": [
+        {
+          "variant": "原海异种-地面全收集@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种-地面全收集@鸿羽er"
+          ],
+          "fileCount": 42,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNLeWcsOmdouWFqOaUtumbhkDpuL%2Fnvr1lciJd"
+        },
+        {
+          "variant": "原海异种@雕茂",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种@雕茂"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNQOmbleiMgiJd"
+        }
+      ]
+    },
+    "112081": {
+      "name": "异海之块",
+      "type": "monster",
+      "routeNames": [
+        "原海异种"
+      ],
+      "packages": [
+        {
+          "variant": "原海异种-地面全收集@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种-地面全收集@鸿羽er"
+          ],
+          "fileCount": 42,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNLeWcsOmdouWFqOaUtumbhkDpuL%2Fnvr1lciJd"
+        },
+        {
+          "variant": "原海异种@雕茂",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种@雕茂"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNQOmbleiMgiJd"
+        }
+      ]
+    },
+    "112082": {
+      "name": "异色结晶石",
+      "type": "monster",
+      "routeNames": [
+        "原海异种"
+      ],
+      "packages": [
+        {
+          "variant": "原海异种-地面全收集@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种-地面全收集@鸿羽er"
+          ],
+          "fileCount": 42,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNLeWcsOmdouWFqOaUtumbhkDpuL%2Fnvr1lciJd"
+        },
+        {
+          "variant": "原海异种@雕茂",
+          "repoPaths": [
+            "pathing/敌人与魔物/原海异种/原海异种@雕茂"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fljp%2FmtbflvILnp40v5Y6f5rW35byC56eNQOmbleiMgiJd"
+        }
+      ]
+    },
+    "112083": {
+      "name": "啮合齿轮",
+      "type": "monster",
+      "routeNames": [
+        "发条机关"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/发条机关"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj5HmnaHmnLrlhbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112084": {
+      "name": "机关正齿轮",
+      "type": "monster",
+      "routeNames": [
+        "发条机关"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/发条机关"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj5HmnaHmnLrlhbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112085": {
+      "name": "奇械机芯齿轮",
+      "type": "monster",
+      "routeNames": [
+        "发条机关"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/发条机关"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flj5HmnaHmnLrlhbMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112086": {
+      "name": "浊水的一滴",
+      "type": "monster",
+      "routeNames": [
+        "浊水幻灵"
+      ],
+      "packages": [
+        {
+          "variant": "浊水幻灵@呱呱z/等级100+",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/等级100+"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov562J57qnMTAwKyJd"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/高效率",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/高效率"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov6auY5pWI546HIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/全收集",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/全收集"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov5YWo5pS26ZuGIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@无狐",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@无狐"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOaXoOeLkCJd"
+        }
+      ]
+    },
+    "112087": {
+      "name": "浊水的一掬",
+      "type": "monster",
+      "routeNames": [
+        "浊水幻灵"
+      ],
+      "packages": [
+        {
+          "variant": "浊水幻灵@呱呱z/等级100+",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/等级100+"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov562J57qnMTAwKyJd"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/高效率",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/高效率"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov6auY5pWI546HIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/全收集",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/全收集"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov5YWo5pS26ZuGIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@无狐",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@无狐"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOaXoOeLkCJd"
+        }
+      ]
+    },
+    "112088": {
+      "name": "初生的浊水幻灵",
+      "type": "monster",
+      "routeNames": [
+        "浊水幻灵"
+      ],
+      "packages": [
+        {
+          "variant": "浊水幻灵@呱呱z/等级100+",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/等级100+"
+          ],
+          "fileCount": 11,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov562J57qnMTAwKyJd"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/高效率",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/高效率"
+          ],
+          "fileCount": 12,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov6auY5pWI546HIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@呱呱z/全收集",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@呱呱z/全收集"
+          ],
+          "fileCount": 23,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOWRseWRsXov5YWo5pS26ZuGIl0%3D"
+        },
+        {
+          "variant": "浊水幻灵@无狐",
+          "repoPaths": [
+            "pathing/敌人与魔物/浊水幻灵/浊水幻灵@无狐"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmtYrmsLTlubvngbUv5rWK5rC05bm754G1QOaXoOeLkCJd"
+        }
+      ]
+    },
+    "112089": {
+      "name": "隙间之核",
+      "type": "monster",
+      "routeNames": [
+        "隙境原体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/隙境原体"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpmpnlooPljp%2FkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112090": {
+      "name": "外世突触",
+      "type": "monster",
+      "routeNames": [
+        "隙境原体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/隙境原体"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpmpnlooPljp%2FkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112091": {
+      "name": "异界生命核",
+      "type": "monster",
+      "routeNames": [
+        "隙境原体"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/隙境原体"
+          ],
+          "fileCount": 3,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpmpnlooPljp%2FkvZMiXQ%3D%3D"
+        }
+      ]
+    },
+    "112092": {
+      "name": "老旧的役人怀表",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·役人",
+        "役人"
+      ],
+      "packages": []
+    },
+    "112093": {
+      "name": "役人的制式怀表",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·役人",
+        "役人"
+      ],
+      "packages": []
+    },
+    "112094": {
+      "name": "役人的时时刻刻",
+      "type": "monster",
+      "routeNames": [
+        "愚人众·役人",
+        "役人"
+      ],
+      "packages": []
+    },
+    "112095": {
+      "name": "羽状鳍翅",
+      "type": "monster",
+      "routeNames": [
+        "玄文兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/玄文兽"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnjoTmloflhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112096": {
+      "name": "月色鳍翅",
+      "type": "monster",
+      "routeNames": [
+        "玄文兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/玄文兽"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnjoTmloflhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112097": {
+      "name": "渊光鳍翅",
+      "type": "monster",
+      "routeNames": [
+        "玄文兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/玄文兽"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnjoTmloflhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112098": {
+      "name": "残毁的剑柄",
+      "type": "monster",
+      "routeNames": [
+        "魔像禁卫"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/魔像禁卫"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FprZTlg4%2FnpoHljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112099": {
+      "name": "裂断的剑柄",
+      "type": "monster",
+      "routeNames": [
+        "魔像禁卫"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/魔像禁卫"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FprZTlg4%2FnpoHljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112100": {
+      "name": "未熄的剑柄",
+      "type": "monster",
+      "routeNames": [
+        "魔像禁卫"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/魔像禁卫"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FprZTlg4%2FnpoHljasiXQ%3D%3D"
+        }
+      ]
+    },
+    "112101": {
+      "name": "稚嫩的尖齿",
+      "type": "monster",
+      "routeNames": [
+        "纳塔龙众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/纳塔龙众"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnurPloZTpvpnkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112102": {
+      "name": "老练的坚齿",
+      "type": "monster",
+      "routeNames": [
+        "纳塔龙众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/纳塔龙众"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnurPloZTpvpnkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112103": {
+      "name": "横行霸者的利齿",
+      "type": "monster",
+      "routeNames": [
+        "纳塔龙众"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/纳塔龙众"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnurPloZTpvpnkvJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112104": {
+      "name": "卫从的木哨",
+      "type": "monster",
+      "routeNames": [
+        "部族龙形武士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/部族龙形武士"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpg6jml4%2FpvpnlvaLmrablo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112105": {
+      "name": "战士的铁哨",
+      "type": "monster",
+      "routeNames": [
+        "部族龙形武士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/部族龙形武士"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpg6jml4%2FpvpnlvaLmrablo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112106": {
+      "name": "龙冠武士的金哨",
+      "type": "monster",
+      "routeNames": [
+        "部族龙形武士"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/部族龙形武士"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fpg6jml4%2FpvpnlvaLmrablo6siXQ%3D%3D"
+        }
+      ]
+    },
+    "112107": {
+      "name": "意志破碎的残片",
+      "type": "monster",
+      "routeNames": [
+        "大灵显化身"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/大灵显化身"
+          ],
+          "fileCount": 20,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlpKfngbXmmL7ljJbouqsiXQ%3D%3D"
+        }
+      ]
+    },
+    "112108": {
+      "name": "意志明晰的寄偶",
+      "type": "monster",
+      "routeNames": [
+        "大灵显化身"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/大灵显化身"
+          ],
+          "fileCount": 20,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlpKfngbXmmL7ljJbouqsiXQ%3D%3D"
+        }
+      ]
+    },
+    "112109": {
+      "name": "意志巡游的符像",
+      "type": "monster",
+      "routeNames": [
+        "大灵显化身"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/大灵显化身"
+          ],
+          "fileCount": 20,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlpKfngbXmmL7ljJbouqsiXQ%3D%3D"
+        }
+      ]
+    },
+    "112110": {
+      "name": "聚燃的石块",
+      "type": "monster",
+      "routeNames": [
+        "熔岩游像"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/熔岩游像"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnhpTlsqnmuLjlg48iXQ%3D%3D"
+        }
+      ]
+    },
+    "112111": {
+      "name": "聚燃的命种",
+      "type": "monster",
+      "routeNames": [
+        "熔岩游像"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/熔岩游像"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnhpTlsqnmuLjlg48iXQ%3D%3D"
+        }
+      ]
+    },
+    "112112": {
+      "name": "聚燃的游像眼",
+      "type": "monster",
+      "routeNames": [
+        "熔岩游像"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/熔岩游像"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FnhpTlsqnmuLjlg48iXQ%3D%3D"
+        }
+      ]
+    },
+    "112113": {
+      "name": "秘源轴",
+      "type": "monster",
+      "routeNames": [
+        "秘源机兵·寻捕械",
+        "寻捕械"
+      ],
+      "packages": []
+    },
+    "112114": {
+      "name": "秘源机鞘",
+      "type": "monster",
+      "routeNames": [
+        "秘源机兵·寻捕械",
+        "寻捕械"
+      ],
+      "packages": []
+    },
+    "112115": {
+      "name": "秘源真芯",
+      "type": "monster",
+      "routeNames": [
+        "秘源机兵·寻捕械",
+        "寻捕械"
+      ],
+      "packages": []
+    },
+    "112116": {
+      "name": "折光的胚芽",
+      "type": "monster",
+      "routeNames": [
+        "深邃拟覆叶"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深邃拟覆叶"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HpgoPmi5%2Fopoblj7YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112117": {
+      "name": "惑光的阔叶",
+      "type": "monster",
+      "routeNames": [
+        "深邃拟覆叶"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深邃拟覆叶"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HpgoPmi5%2Fopoblj7YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112118": {
+      "name": "迷光的蜷叶之心",
+      "type": "monster",
+      "routeNames": [
+        "深邃拟覆叶"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深邃拟覆叶"
+          ],
+          "fileCount": 19,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7HpgoPmi5%2Fopoblj7YiXQ%3D%3D"
+        }
+      ]
+    },
+    "112119": {
+      "name": "冷裂壳块",
+      "type": "monster",
+      "routeNames": [
+        "炉壳山鼬"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/炉壳山鼬"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fngonlo7PlsbHpvKwiXQ%3D%3D"
+        }
+      ]
+    },
+    "112120": {
+      "name": "蕴热的背壳",
+      "type": "monster",
+      "routeNames": [
+        "炉壳山鼬"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/炉壳山鼬"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fngonlo7PlsbHpvKwiXQ%3D%3D"
+        }
+      ]
+    },
+    "112121": {
+      "name": "明燃的棱状壳",
+      "type": "monster",
+      "routeNames": [
+        "炉壳山鼬"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/炉壳山鼬"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fngonlo7PlsbHpvKwiXQ%3D%3D"
+        }
+      ]
+    },
+    "112122": {
+      "name": "毁损机轴",
+      "type": "monster",
+      "routeNames": [
+        "巡陆艇"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/巡陆艇"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flt6HpmYboiYciXQ%3D%3D"
+        }
+      ]
+    },
+    "112123": {
+      "name": "加固机轴",
+      "type": "monster",
+      "routeNames": [
+        "巡陆艇"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/巡陆艇"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flt6HpmYboiYciXQ%3D%3D"
+        }
+      ]
+    },
+    "112124": {
+      "name": "精制机轴",
+      "type": "monster",
+      "routeNames": [
+        "巡陆艇"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/巡陆艇"
+          ],
+          "fileCount": 7,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flt6HpmYboiYciXQ%3D%3D"
+        }
+      ]
+    },
+    "112125": {
+      "name": "磨损的执凭",
+      "type": "monster",
+      "routeNames": [
+        "愚人众特辖队"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/愚人众特辖队"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmhJrkurrkvJfnibnovpbpmJ8iXQ%3D%3D"
+        }
+      ]
+    },
+    "112126": {
+      "name": "精致的执凭",
+      "type": "monster",
+      "routeNames": [
+        "愚人众特辖队"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/愚人众特辖队"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmhJrkurrkvJfnibnovpbpmJ8iXQ%3D%3D"
+        }
+      ]
+    },
+    "112127": {
+      "name": "霜镌的执凭",
+      "type": "monster",
+      "routeNames": [
+        "愚人众特辖队"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/愚人众特辖队"
+          ],
+          "fileCount": 14,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FmhJrkurrkvJfnibnovpbpmJ8iXQ%3D%3D"
+        }
+      ]
+    },
+    "112128": {
+      "name": "霜夜的残照",
+      "type": "monster",
+      "routeNames": [
+        "霜夜灵嗣"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/霜夜灵嗣"
+          ],
+          "fileCount": 18,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpnJzlpJzngbXll6MiXQ%3D%3D"
+        }
+      ]
+    },
+    "112129": {
+      "name": "霜夜的柔辉",
+      "type": "monster",
+      "routeNames": [
+        "霜夜灵嗣"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/霜夜灵嗣"
+          ],
+          "fileCount": 18,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpnJzlpJzngbXll6MiXQ%3D%3D"
+        }
+      ]
+    },
+    "112130": {
+      "name": "霜夜的煌荣",
+      "type": "monster",
+      "routeNames": [
+        "霜夜灵嗣"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/霜夜灵嗣"
+          ],
+          "fileCount": 18,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FpnJzlpJzngbXll6MiXQ%3D%3D"
+        }
+      ]
+    },
+    "112131": {
+      "name": "失光块骨",
+      "type": "monster",
+      "routeNames": [
+        "蕴光异兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕴光异兽"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolbTlhYnlvILlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112132": {
+      "name": "稀光遗骼",
+      "type": "monster",
+      "routeNames": [
+        "蕴光异兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕴光异兽"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolbTlhYnlvILlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112133": {
+      "name": "繁光躯外骸",
+      "type": "monster",
+      "routeNames": [
+        "蕴光异兽"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/蕴光异兽"
+          ],
+          "fileCount": 10,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FolbTlhYnlvILlhb0iXQ%3D%3D"
+        }
+      ]
+    },
+    "112134": {
+      "name": "幽雾化形",
+      "type": "monster",
+      "routeNames": [
+        "荒野狂猎"
+      ],
+      "packages": [
+        {
+          "variant": "荒野狂猎@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@鸿羽er"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQOm4v%2Be%2BvWVyIl0%3D"
+        },
+        {
+          "variant": "荒野狂猎@jay",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@jay"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQGpheSJd"
+        }
+      ]
+    },
+    "112135": {
+      "name": "幽雾片甲",
+      "type": "monster",
+      "routeNames": [
+        "荒野狂猎"
+      ],
+      "packages": [
+        {
+          "variant": "荒野狂猎@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@鸿羽er"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQOm4v%2Be%2BvWVyIl0%3D"
+        },
+        {
+          "variant": "荒野狂猎@jay",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@jay"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQGpheSJd"
+        }
+      ]
+    },
+    "112136": {
+      "name": "幽雾兜盔",
+      "type": "monster",
+      "routeNames": [
+        "荒野狂猎"
+      ],
+      "packages": [
+        {
+          "variant": "荒野狂猎@鸿羽er",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@鸿羽er"
+          ],
+          "fileCount": 8,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQOm4v%2Be%2BvWVyIl0%3D"
+        },
+        {
+          "variant": "荒野狂猎@jay",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野狂猎/荒野狂猎@jay"
+          ],
+          "fileCount": 9,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47ni4LnjI4v6I2S6YeO54uC54yOQGpheSJd"
+        }
+      ]
+    },
+    "112137": {
+      "name": "深黯的裂眼",
+      "type": "monster",
+      "routeNames": [
+        "深黯钓客"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深黯钓客"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7Hpu6%2FpkpPlrqIiXQ%3D%3D"
+        }
+      ]
+    },
+    "112138": {
+      "name": "深黯的怪核",
+      "type": "monster",
+      "routeNames": [
+        "深黯钓客"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深黯钓客"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7Hpu6%2FpkpPlrqIiXQ%3D%3D"
+        }
+      ]
+    },
+    "112139": {
+      "name": "深黯的钩喙",
+      "type": "monster",
+      "routeNames": [
+        "深黯钓客"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/深黯钓客"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fmt7Hpu6%2FpkpPlrqIiXQ%3D%3D"
+        }
+      ]
+    },
+    "112140": {
+      "name": "失色的焰剑",
+      "type": "monster",
+      "routeNames": [
+        "辖域守护者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/辖域守护者"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fovpbln5%2FlrojmiqTogIUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112141": {
+      "name": "残失的焰剑",
+      "type": "monster",
+      "routeNames": [
+        "辖域守护者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/辖域守护者"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fovpbln5%2FlrojmiqTogIUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112142": {
+      "name": "宝饰的焰剑",
+      "type": "monster",
+      "routeNames": [
+        "辖域守护者"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/辖域守护者"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Fovpbln5%2FlrojmiqTogIUiXQ%3D%3D"
+        }
+      ]
+    },
+    "112143": {
+      "name": "残损的月铁",
+      "type": "monster",
+      "routeNames": [
+        "先驱秘源统辖阵列"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/先驱秘源统辖阵列"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYjpqbHnp5jmupDnu5%2FovpbpmLXliJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112144": {
+      "name": "空竭的月铁",
+      "type": "monster",
+      "routeNames": [
+        "先驱秘源统辖阵列"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/先驱秘源统辖阵列"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYjpqbHnp5jmupDnu5%2FovpbpmLXliJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112145": {
+      "name": "无秽的月铁",
+      "type": "monster",
+      "routeNames": [
+        "先驱秘源统辖阵列"
+      ],
+      "packages": [
+        {
+          "variant": "默认路线",
+          "repoPaths": [
+            "pathing/敌人与魔物/先驱秘源统辖阵列"
+          ],
+          "fileCount": 2,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlhYjpqbHnp5jmupDnu5%2FovpbpmLXliJciXQ%3D%3D"
+        }
+      ]
+    },
+    "112146": {
+      "name": "幻造萤屑",
+      "type": "monster",
+      "routeNames": [
+        "肌生晶石的妖精"
+      ],
+      "packages": [
+        {
+          "variant": "肌生晶石的妖精@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/肌生晶石的妖精/肌生晶石的妖精@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FogoznlJ%2Fmmbbnn7PnmoTlppbnsr4v6IKM55Sf5pm255%2Bz55qE5aaW57K%2BQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112147": {
+      "name": "幻造裂晶",
+      "type": "monster",
+      "routeNames": [
+        "肌生晶石的妖精"
+      ],
+      "packages": [
+        {
+          "variant": "肌生晶石的妖精@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/肌生晶石的妖精/肌生晶石的妖精@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FogoznlJ%2Fmmbbnn7PnmoTlppbnsr4v6IKM55Sf5pm255%2Bz55qE5aaW57K%2BQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112148": {
+      "name": "幻造晶鳞石",
+      "type": "monster",
+      "routeNames": [
+        "肌生晶石的妖精"
+      ],
+      "packages": [
+        {
+          "variant": "肌生晶石的妖精@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/肌生晶石的妖精/肌生晶石的妖精@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FogoznlJ%2Fmmbbnn7PnmoTlppbnsr4v6IKM55Sf5pm255%2Bz55qE5aaW57K%2BQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112149": {
+      "name": "嵌合种",
+      "type": "monster",
+      "routeNames": [
+        "异种合成魔兽"
+      ],
+      "packages": [
+        {
+          "variant": "异种合成魔兽@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/异种合成魔兽/异种合成魔兽@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlvILnp43lkIjmiJDprZTlhb0v5byC56eN5ZCI5oiQ6a2U5YW9QEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112150": {
+      "name": "并生嵌合胞",
+      "type": "monster",
+      "routeNames": [
+        "异种合成魔兽"
+      ],
+      "packages": [
+        {
+          "variant": "异种合成魔兽@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/异种合成魔兽/异种合成魔兽@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlvILnp43lkIjmiJDprZTlhb0v5byC56eN5ZCI5oiQ6a2U5YW9QEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112151": {
+      "name": "源生嵌合体",
+      "type": "monster",
+      "routeNames": [
+        "异种合成魔兽"
+      ],
+      "packages": [
+        {
+          "variant": "异种合成魔兽@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/异种合成魔兽/异种合成魔兽@Annijang"
+          ],
+          "fileCount": 6,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FlvILnp43lkIjmiJDprZTlhb0v5byC56eN5ZCI5oiQ6a2U5YW9QEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112152": {
+      "name": "沉积残片",
+      "type": "monster",
+      "routeNames": [
+        "兽怪暴徒"
+      ],
+      "packages": [
+        {
+          "variant": "兽怪暴徒@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽怪暴徒/兽怪暴徒@Annijang"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3mgKrmmrTlvpIv5YW95oCq5pq05b6SQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112153": {
+      "name": "沉积结块",
+      "type": "monster",
+      "routeNames": [
+        "兽怪暴徒"
+      ],
+      "packages": [
+        {
+          "variant": "兽怪暴徒@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽怪暴徒/兽怪暴徒@Annijang"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3mgKrmmrTlvpIv5YW95oCq5pq05b6SQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112154": {
+      "name": "沉积增生物",
+      "type": "monster",
+      "routeNames": [
+        "兽怪暴徒"
+      ],
+      "packages": [
+        {
+          "variant": "兽怪暴徒@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/兽怪暴徒/兽怪暴徒@Annijang"
+          ],
+          "fileCount": 13,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2Flhb3mgKrmmrTlvpIv5YW95oCq5pq05b6SQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112155": {
+      "name": "灵生空根",
+      "type": "monster",
+      "routeNames": [
+        "荒野树妖"
+      ],
+      "packages": [
+        {
+          "variant": "荒野树妖@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野树妖/荒野树妖@Annijang"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47moJHlppYv6I2S6YeO5qCR5aaWQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112156": {
+      "name": "灵生分蘖节",
+      "type": "monster",
+      "routeNames": [
+        "荒野树妖"
+      ],
+      "packages": [
+        {
+          "variant": "荒野树妖@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野树妖/荒野树妖@Annijang"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47moJHlppYv6I2S6YeO5qCR5aaWQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    },
+    "112157": {
+      "name": "灵生盘枝心",
+      "type": "monster",
+      "routeNames": [
+        "荒野树妖"
+      ],
+      "packages": [
+        {
+          "variant": "荒野树妖@Annijang",
+          "repoPaths": [
+            "pathing/敌人与魔物/荒野树妖/荒野树妖@Annijang"
+          ],
+          "fileCount": 1,
+          "importLink": "bettergi://script?import=WyJwYXRoaW5nL%2BaVjOS6uuS4jumtlOeJqS%2FojZLph47moJHlppYv6I2S6YeO5qCR5aaWQEFubmlqYW5nIl0%3D"
+        }
+      ]
+    }
+  }
+}
